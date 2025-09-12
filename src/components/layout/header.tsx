@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { Logo } from '@/components/logo';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Menu, X } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
 import {
   Sheet,
@@ -26,11 +26,11 @@ type NavLink = {
 };
 
 const programLinks: NavLink[] = [
-  { href: '/programs/jiu-jitsu', label: 'Jiu Jitsu' },
-  { href: '/programs/kids-jiu-jitsu', label: 'Kids Jiu Jitsu' },
-  { href: '/programs/competition-training', label: 'Competition Training' },
-  { href: '/programs/private-training', label: 'Private Training' },
-  { href: '/programs/homeschool-martial-arts', label: 'Homeschool Martial Arts' },
+    { href: '/programs/jiu-jitsu', label: 'Jiu Jitsu' },
+    { href: '/programs/kids-jiu-jitsu', label: 'Kids Jiu Jitsu' },
+    { href: '/programs/competition-training', label: 'Competition Training' },
+    { href: '/programs/private-training', label: 'Private Training' },
+    { href: '/programs/homeschool-martial-arts', label: 'Homeschool Martial Arts' },
 ];
 
 const otherLinks: NavLink[] = [
@@ -102,52 +102,54 @@ function MobileNav() {
         </Button>
       </SheetTrigger>
       <SheetContent side="left" className="w-full max-w-sm bg-background p-0">
-        <div className="flex h-full flex-col">
-          <div className="flex items-center justify-between border-b p-4 h-20">
-             <Logo />
-            <SheetClose asChild>
-              <Button variant="ghost" size="icon">
-                <X className="h-6 w-6" />
-                <span className="sr-only">Close menu</span>
-              </Button>
-            </SheetClose>
-          </div>
-          <nav className="flex-grow p-4 overflow-y-auto">
-            <Accordion type="multiple" defaultValue={['Programs']} className="w-full">
-              <AccordionItem value="Programs">
-                <AccordionTrigger className="text-lg font-medium hover:no-underline">
-                    <span>Programs</span>
-                </AccordionTrigger>
-                <AccordionContent className="pl-4">
-                  {programLinks.map((link) => (
-                    <SheetClose asChild key={link.href}>
-                      <Link
-                        href={link.href}
-                        className="block py-3 text-base text-muted-foreground transition-colors hover:text-foreground"
-                      >
-                        {link.label}
-                      </Link>
-                    </SheetClose>
-                  ))}
-                </AccordionContent>
-              </AccordionItem>
-             {otherLinks.map((link) => (
-                 <div key={link.href} className="border-b">
-                    <SheetClose asChild>
-                    <Link href={link.href} className="flex flex-1 items-center py-4 text-lg font-medium">
-                        {link.label}
-                    </Link>
-                    </SheetClose>
-                </div>
-             ))}
-            </Accordion>
-          </nav>
-           <div className="border-t p-4">
-            <Button asChild className="w-full bg-accent text-accent-foreground hover:bg-accent/80 rounded-none text-lg py-6">
-              <Link href="/free-trial">Book Free Trial</Link>
-            </Button>
-          </div>
-        </div>
+         <SheetClose asChild>
+            <div className="flex h-full flex-col">
+              <div className="flex items-center justify-between border-b p-4 h-20">
+                 <Logo />
+                <SheetClose asChild>
+                  <Button variant="ghost" size="icon">
+                    <X className="h-6 w-6" />
+                    <span className="sr-only">Close menu</span>
+                  </Button>
+                </SheetClose>
+              </div>
+              <nav className="flex-grow p-4 overflow-y-auto">
+                <Accordion type="multiple" defaultValue={['Programs']} className="w-full">
+                  <AccordionItem value="Programs">
+                    <AccordionTrigger className="text-lg font-medium hover:no-underline">
+                        <span>Programs</span>
+                    </AccordionTrigger>
+                    <AccordionContent className="pl-4">
+                      {programLinks.map((link) => (
+                        <SheetClose asChild key={link.href}>
+                          <Link
+                            href={link.href}
+                            className="block py-3 text-base text-muted-foreground transition-colors hover:text-foreground"
+                          >
+                            {link.label}
+                          </Link>
+                        </SheetClose>
+                      ))}
+                    </AccordionContent>
+                  </AccordionItem>
+                 {otherLinks.map((link) => (
+                     <div key={link.href} className="border-b">
+                        <SheetClose asChild>
+                        <Link href={link.href} className="flex flex-1 items-center py-4 text-lg font-medium">
+                            {link.label}
+                        </Link>
+                        </SheetClose>
+                    </div>
+                 ))}
+                </Accordion>
+              </nav>
+               <div className="border-t p-4">
+                <Button asChild className="w-full bg-accent text-accent-foreground hover:bg-accent/80 rounded-none text-lg py-6">
+                  <Link href="/free-trial">Book Free Trial</Link>
+                </Button>
+              </div>
+            </div>
+        </SheetClose>
       </SheetContent>
     </Sheet>
   );
@@ -157,29 +159,16 @@ function MobileNav() {
 export function Header() {
   const isMobile = useIsMobile();
 
-  if (isMobile === undefined) {
-    // Return a placeholder or null during server-side rendering/hydration
-    return (
-       <header className="sticky top-0 z-40 w-full bg-background/95 backdrop-blur-sm">
-        <div className="container mx-auto flex h-20 items-center justify-between px-4">
-             {/* Placeholder for mobile header */}
-        </div>
-       </header>
-    )
+  if (isMobile === false) {
+    return <DesktopNav />;
   }
   
   return (
-    <>
-      {isMobile ? (
-         <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur-sm">
-            <div className="container mx-auto flex h-20 items-center justify-between px-4">
-                <Logo />
-                <MobileNav />
-            </div>
-         </header>
-      ) : (
-        <DesktopNav />
-      )}
-    </>
+     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur-sm md:hidden">
+        <div className="container mx-auto flex h-20 items-center justify-between px-4">
+            <Logo />
+            <MobileNav />
+        </div>
+     </header>
   );
 }
