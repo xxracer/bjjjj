@@ -1,24 +1,12 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Logo } from '@/components/logo';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Menu, X } from 'lucide-react';
-import { useIsMobile } from '@/hooks/use-mobile';
-import {
-  Sheet,
-  SheetContent,
-  SheetTrigger,
-  SheetClose,
-} from '@/components/ui/sheet';
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion';
+import { usePathname } from 'next/navigation';
 
 type NavLink = {
   href: string;
@@ -45,130 +33,110 @@ const otherLinks: NavLink[] = [
   { href: '/about', label: 'About' },
 ];
 
-function DesktopNav() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+function NavLink({ href, children, closeMenu }: { href: string; children: React.ReactNode; closeMenu: () => void }) {
+  const pathname = usePathname();
+  const isActive = pathname === href;
 
   return (
-    <div className="fixed top-0 left-0 h-full z-40 bg-background flex flex-col p-6 border-r">
-       <div className="mb-10">
-        <Logo />
-      </div>
-      <nav className="flex flex-col gap-3 text-lg font-medium">
-        <h3 className="font-bold text-xl uppercase tracking-wider mb-2">Programs</h3>
-        {programLinks.map((link) => (
-          <Link
-            key={link.href}
-            href={link.href}
-            className="text-muted-foreground hover:text-foreground transition-colors"
-          >
-            {link.label}
-          </Link>
-        ))}
-        
-        <div className={cn("mt-6 transition-all duration-300 ease-in-out overflow-hidden", isMenuOpen ? "max-h-screen" : "max-h-0")}>
-            <div className={cn("flex flex-col gap-3", isMenuOpen ? 'pt-4' : '')}>
-                 {otherLinks.map((link) => (
-                    <Link key={link.href} href={link.href} className="text-muted-foreground hover:text-foreground transition-colors">
-                        {link.label}
-                    </Link>
-                ))}
+    <Link href={href} onClick={closeMenu} className={cn("text-2xl md:text-3xl font-bold uppercase tracking-wider transition-colors hover:text-primary-foreground", isActive ? "text-primary-foreground" : "text-muted-foreground" )}>
+        {children}
+    </Link>
+  )
+}
+
+function NavContent({closeMenu}: {closeMenu: () => void}){
+    return (
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 h-full">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 h-full">
+                <div className="md:col-span-1 flex flex-col justify-center space-y-6 py-16 md:py-0">
+                    <h3 className="text-xl font-bold uppercase tracking-wider text-primary-foreground">Programs</h3>
+                    <nav className="flex flex-col space-y-4">
+                        {programLinks.map((link) => (
+                           <NavLink key={link.href} href={link.href} closeMenu={closeMenu}>
+                             {link.label}
+                           </NavLink>
+                        ))}
+                    </nav>
+                </div>
+                <div className="md:col-span-1 flex flex-col justify-center space-y-6 py-16 md:py-0">
+                     <h3 className="text-xl font-bold uppercase tracking-wider text-primary-foreground">Academy</h3>
+                     <nav className="flex flex-col space-y-4">
+                        {otherLinks.slice(0, 4).map((link) => (
+                            <NavLink key={link.href} href={link.href} closeMenu={closeMenu}>
+                                {link.label}
+                            </NavLink>
+                        ))}
+                     </nav>
+                </div>
+                 <div className="md:col-span-1 flex flex-col justify-center space-y-6 py-16 md:py-0">
+                     <h3 className="text-xl font-bold uppercase tracking-wider text-primary-foreground">Resources</h3>
+                      <nav className="flex flex-col space-y-4">
+                        {otherLinks.slice(4).map((link) => (
+                             <NavLink key={link.href} href={link.href} closeMenu={closeMenu}>
+                                {link.label}
+                            </NavLink>
+                        ))}
+                     </nav>
+                </div>
             </div>
         </div>
-
-      </nav>
-       <div className="mt-auto">
-         <Button 
-            variant="ghost" 
-            className="w-full justify-start text-lg p-0 hover:bg-transparent"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-        >
-           Menu {isMenuOpen ? <X className="ml-2 h-5 w-5"/> : <Menu className="ml-2 h-5 w-5"/>}
-        </Button>
-        <Button asChild className="w-full mt-4 bg-accent text-accent-foreground hover:bg-accent/80 rounded-none">
-            <Link href="/free-trial">Book Free Trial</Link>
-        </Button>
-      </div>
-    </div>
-  );
+    )
 }
-
-function MobileNav() {
-  return (
-     <Sheet>
-      <SheetTrigger asChild>
-        <Button variant="ghost" size="icon">
-          <Menu className="h-8 w-8" />
-          <span className="sr-only">Open menu</span>
-        </Button>
-      </SheetTrigger>
-      <SheetContent side="left" className="w-full max-w-sm bg-background p-0">
-         <SheetClose asChild>
-            <div className="flex h-full flex-col">
-              <div className="flex items-center justify-between border-b p-4 h-20">
-                 <Logo />
-                <SheetClose asChild>
-                  <Button variant="ghost" size="icon">
-                    <X className="h-6 w-6" />
-                    <span className="sr-only">Close menu</span>
-                  </Button>
-                </SheetClose>
-              </div>
-              <nav className="flex-grow p-4 overflow-y-auto">
-                <Accordion type="multiple" defaultValue={['Programs']} className="w-full">
-                  <AccordionItem value="Programs">
-                    <AccordionTrigger className="text-lg font-medium hover:no-underline">
-                        <span>Programs</span>
-                    </AccordionTrigger>
-                    <AccordionContent className="pl-4">
-                      {programLinks.map((link) => (
-                        <SheetClose asChild key={link.href}>
-                          <Link
-                            href={link.href}
-                            className="block py-3 text-base text-muted-foreground transition-colors hover:text-foreground"
-                          >
-                            {link.label}
-                          </Link>
-                        </SheetClose>
-                      ))}
-                    </AccordionContent>
-                  </AccordionItem>
-                 {otherLinks.map((link) => (
-                     <div key={link.href} className="border-b">
-                        <SheetClose asChild>
-                        <Link href={link.href} className="flex flex-1 items-center py-4 text-lg font-medium">
-                            {link.label}
-                        </Link>
-                        </SheetClose>
-                    </div>
-                 ))}
-                </Accordion>
-              </nav>
-               <div className="border-t p-4">
-                <Button asChild className="w-full bg-accent text-accent-foreground hover:bg-accent/80 rounded-none text-lg py-6">
-                  <Link href="/free-trial">Book Free Trial</Link>
-                </Button>
-              </div>
-            </div>
-        </SheetClose>
-      </SheetContent>
-    </Sheet>
-  );
-}
-
 
 export function Header() {
-  const isMobile = useIsMobile();
+  const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
-  if (isMobile === false) {
-    return <DesktopNav />;
-  }
+  const toggleMenu = () => setIsOpen(!isOpen);
+  const closeMenu = () => setIsOpen(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
   
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [isOpen]);
+
   return (
-     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur-sm md:hidden">
-        <div className="container mx-auto flex h-20 items-center justify-between px-4">
+    <>
+      <header className={cn("fixed top-0 left-0 right-0 z-50 transition-colors duration-300", isScrolled ? "bg-background/80 backdrop-blur-sm" : "bg-transparent")}>
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-20">
             <Logo />
-            <MobileNav />
+            <Button variant="ghost" size="icon" onClick={toggleMenu} className="text-foreground hover:text-foreground">
+              <span className="sr-only">Open Menu</span>
+              <Menu className="h-6 w-6" />
+            </Button>
+          </div>
         </div>
-     </header>
+      </header>
+
+      <div className={cn("fixed inset-0 z-50 bg-background transition-transform duration-500 ease-in-out", isOpen ? "translate-y-0" : "-translate-y-full")}>
+         <div className="absolute top-0 left-0 right-0 h-20">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-full">
+                 <Logo />
+                 <Button variant="ghost" size="icon" onClick={toggleMenu} className="text-foreground hover:text-foreground">
+                    <span className="sr-only">Close Menu</span>
+                    <X className="h-6 w-6" />
+                </Button>
+            </div>
+         </div>
+         <div className="h-full overflow-y-auto pt-20">
+            <NavContent closeMenu={closeMenu}/>
+         </div>
+      </div>
+    </>
   );
 }
