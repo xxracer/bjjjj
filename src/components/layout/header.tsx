@@ -15,11 +15,9 @@ import {
   Info,
   Contact,
   ChevronRight,
-  ChevronsLeft,
-  ChevronsRight,
   Crown,
 } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from '@/components/ui/sheet';
 import { Logo } from '@/components/logo';
@@ -87,7 +85,7 @@ function MobileNav() {
       <SheetContent side="left" className="w-full max-w-sm bg-background p-0">
         <div className="flex h-full flex-col">
           <div className="flex items-center justify-between border-b p-4 h-20">
-            <Logo />
+             <Logo />
             <SheetClose asChild>
               <Button variant="ghost" size="icon">
                 <X className="h-6 w-6" />
@@ -100,15 +98,19 @@ function MobileNav() {
                 category.links ? (
                   <AccordionItem key={category.title} value={category.title}>
                     <AccordionTrigger className="text-lg font-medium hover:no-underline">
-                      {category.title}
+                      <div className="flex items-center gap-4">
+                        <category.icon className="h-6 w-6 flex-shrink-0" />
+                        <span>{category.title}</span>
+                      </div>
                     </AccordionTrigger>
-                    <AccordionContent className="pl-4">
+                    <AccordionContent className="pl-8">
                       {category.links.map((link) => (
                         <SheetClose asChild key={link.href}>
                           <Link
                             href={link.href}
-                            className="block py-3 text-base text-muted-foreground transition-colors hover:text-foreground"
+                            className="flex items-center gap-4 py-3 text-base text-muted-foreground transition-colors hover:text-foreground"
                           >
+                             <link.icon className="h-5 w-5 flex-shrink-0" />
                             {link.label}
                           </Link>
                         </SheetClose>
@@ -120,8 +122,9 @@ function MobileNav() {
                     <SheetClose asChild>
                       <Link
                         href={category.href!}
-                        className="flex flex-1 items-center py-4 text-lg font-medium"
+                        className="flex flex-1 items-center gap-4 py-4 text-lg font-medium"
                       >
+                        <category.icon className="h-6 w-6 flex-shrink-0" />
                         {category.title}
                       </Link>
                     </SheetClose>
@@ -130,8 +133,8 @@ function MobileNav() {
               )}
             </Accordion>
           </nav>
-          <div className="border-t p-4">
-            <Button asChild className="w-full" variant="destructive">
+           <div className="border-t p-4">
+            <Button asChild className="w-full bg-accent text-accent-foreground hover:bg-accent/80 rounded-none text-lg py-6">
               <Link href="/free-trial">Book Free Trial</Link>
             </Button>
           </div>
@@ -141,8 +144,7 @@ function MobileNav() {
   );
 }
 
-function DesktopNav() {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+function DesktopNav({ isVisible }: { isVisible: boolean }) {
   const [activeSubMenu, setActiveSubMenu] = useState<string | null>(null);
 
   const handleMouseEnter = (title: string) => {
@@ -158,56 +160,37 @@ function DesktopNav() {
   return (
     <div
       className={cn(
-        'relative hidden md:flex h-screen flex-col bg-background border-r transition-all duration-300 ease-in-out',
-        isCollapsed ? 'w-20' : 'w-64'
+        'fixed top-0 left-0 h-full z-50 transition-transform duration-300 ease-in-out',
+        isVisible ? 'translate-x-0' : '-translate-x-full'
       )}
       onMouseLeave={handleMouseLeave}
     >
-      <div className="flex items-center h-20 border-b px-6">
-        <Link href="/" className="flex items-center gap-2 overflow-hidden">
-          <Crown className="h-8 w-8 text-accent flex-shrink-0" />
-          <span
-            className={cn(
-              'font-bold text-lg uppercase tracking-wider transition-opacity duration-200',
-              isCollapsed ? 'opacity-0' : 'opacity-100'
-            )}
-          >
-            Reign
-          </span>
-        </Link>
-      </div>
+      <div
+        className={cn('relative hidden md:flex h-screen flex-col bg-background border-r w-64')}
+      >
+        <div className="flex items-center h-20 border-b px-6">
+          <Logo />
+        </div>
 
-      <nav className="flex-1 px-4 py-6 space-y-2">
-        {navLinks.map((category) => (
-          <div key={category.title} onMouseEnter={() => handleMouseEnter(category.title)}>
-            <Link
-              href={category.href || '#'}
-              className={cn(
-                'flex items-center gap-4 rounded-md p-3 text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground',
-                { 'justify-center': isCollapsed }
-              )}
-            >
-              <category.icon className="h-6 w-6 flex-shrink-0" />
-              <span className={cn('font-medium', { 'sr-only': isCollapsed })}>
-                {category.title}
-              </span>
-            </Link>
-          </div>
-        ))}
-      </nav>
+        <nav className="flex-1 px-4 py-6 space-y-2">
+          {navLinks.map((category) => (
+            <div key={category.title} onMouseEnter={() => handleMouseEnter(category.title)}>
+              <Link
+                href={category.href || '#'}
+                className="flex items-center gap-4 rounded-md p-3 text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+              >
+                <category.icon className="h-6 w-6 flex-shrink-0" />
+                <span className="font-medium">{category.title}</span>
+              </Link>
+            </div>
+          ))}
+        </nav>
 
-      <div className="px-4 py-6 border-t">
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={() => setIsCollapsed(!isCollapsed)}
-          className={cn('w-full flex gap-4 p-3 text-muted-foreground hover:bg-accent hover:text-accent-foreground', {
-            'justify-center': isCollapsed,
-          })}
-        >
-          {isCollapsed ? <ChevronsRight className="h-6 w-6" /> : <ChevronsLeft className="h-6 w-6" />}
-          <span className={cn({ 'sr-only': isCollapsed })}>Collapse</span>
-        </Button>
+         <div className="border-t p-4">
+            <Button asChild className="w-full bg-accent text-accent-foreground hover:bg-accent/80 rounded-none text-lg py-6">
+              <Link href="/free-trial">Book Free Trial</Link>
+            </Button>
+        </div>
       </div>
 
       {navLinks.map(
@@ -216,15 +199,9 @@ function DesktopNav() {
             <div
               key={`${category.title}-submenu`}
               className={cn(
-                'absolute top-0 left-full h-full bg-background border-r transition-transform duration-300 ease-in-out',
-                activeSubMenu === category.title
-                  ? 'translate-x-0'
-                  : '-translate-x-full pointer-events-none'
+                'absolute top-0 left-full h-full bg-background border-r w-64 transition-opacity duration-300 ease-in-out',
+                activeSubMenu === category.title ? 'opacity-100' : 'opacity-0 pointer-events-none'
               )}
-              style={{
-                width: isCollapsed ? '256px' : '256px',
-                left: isCollapsed ? '80px' : '256px',
-              }}
             >
               <div className="flex items-center h-20 border-b px-6">
                  <h3 className="text-lg font-semibold">{category.title}</h3>
@@ -250,19 +227,41 @@ function DesktopNav() {
 
 export function Header() {
   const isMobile = useIsMobile();
+  const [isNavVisible, setIsNavVisible] = useState(false);
+
+  const handleMouseMove = (e: MouseEvent) => {
+    if (isMobile) return;
+    if (e.clientX < 50) {
+      setIsNavVisible(true);
+    } else if (e.clientX > 300) { 
+      setIsNavVisible(false);
+    }
+  };
+
+  useState(() => {
+    if (typeof window !== 'undefined') {
+      window.addEventListener('mousemove', handleMouseMove);
+    }
+    return () => {
+      if (typeof window !== 'undefined') {
+        window.removeEventListener('mousemove', handleMouseMove);
+      }
+    };
+  });
+
 
   if (isMobile === undefined) {
     return (
-      <header className="sticky top-0 z-50 w-full border-b h-20 flex items-center justify-end px-4 md:hidden" />
+      <header className="sticky top-0 z-40 w-full border-b h-20 flex items-center justify-end px-4 md:hidden" />
     );
   }
 
   return isMobile ? (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur h-20 flex items-center justify-between px-4 md:hidden">
+    <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur h-20 flex items-center justify-between px-4 md:hidden">
       <Logo />
       <MobileNav />
     </header>
   ) : (
-    <DesktopNav />
+    <DesktopNav isVisible={isNavVisible} />
   );
 }
