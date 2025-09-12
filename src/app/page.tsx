@@ -43,7 +43,7 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-dvh bg-background text-foreground">
       {/* Hero Section */}
-      <section className="relative w-full h-[75vh] md:h-screen flex items-center justify-center text-center bg-black">
+      <section className="relative w-full h-[75vh] md:h-screen flex items-center justify-center text-center">
          <Carousel className="w-full h-full" opts={{ loop: true }}>
           <CarouselContent className='m-0 h-full'>
             {heroContent.map((item) => (
@@ -56,14 +56,14 @@ export default function Home() {
                     loop
                     muted
                     playsInline
-                    className="w-full h-full object-cover opacity-50"
+                    className="w-full h-full object-cover"
                   />
                 ) : (
                    <Image
                     src={item.media_url}
                     alt={item.caption || 'Instagram post'}
                     fill
-                    className="object-cover opacity-50"
+                    className="object-cover"
                     priority
                     data-ai-hint="jiu jitsu instagram"
                   />
@@ -91,7 +91,7 @@ export default function Home() {
           </nav>
         </div>
 
-        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center p-8 bg-black/40">
+        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center p-8 bg-black/50">
            <h1 className="text-4xl md:text-6xl font-bold text-white uppercase tracking-wider">
             Jiu Jitsu - Kids Jiu Jitsu - Personal Training - Private Training
           </h1>
@@ -110,7 +110,7 @@ export default function Home() {
           </Link>
           <Button asChild className="mt-4 bg-primary hover:bg-primary/90 text-primary-foreground rounded-none text-lg py-4 px-6 h-auto">
             <Link href="/free-trial">
-              <div className="flex flex-col items-center justify-center text-center">
+              <div className="flex flex-col items-center justify-center text-center w-full">
                 <div className="w-full border-t border-primary-foreground"></div>
                 <span className="text-sm font-medium tracking-widest my-2">SIGN UP FOR YOUR</span>
                 <span className="text-3xl font-bold text-accent">FREE CLASS TODAY</span>
@@ -391,3 +391,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
