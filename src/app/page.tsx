@@ -92,7 +92,7 @@ export default function Home() {
               {programs.map((program) => (
                 <CarouselItem key={program.id} className="pl-4 sm:basis-1/2 md:basis-1/3">
                    <Link href={`/programs/${program.id}`} className="block group">
-                    <Card className="overflow-hidden rounded-none border-0 shadow-none">
+                    <Card className="overflow-hidden rounded-none border-0 shadow-none bg-transparent">
                        <CardHeader className="p-0">
                         {program.image && (
                           <div className="relative aspect-[4/5]">
@@ -106,8 +106,8 @@ export default function Home() {
                           </div>
                         )}
                       </CardHeader>
-                      <CardContent className="p-4 bg-background">
-                        <CardTitle className="text-2xl font-bold tracking-tight">{program.title}</CardTitle>
+                      <CardContent className="p-4 bg-transparent">
+                        <CardTitle className="text-2xl font-bold tracking-tight text-foreground group-hover:text-primary transition-colors">{program.title}</CardTitle>
                       </CardContent>
                     </Card>
                    </Link>
@@ -208,7 +208,7 @@ export default function Home() {
                       <CardDescription className="text-base text-foreground">&quot;{review.comment}&quot;</CardDescription>
                     </CardContent>
                     <CardHeader className="p-0 pt-4">
-                      <CardTitle className="text-lg">- {review.name}</CardTitle>
+                      <CardTitle className="text-lg text-foreground">- {review.name}</CardTitle>
                     </CardHeader>
                   </Card>
                 </CarouselItem>
@@ -234,7 +234,7 @@ export default function Home() {
               {youtubeVideos.map((video) => (
                 <CarouselItem key={video.id} className="pl-4 sm:basis-1/2 lg:basis-1/3">
                   <a href={video.url} target="_blank" rel="noopener noreferrer" className="block group">
-                    <Card className="overflow-hidden rounded-none border-0 shadow-none">
+                    <Card className="overflow-hidden rounded-none border-0 shadow-none bg-transparent">
                       <CardHeader className="p-0">
                         <div className="relative aspect-video">
                           <Image
@@ -249,8 +249,8 @@ export default function Home() {
                            </div>
                         </div>
                       </CardHeader>
-                      <CardContent className="p-4 bg-background">
-                        <CardTitle className="text-xl font-bold tracking-tight group-hover:text-primary transition-colors line-clamp-2">{video.title}</CardTitle>
+                      <CardContent className="p-4 bg-transparent">
+                        <CardTitle className="text-xl font-bold tracking-tight text-foreground group-hover:text-primary transition-colors line-clamp-2">{video.title}</CardTitle>
                       </CardContent>
                     </Card>
                   </a>
@@ -293,3 +293,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
