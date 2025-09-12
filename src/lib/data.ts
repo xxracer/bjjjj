@@ -93,10 +93,10 @@ export type Program = {
 export const programs: Program[] = [
     { id: 'kids', title: 'Kids Jiu Jitsu', image: getImage('program-kids') },
     { id: 'homeschool', title: 'Homeschool Program', image: getImage('program-homeschool') },
-    { id: 'competition', title: 'Competition', image: getImage('program-competition') },
+    { id: 'fundamentals', title: 'Fundamentals Program', image: getImage('program-fundamentals') },
+    { id: 'adult', title: 'Adult Program', image: getImage('program-adult') },
+    { id: 'competition', title: 'Competition Training', image: getImage('program-competition') },
     { id: 'private-lessons', title: 'Private Lessons', image: getImage('program-private') },
-    { id: 'adult', title: 'Adult Jiu Jitsu', image: getImage('program-adult') },
-    { id: 'fundamentals', title: 'Fundamentals', image: getImage('program-fundamentals') },
 ]
 
 export const scheduleFilters = ['All', 'Adults', 'Kids', 'No-Gi', 'Open Mat', 'Fundamentals', 'Competition', 'Homeschool'];
@@ -130,27 +130,33 @@ export const faqContent: FaqCategory[] = [
   {
     title: 'General',
     faqs: [
-      { question: 'Do I need to be in shape to start?', answer: 'Not at all! Jiu-Jitsu is a great way to get in shape. Our fundamentals classes are designed to build your fitness and technique from the ground up.' },
-      { question: 'What should I wear to my first class?', answer: 'For your first few classes, comfortable athletic wear like a t-shirt and shorts/leggings is perfectly fine. If you decide to continue, you will need to purchase a Gi (uniform).' },
-      { question: 'Is Jiu-Jitsu good for self-defense?', answer: 'Yes, Jiu-Jitsu is considered one of the most effective martial arts for real-world self-defense, as it focuses on leverage and technique to control a larger, stronger opponent.' },
-      { question: 'How often should I train?', answer: 'We recommend 2-3 times per week for beginners to build a strong foundation and see consistent progress.' },
-      { question: 'Are there contracts?', answer: 'We offer flexible membership options, including month-to-month plans. We believe in our program and want you to train with us because you love it, not because you\'re locked in.' },
+      { question: 'What is Reign Jiu Jitsu and where is it located in Katy, TX?', answer: 'Reign Jiu Jitsu is a premier martial arts academy located in the heart of Katy, Texas, specializing in Jiu Jitsu for all ages and skill levels.' },
+      { question: 'Do you offer a free trial class?', answer: 'Yes! We encourage everyone to experience a class for themselves. You can book your free trial class directly through our website.' },
+      { question: 'What programs do you offer for kids and adults?', answer: 'We offer a wide range of programs including Kids Jiu Jitsu, a Homeschool program, Adult Fundamentals, Advanced classes, and Competition Training.' },
+      { question: 'How do I schedule my first class?', answer: 'You can schedule your free trial class by filling out the form on our "Free Trial" page, or by giving us a call. We\'ll help you find a class time that works for you.' },
+      { question: 'What should I bring to my first class?', answer: 'For your first class, please wear comfortable athletic clothing like a t-shirt and shorts or leggings. We will provide a loaner Gi (uniform) if needed. Also, bring a water bottle.' },
     ]
   },
   {
     title: 'Kids Program',
     faqs: [
-      { question: 'What age can my child start?', answer: 'Our kids\' program starts at age 5. We group children by age and maturity to ensure they get the most out of their training.' },
-      { question: 'Will Jiu-Jitsu make my child violent?', answer: 'No, quite the opposite. We teach discipline, respect, and control. Children learn when it is and isn\'t appropriate to use their techniques.' },
-      { question: 'What are the benefits for kids?', answer: 'Jiu-Jitsu improves focus, discipline, confidence, and physical fitness. It also teaches valuable anti-bullying strategies and problem-solving skills.' },
-      { question: 'Is it safe for my child?', answer: 'Safety is our top priority. All classes are supervised by experienced instructors, and we teach techniques in a controlled, step-by-step manner.' },
+      { question: 'At what age can my child start Jiu Jitsu?', answer: 'Our kids\' program is designed for children starting at age 5. We have different classes grouped by age to ensure a safe and productive learning environment.' },
+      { question: 'Do you offer homeschool-friendly programs?', answer: 'Absolutely. We have a dedicated Homeschool Jiu Jitsu program that serves as a great physical education and social outlet for homeschooled children in the Katy area.' },
+      { question: 'Is Jiu Jitsu safe for children?', answer: 'Yes, safety is our number one priority. Our instructors are highly experienced in teaching children, and all training is conducted on padded mats in a supervised environment.' },
     ]
   },
-    {
-    title: 'Homeschool Program',
+  {
+    title: 'Competition',
     faqs: [
-      { question: 'What is the homeschool program?', answer: 'Our homeschool program offers a structured physical education curriculum centered around Jiu-Jitsu, providing a great way for homeschooled children to socialize, stay active, and learn self-defense.' },
-      { question: 'What are the hours?', answer: 'The homeschool program runs on weekday mornings. Please check our schedule for the most up-to-date class times.' },
+        { question: 'Who can join the competition team?', answer: 'Our competition team is for dedicated students who wish to test their skills at local and national tournaments. Access is typically by invitation from our head instructors based on skill, attendance, and attitude.'},
+        { question: 'How often does Reign Jiu Jitsu attend tournaments?', answer: 'Our team actively competes throughout the year. We regularly participate in tournaments across Texas and support our athletes who travel for major national and international events.'},
+    ]
+  },
+  {
+    title: 'Private Lessons',
+    faqs: [
+        { question: 'How do private lessons work?', answer: 'Private lessons are one-on-one training sessions with an instructor, tailored to your specific goals. They are the fastest way to accelerate your learning and refine your technique.'},
+        { question: 'Can beginners book one-on-one training?', answer: 'Yes, private lessons are highly recommended for beginners. They provide a fantastic opportunity to build a strong foundation and gain confidence before joining group classes.'},
     ]
   }
 ];
@@ -171,8 +177,8 @@ export type YouTubeVideo = {
 }
 
 export const youtubeVideos: YouTubeVideo[] = [
-  { id: 'yt-1', title: 'De La Riva Guard Sweep Technique', thumbnailUrl: 'https://picsum.photos/seed/yt1/480/360', url: 'https://youtube.com' },
-  { id: 'yt-2', title: 'Kids Class Highlights - Fun & Games', thumbnailUrl: 'https://picsum.photos/seed/yt2/480/360', url: 'https://youtube.com' },
-  { id: 'yt-3', title: 'How to Tie Your Jiu Jitsu Belt', thumbnailUrl: 'https://picsum.photos/seed/yt3/480/360', url: 'https://youtube.com' },
-  { id: 'yt-4', title: 'Reign Competition Team Highlights', thumbnailUrl: 'https://picsum.photos/seed/yt4/480/360', url: 'https://youtube.com' },
+  { id: 'yt-1', title: 'De La Riva Guard Sweep Technique', thumbnailUrl: 'https://picsum.photos/seed/yt1/1280/720', url: 'https://youtube.com' },
+  { id: 'yt-2', title: 'Kids Class Highlights - Fun & Games', thumbnailUrl: 'https://picsum.photos/seed/yt2/1280/720', url: 'https://youtube.com' },
+  { id: 'yt-3', title: 'How to Tie Your Jiu Jitsu Belt', thumbnailUrl: 'https://picsum.photos/seed/yt3/1280/720', url: 'https://youtube.com' },
+  { id: 'yt-4', title: 'Reign Competition Team Highlights', thumbnailUrl: 'https://picsum.photos/seed/yt4/1280/720', url: 'https://youtube.com' },
 ]
