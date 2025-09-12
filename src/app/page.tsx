@@ -16,15 +16,6 @@ import {
 import { faqContent } from '@/lib/data';
 import { useEffect, useState } from 'react';
 import { fetchInstagramPosts, InstagramPost } from '@/ai/flows/fetch-instagram-posts';
-import { Logo } from '@/components/logo';
-
-const programLinks = [
-    { href: '/programs/jiu-jitsu', label: 'Jiu Jitsu' },
-    { href: '/programs/kids-jiu-jitsu', label: 'Kids Jiu Jitsu' },
-    { href: '/programs/competition-training', label: 'Competition Training' },
-    { href: '/programs/private-training', label: 'Private Training' },
-    { href: '/programs/homeschool-martial-arts', label: 'Homeschool Martial Arts' },
-];
 
 export default function Home() {
   const generalFaqs = faqContent.find(category => category.title === 'General')?.faqs.slice(0, 5) || [];
@@ -43,7 +34,7 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-dvh bg-background text-foreground">
       {/* Hero Section */}
-      <section className="relative w-full h-[75vh] md:h-screen flex items-center justify-center text-center">
+      <section id="hero" className="relative w-full h-[75vh] md:h-screen flex items-center justify-center text-center">
          <Carousel className="w-full h-full" opts={{ loop: true }}>
           <CarouselContent className='m-0 h-full'>
             {heroContent.map((item) => (
@@ -73,25 +64,7 @@ export default function Home() {
           </CarouselContent>
         </Carousel>
 
-        <div className="absolute top-8 left-8 z-20">
-          <Logo />
-        </div>
-
-        <div className="absolute top-1/2 left-8 transform -translate-y-1/2 z-20 text-left">
-          <nav>
-            <ul>
-              {programLinks.map(link => (
-                <li key={link.href}>
-                  <Link href={link.href} className="text-white text-2xl font-bold uppercase tracking-wider block py-2 hover:text-accent transition-colors duration-300">
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        </div>
-
-        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center p-8 bg-black/50">
+        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center p-8 bg-black/60">
            <h1 className="text-4xl md:text-6xl font-bold text-white uppercase tracking-wider">
             Jiu Jitsu - Kids Jiu Jitsu - Personal Training - Private Training
           </h1>
@@ -391,5 +364,3 @@ export default function Home() {
     </div>
   );
 }
-
-    
