@@ -19,7 +19,8 @@ import { fetchInstagramPosts, InstagramPost } from '@/ai/flows/fetch-instagram-p
 
 export default function Home() {
   const generalFaqs = faqContent.find(category => category.title === 'General')?.faqs.slice(0, 5) || [];
-  const kidsFaqs = faqContent.find(category => category.title === 'Kids Program')?.faqs.slice(0, 2) || [];
+  const kidsFaqs = faqContent.find(category-
+> category.title === 'Kids Program')?.faqs.slice(0, 2) || [];
   const competitionFaqs = faqContent.find(category => category.title === 'Competition')?.faqs.slice(0, 2) || [];
   const [heroContent, setHeroContent] = useState<InstagramPost[]>([]);
 
@@ -64,34 +65,51 @@ export default function Home() {
           </CarouselContent>
         </Carousel>
 
-        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center p-8 bg-black/60">
-           <h1 className="text-4xl md:text-6xl font-bold text-white uppercase tracking-wider">
-            Jiu Jitsu - Kids Jiu Jitsu - Personal Training - Private Training
-          </h1>
-          <p className="mt-4 max-w-2xl text-lg md:text-xl text-white/90">
-            Katy's Premier Jiu Jitsu School
-          </p>
-          <Link href="#reviews" className="my-4">
-            <div className="flex items-center gap-1 text-white">
-              <Star className="h-5 w-5 fill-current text-yellow-400" />
-              <Star className="h-5 w-5 fill-current text-yellow-400" />
-              <Star className="h-5 w-5 fill-current text-yellow-400" />
-              <Star className="h-5 w-5 fill-current text-yellow-400" />
-              <Star className="h-5 w-5 fill-current text-yellow-400" />
+        <div className="absolute inset-0 z-10 bg-black/50" />
+
+        <div className="absolute inset-0 z-20 flex items-center justify-center p-8">
+            {/* Program Links on the left */}
+            <div className="absolute left-8 top-1/2 -translate-y-1/2 flex flex-col items-start gap-4">
+                {programs.map((program) => (
+                    <Link key={program.id} href={`/programs/${program.id}`}
+                        className="text-white text-lg font-semibold hover:text-accent transition-colors uppercase tracking-wider"
+                    >
+                        {program.title}
+                    </Link>
+                ))}
             </div>
-            <span className="sr-only">Scroll to reviews</span>
-          </Link>
-          <Button asChild className="mt-4 bg-primary hover:bg-primary/90 text-primary-foreground rounded-none text-lg py-4 px-6 h-auto">
-            <Link href="/free-trial">
-              <div className="flex flex-col items-center justify-center text-center w-full">
-                <div className="w-full border-t border-primary-foreground"></div>
-                <span className="text-sm font-medium tracking-widest my-2">SIGN UP FOR YOUR</span>
-                <span className="text-3xl font-bold text-accent">FREE CLASS TODAY</span>
-                <div className="w-full border-b border-primary-foreground mt-2"></div>
-              </div>
-            </Link>
-          </Button>
+
+            {/* Centered Content */}
+            <div className="flex flex-col items-center justify-center text-center text-white">
+                 <h1 className="text-4xl md:text-6xl font-bold uppercase tracking-wider">
+                    Jiu Jitsu - Kids Jiu Jitsu - Personal Training - Private Training
+                </h1>
+                <p className="mt-4 max-w-2xl text-lg md:text-xl text-white/90">
+                    Katy's Premier Jiu Jitsu School
+                </p>
+                <Link href="#reviews" className="my-4">
+                    <div className="flex items-center gap-1 text-white">
+                        <Star className="h-5 w-5 fill-current text-yellow-400" />
+                        <Star className="h-5 w-5 fill-current text-yellow-400" />
+                        <Star className="h-5 w-5 fill-current text-yellow-400" />
+                        <Star className="h-5 w-5 fill-current text-yellow-400" />
+                        <Star className="h-5 w-5 fill-current text-yellow-400" />
+                    </div>
+                    <span className="sr-only">Scroll to reviews</span>
+                </Link>
+                <Button asChild className="mt-4 bg-primary hover:bg-primary/90 text-primary-foreground rounded-none text-lg py-4 px-6 h-auto">
+                    <Link href="/free-trial">
+                        <div className="flex flex-col items-center justify-center text-center w-full">
+                            <div className="w-full border-t border-primary-foreground"></div>
+                            <span className="text-sm font-medium tracking-widest my-2">SIGN UP FOR YOUR</span>
+                            <span className="text-3xl font-bold text-accent">FREE CLASS TODAY</span>
+                            <div className="w-full border-b border-primary-foreground mt-2"></div>
+                        </div>
+                    </Link>
+                </Button>
+            </div>
         </div>
+
       </section>
 
       {/* Programs Carousel */}
@@ -364,3 +382,5 @@ export default function Home() {
     </div>
   );
 }
+
+    

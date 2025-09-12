@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import { cn } from '@/lib/utils';
 import { Toaster } from '@/components/ui/toaster';
 import { Footer } from '@/components/layout/footer';
 import { Header } from '@/components/layout/header';
@@ -11,7 +10,6 @@ export const metadata: Metadata = {
     template: `%s | Reign Jiu Jitsu Academy`,
   },
   description: 'Family-friendly Jiu Jitsu in Katy, TX. Kids, adults, and competition training at Reign Jiu Jitsu. Book your free trial class today.',
-  icons: [{ rel: 'icon', url: '/favicon.ico' }],
 };
 
 export default function RootLayout({
