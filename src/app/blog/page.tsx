@@ -6,8 +6,8 @@ import Image from "next/image";
 const blogPosts = [
     {
         id: '1',
-        title: 'The Beginner\'s Guide to Brazilian Jiu-Jitsu',
-        description: 'New to the gentle art? Here are 5 essential tips to get you started on your BJJ journey, from choosing a gym to your first roll.',
+        title: 'The Beginner\'s Guide to Jiu-Jitsu',
+        description: 'New to the gentle art? Here are 5 essential tips to get you started on your Jiu-Jitsu journey, from choosing a gym to your first roll.',
         date: 'October 26, 2023',
         imageUrl: 'https://picsum.photos/seed/blog1/800/400',
         imageHint: 'jiu jitsu beginner'
@@ -22,8 +22,8 @@ const blogPosts = [
     },
     {
         id: '3',
-        title: 'Anti-Bullying through BJJ: Empowering Your Child',
-        description: 'Jiu-Jitsu teaches more than self-defense. It builds confidence, discipline, and resilience. Discover how BJJ can empower your child against bullying.',
+        title: 'Anti-Bullying through Jiu-Jitsu: Empowering Your Child',
+        description: 'Jiu-Jitsu teaches more than self-defense. It builds confidence, discipline, and resilience. Discover how Jiu-Jitsu can empower your child against bullying.',
         date: 'October 5, 2023',
         imageHint: 'confident child',
         imageUrl: 'https://picsum.photos/seed/blog3/800/400',
@@ -33,9 +33,9 @@ const blogPosts = [
 
 export default function BlogPage() {
   return (
-    <div className="container mx-auto max-w-5xl px-4 py-12 md:py-24">
-      <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold font-headline tracking-tighter sm:text-5xl">Reign BJJ Blog</h1>
+    <div className="container mx-auto max-w-5xl px-4 py-16 md:py-24">
+      <div className="text-center mb-16">
+        <h1 className="text-4xl font-bold font-headline tracking-tighter sm:text-5xl md:text-6xl">Reign Jiu Jitsu Blog</h1>
         <p className="mt-4 max-w-2xl mx-auto text-muted-foreground md:text-xl">
           Insights, tips, and stories from our community.
         </p>
@@ -43,7 +43,7 @@ export default function BlogPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {blogPosts.map((post) => (
-          <Card key={post.id} className="flex flex-col overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300">
+          <Card key={post.id} className="flex flex-col overflow-hidden rounded-none border group">
              <CardHeader className="p-0">
                 <Link href={`/blog/${post.id}`} className="block">
                     <div className="relative aspect-video">
@@ -51,14 +51,14 @@ export default function BlogPage() {
                             src={post.imageUrl}
                             alt={post.title}
                             fill
-                            className="object-cover"
+                            className="object-cover group-hover:scale-105 transition-transform duration-300"
                             data-ai-hint={post.imageHint}
                         />
                     </div>
                 </Link>
             </CardHeader>
             <CardContent className="p-6 flex-grow">
-              <CardTitle className="text-2xl font-headline hover:text-primary">
+              <CardTitle className="text-2xl font-headline group-hover:text-primary">
                  <Link href={`/blog/${post.id}`}>{post.title}</Link>
               </CardTitle>
               <CardDescription className="mt-2 text-base">{post.description}</CardDescription>

@@ -46,8 +46,8 @@ export function Header() {
       href={link.href}
       onClick={() => setIsMobileMenuOpen(false)}
       className={cn(
-        'block py-2 text-lg font-medium transition-colors hover:text-primary',
-        pathname === link.href ? 'text-primary' : 'text-muted-foreground'
+        'block py-3 text-lg font-medium transition-colors hover:text-primary',
+        pathname === link.href ? 'text-primary' : 'text-foreground'
       )}
     >
       {link.label}
@@ -56,46 +56,47 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-16 max-w-7xl items-center justify-between">
+      <div className="container flex h-20 max-w-7xl items-center justify-between">
         <Logo />
 
         <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
           <SheetTrigger asChild>
             <Button variant="ghost" size="icon">
-              <Menu className="h-6 w-6" />
+              <Menu className="h-8 w-8" />
               <span className="sr-only">Open menu</span>
             </Button>
           </SheetTrigger>
           <SheetContent side="left" className="w-full max-w-sm bg-background p-0">
             <div className="flex h-full flex-col">
-              <div className="flex items-center justify-between border-b p-4">
+              <div className="flex items-center justify-between border-b p-4 h-20">
                 <Logo />
                 <Button variant="ghost" size="icon" onClick={() => setIsMobileMenuOpen(false)}>
-                  <X className="h-6 w-6" />
+                  <X className="h-8 w-8" />
                   <span className="sr-only">Close menu</span>
                 </Button>
               </div>
-              <nav className="flex-grow p-4 overflow-y-auto">
+              <nav className="flex-grow p-6 overflow-y-auto">
                 <Accordion type="multiple" className="w-full">
                   {Object.entries(navLinks).map(([title, content]) => {
                     if (typeof content === 'string') {
                       return (
-                        <Link
-                          key={content}
-                          href={content}
-                          onClick={() => setIsMobileMenuOpen(false)}
-                          className={cn(
-                            'flex flex-1 items-center py-4 text-lg font-medium transition-all hover:underline',
-                            pathname === content ? 'text-primary' : ''
-                          )}
-                        >
-                          {title}
-                        </Link>
+                        <div key={content} className="border-b">
+                          <Link
+                            href={content}
+                            onClick={() => setIsMobileMenuOpen(false)}
+                            className={cn(
+                              'flex flex-1 items-center py-4 text-xl font-medium transition-all hover:text-primary',
+                              pathname === content ? 'text-primary' : ''
+                            )}
+                          >
+                            {title}
+                          </Link>
+                        </div>
                       );
                     }
                     return (
-                      <AccordionItem key={title} value={title} className="border-b-0">
-                        <AccordionTrigger className="py-4 text-lg font-medium hover:no-underline">
+                      <AccordionItem key={title} value={title}>
+                        <AccordionTrigger className="py-4 text-xl font-medium hover:no-underline">
                           {title}
                         </AccordionTrigger>
                         <AccordionContent className="pl-4">

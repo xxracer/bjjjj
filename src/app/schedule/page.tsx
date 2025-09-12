@@ -8,24 +8,24 @@ export default function SchedulePage() {
 
   const filterClasses = (dayClasses: ClassInfo[], program: string) => {
     if (program === 'All') return dayClasses;
-    if (program === 'Adults BJJ') return dayClasses.filter(c => c.program === 'Adults BJJ' || c.program === 'Fundamentals' || c.program === 'Competition' || c.program === 'No-Gi' || c.program === 'Open Mat');
-    if (program === 'Kids BJJ') return dayClasses.filter(c => c.program === 'Kids BJJ' || c.program === 'Homeschool');
+    if (program === 'Adults') return dayClasses.filter(c => c.program === 'Adults' || c.program === 'Fundamentals' || c.program === 'Competition' || c.program === 'No-Gi' || c.program === 'Open Mat');
+    if (program === 'Kids') return dayClasses.filter(c => c.program === 'Kids' || c.program === 'Homeschool');
     return dayClasses.filter(c => c.program === program);
   };
 
   return (
-    <div className="container mx-auto max-w-7xl px-4 py-12 md:py-24">
-      <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold font-headline tracking-tighter sm:text-5xl">Class Schedule</h1>
+    <div className="container mx-auto max-w-7xl px-4 py-16 md:py-24">
+      <div className="text-center mb-16">
+        <h1 className="text-4xl font-bold font-headline tracking-tighter sm:text-5xl md:text-6xl">Class Schedule</h1>
         <p className="mt-4 max-w-2xl mx-auto text-muted-foreground md:text-xl">
           Find a class that fits your schedule. We offer a variety of options for all ages and skill levels.
         </p>
       </div>
 
       <Tabs defaultValue="All" className="w-full">
-        <TabsList className="grid w-full grid-cols-2 sm:grid-cols-4 md:grid-cols-8 mb-8">
+        <TabsList className="grid w-full grid-cols-3 sm:grid-cols-4 md:grid-cols-8 mb-8 rounded-none bg-secondary/50 p-1 h-auto">
           {scheduleFilters.map(program => (
-            <TabsTrigger key={program} value={program}>{program}</TabsTrigger>
+            <TabsTrigger key={program} value={program} className="rounded-none text-base data-[state=active]:bg-background data-[state=active]:shadow-none py-2">{program}</TabsTrigger>
           ))}
         </TabsList>
 
@@ -37,7 +37,7 @@ export default function SchedulePage() {
                 if (filteredClasses.length === 0) return null;
 
                 return (
-                  <Card key={day} className="shadow-lg">
+                  <Card key={day} className="shadow-none rounded-none bg-secondary/50">
                     <CardHeader>
                       <CardTitle className="text-2xl font-headline">{day}</CardTitle>
                     </CardHeader>

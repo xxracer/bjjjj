@@ -22,7 +22,7 @@ export async function generateMetadata(
 
   return {
     title: `${instructor.name} - ${instructor.beltRank}`,
-    description: `Learn about ${instructor.name}, a ${instructor.beltRank} at Reign BJJ Katy.`,
+    description: `Learn about ${instructor.name}, a ${instructor.beltRank} at Reign Jiu Jitsu Katy.`,
   };
 }
 
@@ -34,11 +34,11 @@ export default function InstructorProfilePage({ params }: Props) {
   }
 
   return (
-    <div className="container mx-auto max-w-4xl px-4 py-12 md:py-24">
+    <div className="container mx-auto max-w-4xl px-4 py-16 md:py-24">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
         <div className="md:col-span-1 flex flex-col items-center">
           {instructor.image && (
-            <div className="relative w-64 h-64 rounded-full overflow-hidden shadow-2xl border-4 border-card">
+            <div className="relative w-full aspect-square">
               <Image
                 src={instructor.image.imageUrl}
                 alt={`Portrait of ${instructor.name}`}
@@ -48,17 +48,17 @@ export default function InstructorProfilePage({ params }: Props) {
               />
             </div>
           )}
-          <h1 className="text-3xl font-bold font-headline mt-6 text-center">{instructor.name}</h1>
-          <Badge variant="default" className="mt-2 text-md px-4 py-1 bg-primary text-primary-foreground">
+          <h1 className="text-4xl font-bold font-headline mt-6 text-center">{instructor.name}</h1>
+          <Badge variant="default" className="mt-4 text-md px-6 py-2 bg-primary text-primary-foreground rounded-none">
             {instructor.beltRank}
           </Badge>
           <div className="mt-2 text-sm text-muted-foreground">
             {instructor.yearsOfExperience} Years of Experience
           </div>
         </div>
-        <div className="md:col-span-2 bg-card p-8 rounded-lg shadow-lg">
-          <h2 className="text-2xl font-bold font-headline mb-4">Biography</h2>
-          <div className="prose prose-lg max-w-none text-card-foreground">
+        <div className="md:col-span-2">
+          <h2 className="text-3xl font-bold font-headline mb-4">Biography</h2>
+          <div className="prose prose-lg max-w-none text-muted-foreground">
             <p className="whitespace-pre-line text-lg leading-relaxed">{instructor.bio}</p>
           </div>
         </div>

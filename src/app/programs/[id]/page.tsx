@@ -27,8 +27,8 @@ const programDetails: { [key: string]: { description: string, details: string[] 
         details: ['Classes for All Skill Levels', 'Improve Strength & Conditioning', 'Practical Self-Defense Skills', 'Supportive Community']
     },
     'fundamentals': {
-        description: 'The Fundamentals program is the starting point for your Jiu-Jitsu journey. We focus on the core concepts, positions, and techniques that form the foundation of BJJ.',
-        details: ['Beginner-Friendly Environment', 'Step-by-Step Instruction', 'Focus on Safety & Technique', 'Build a Solid BJJ Foundation']
+        description: 'The Fundamentals program is the starting point for your Jiu-Jitsu journey. We focus on the core concepts, positions, and techniques that form the foundation of Jiu-Jitsu.',
+        details: ['Beginner-Friendly Environment', 'Step-by-Step Instruction', 'Focus on Safety & Technique', 'Build a Solid Jiu-Jitsu Foundation']
     },
 };
 
@@ -42,7 +42,7 @@ export default function ProgramPage({ params }: { params: { id: string } }) {
   }
 
   return (
-    <div className="bg-white">
+    <div className="bg-background">
         <section className="relative w-full h-[50vh] flex items-center justify-center text-center text-white">
             {program.image && (
                 <Image
@@ -62,14 +62,14 @@ export default function ProgramPage({ params }: { params: { id: string } }) {
             </div>
         </section>
 
-        <section className="container mx-auto max-w-5xl px-4 py-12 md:py-24">
+        <section className="container mx-auto max-w-5xl px-4 py-16 md:py-24">
             <div className="grid md:grid-cols-2 gap-12 items-start">
                  <div className="prose prose-lg max-w-none text-card-foreground">
                     <p className="lead text-xl">{details.description}</p>
-                    <h3 className="font-headline mt-8">Program Highlights:</h3>
-                     <ul className="space-y-2">
+                    <h3 className="font-headline mt-8 text-2xl">Program Highlights:</h3>
+                     <ul className="space-y-3 mt-4">
                        {details.details.map((item, index) => (
-                           <li key={index} className="flex items-center gap-3">
+                           <li key={index} className="flex items-center gap-3 text-lg">
                                <svg className="h-6 w-6 text-primary shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                                 </svg>
@@ -78,12 +78,12 @@ export default function ProgramPage({ params }: { params: { id: string } }) {
                        ))}
                     </ul>
                  </div>
-                 <div className="bg-card p-8 rounded-lg shadow-lg">
+                 <div className="bg-secondary/50 p-8 rounded-none">
                      <h3 className="text-2xl font-bold font-headline mb-4 text-center">Ready to Start?</h3>
                      <p className="text-muted-foreground text-center mb-6">
                          Your first class is on us. Book your free trial today and experience it for yourself.
                      </p>
-                    <Button asChild size="lg" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
+                    <Button asChild size="lg" className="w-full bg-primary hover:bg-primary/80 text-primary-foreground rounded-none text-lg py-6">
                         <Link href="/contact">
                         Claim Your Free Class
                         <ArrowRight className="ml-2 h-5 w-5" />
