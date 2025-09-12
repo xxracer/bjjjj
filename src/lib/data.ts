@@ -41,7 +41,7 @@ export const instructors: Instructor[] = [
 
 export type ClassInfo = {
   time: string;
-  program: 'Adults BJJ' | 'Kids BJJ' | 'Open Mat' | 'No-Gi';
+  program: 'Adults BJJ' | 'Kids BJJ' | 'Open Mat' | 'No-Gi' | 'Fundamentals' | 'Competition' | 'Homeschool';
   level: string;
 };
 
@@ -52,28 +52,30 @@ export type Schedule = {
 export const schedule: Schedule = {
   Monday: [
     { time: '6:00 AM - 7:00 AM', program: 'Adults BJJ', level: 'All Levels' },
+    { time: '10:00 AM - 11:30 AM', program: 'Homeschool', level: 'Ages 7-15' },
     { time: '5:00 PM - 6:00 PM', program: 'Kids BJJ', level: 'Ages 5-12' },
-    { time: '6:00 PM - 7:30 PM', program: 'Adults BJJ', level: 'Fundamentals' },
+    { time: '6:00 PM - 7:30 PM', program: 'Fundamentals', level: 'Beginners' },
     { time: '7:30 PM - 8:30 PM', program: 'No-Gi', level: 'All Levels' },
   ],
   Tuesday: [
     { time: '12:00 PM - 1:00 PM', program: 'Adults BJJ', level: 'All Levels' },
     { time: '6:00 PM - 7:30 PM', program: 'Adults BJJ', level: 'Advanced' },
-    { time: '7:30 PM - 8:30 PM', program: 'Open Mat', level: 'All Levels' },
+    { time: '7:30 PM - 8:30 PM', program: 'Competition', level: 'Invite Only' },
   ],
   Wednesday: [
     { time: '6:00 AM - 7:00 AM', program: 'Adults BJJ', level: 'All Levels' },
+     { time: '10:00 AM - 11:30 AM', program: 'Homeschool', level: 'Ages 7-15' },
     { time: '5:00 PM - 6:00 PM', program: 'Kids BJJ', level: 'Ages 5-12' },
-    { time: '6:00 PM - 7:30 PM', program: 'Adults BJJ', level: 'Fundamentals' },
+    { time: '6:00 PM - 7:30 PM', program: 'Fundamentals', level: 'Beginners' },
     { time: '7:30 PM - 8:30 PM', program: 'No-Gi', level: 'All Levels' },
   ],
   Thursday: [
     { time: '12:00 PM - 1:00 PM', program: 'Adults BJJ', level: 'All Levels' },
     { time: '6:00 PM - 7:30 PM', program: 'Adults BJJ', level: 'Advanced' },
-    { time: '7:30 PM - 8:30 PM', program: 'Open Mat', level: 'All Levels' },
+    { time: '7:30 PM - 8:30 PM', program: 'Competition', level: 'Invite Only' },
   ],
   Friday: [
-    { time: '6:00 PM - 7:30 PM', program: 'Adults BJJ', level: 'All Levels' },
+    { time: '6:00 PM - 7:30 PM', program: 'Open Mat', level: 'All Levels' },
   ],
   Saturday: [
     { time: '10:00 AM - 11:00 AM', program: 'Kids BJJ', level: 'Ages 5-12' },
@@ -82,7 +84,22 @@ export const schedule: Schedule = {
   Sunday: [],
 };
 
-export const programs = ['All', 'Adults BJJ', 'Kids BJJ', 'No-Gi', 'Open Mat'];
+export type Program = {
+  id: string;
+  title: string;
+  image: ImagePlaceholder | undefined;
+}
+
+export const programs: Program[] = [
+    { id: 'kids', title: 'Kids Jiu Jitsu', image: getImage('program-kids') },
+    { id: 'homeschool', title: 'Homeschool Program', image: getImage('program-homeschool') },
+    { id: 'competition', title: 'Competition', image: getImage('program-competition') },
+    { id: 'private-lessons', title: 'Private Lessons', image: getImage('program-private') },
+    { id: 'adult', title: 'Adult Jiu Jitsu', image: getImage('program-adult') },
+    { id: 'fundamentals', title: 'Fundamentals', image: getImage('program-fundamentals') },
+]
+
+export const scheduleFilters = ['All', 'Adults BJJ', 'Kids BJJ', 'No-Gi', 'Open Mat', 'Fundamentals', 'Competition', 'Homeschool'];
 
 
 export type Review = {
@@ -111,7 +128,7 @@ export type FaqCategory = {
 
 export const faqContent: FaqCategory[] = [
   {
-    title: 'Adults Jiu Jitsu',
+    title: 'General',
     faqs: [
       { question: 'Do I need to be in shape to start?', answer: 'Not at all! Jiu-Jitsu is a great way to get in shape. Our fundamentals classes are designed to build your fitness and technique from the ground up.' },
       { question: 'What should I wear to my first class?', answer: 'For your first few classes, comfortable athletic wear like a t-shirt and shorts/leggings is perfectly fine. If you decide to continue, you will need to purchase a Gi (uniform).' },
@@ -121,12 +138,41 @@ export const faqContent: FaqCategory[] = [
     ]
   },
   {
-    title: 'Kids Jiu Jitsu',
+    title: 'Kids Program',
     faqs: [
       { question: 'What age can my child start?', answer: 'Our kids\' program starts at age 5. We group children by age and maturity to ensure they get the most out of their training.' },
       { question: 'Will Jiu-Jitsu make my child violent?', answer: 'No, quite the opposite. We teach discipline, respect, and control. Children learn when it is and isn\'t appropriate to use their techniques.' },
       { question: 'What are the benefits for kids?', answer: 'BJJ improves focus, discipline, confidence, and physical fitness. It also teaches valuable anti-bullying strategies and problem-solving skills.' },
       { question: 'Is it safe for my child?', answer: 'Safety is our top priority. All classes are supervised by experienced instructors, and we teach techniques in a controlled, step-by-step manner.' },
     ]
+  },
+    {
+    title: 'Homeschool Program',
+    faqs: [
+      { question: 'What is the homeschool program?', answer: 'Our homeschool program offers a structured physical education curriculum centered around Jiu-Jitsu, providing a great way for homeschooled children to socialize, stay active, and learn self-defense.' },
+      { question: 'What are the hours?', answer: 'The homeschool program runs on weekday mornings. Please check our schedule for the most up-to-date class times.' },
+    ]
   }
 ];
+
+export const facilityImages = [
+    getImage('facility-1'),
+    getImage('facility-2'),
+    getImage('facility-3'),
+    getImage('facility-4'),
+].filter(Boolean) as ImagePlaceholder[];
+
+
+export type YouTubeVideo = {
+  id: string;
+  title: string;
+  thumbnailUrl: string;
+  url: string;
+}
+
+export const youtubeVideos: YouTubeVideo[] = [
+  { id: 'yt-1', title: 'De La Riva Guard Sweep Technique', thumbnailUrl: 'https://picsum.photos/seed/yt1/480/360', url: 'https://youtube.com' },
+  { id: 'yt-2', title: 'Kids Class Highlights - Fun & Games', thumbnailUrl: 'https://picsum.photos/seed/yt2/480/360', url: 'https://youtube.com' },
+  { id: 'yt-3', title: 'How to Tie Your Jiu Jitsu Belt', thumbnailUrl: 'https://picsum.photos/seed/yt3/480/360', url: 'https://youtube.com' },
+  { id: 'yt-4', title: 'Reign BJJ Competition Team Highlights', thumbnailUrl: 'https://picsum.photos/seed/yt4/480/360', url: 'https://youtube.com' },
+]

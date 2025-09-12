@@ -1,14 +1,16 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { schedule, programs, ClassInfo } from '@/lib/data';
+import { schedule, scheduleFilters, ClassInfo } from '@/lib/data';
 
 export default function SchedulePage() {
   const daysOfWeek = Object.keys(schedule);
 
   const filterClasses = (dayClasses: ClassInfo[], program: string) => {
     if (program === 'All') return dayClasses;
-    return dayClasses.filter(c => c.program === program || (program === 'Adults BJJ' && c.program.includes('Adults')) || (program === 'Kids BJJ' && c.program.includes('Kids')));
+    if (program === 'Adults BJJ') return dayClasses.filter(c => c.program === 'Adults BJJ' || c.program === 'Fundamentals' || c.program === 'Competition' || c.program === 'No-Gi' || c.program === 'Open Mat');
+    if (program === 'Kids BJJ') return dayClasses.filter(c => c.program === 'Kids BJJ' || c.program === 'Homeschool');
+    return dayClasses.filter(c => c.program === program);
   };
 
   return (
@@ -21,17 +23,17 @@ export default function SchedulePage() {
       </div>
 
       <Tabs defaultValue="All" className="w-full">
-        <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 md:grid-cols-5 mb-8">
-          {programs.map(program => (
+        <TabsList className="grid w-full grid-cols-2 sm:grid-cols-4 md:grid-cols-8 mb-8">
+          {scheduleFilters.map(program => (
             <TabsTrigger key={program} value={program}>{program}</TabsTrigger>
           ))}
         </TabsList>
 
-        {programs.map(program => (
+        {scheduleFilters.map(program => (
           <TabsContent key={program} value={program}>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {daysOfWeek.map(day => {
-                const filteredClasses = filterClasses(schedule[day], program);
+                const filteredClasses = filterClasses(schedule[day as keyof typeof schedule], program);
                 if (filteredClasses.length === 0) return null;
 
                 return (
@@ -63,9 +65,9 @@ export default function SchedulePage() {
                 );
               })}
             </div>
-            {daysOfWeek.every(day => filterClasses(schedule[day], program).length === 0) && (
+            {daysOfWeek.every(day => filterClasses(schedule[day as keyof typeof schedule], program).length === 0) && (
               <div className="text-center py-16 text-muted-foreground">
-                <p className="text-lg">No classes available for this program.</p>
+                <p className="text-lg">No classes available for this program filter.</p>
               </div>
             )}
           </TabsContent>

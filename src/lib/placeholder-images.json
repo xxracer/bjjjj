@@ -1,10 +1,22 @@
 {
   "placeholderImages": [
     {
-      "id": "hero-1",
+      "id": "insta-1",
       "description": "A BJJ class in session.",
-      "imageUrl": "https://picsum.photos/seed/hero1/1920/1080",
-      "imageHint": "jiu jitsu"
+      "imageUrl": "https://picsum.photos/seed/insta1/1920/1080",
+      "imageHint": "jiu jitsu class"
+    },
+    {
+      "id": "insta-2",
+      "description": "Two people rolling on the mats.",
+      "imageUrl": "https://picsum.photos/seed/insta2/1920/1080",
+      "imageHint": "jiu jitsu roll"
+    },
+    {
+      "id": "insta-3",
+      "description": "Kids jiu jitsu class.",
+      "imageUrl": "https://picsum.photos/seed/insta3/1920/1080",
+      "imageHint": "kids martial arts"
     },
     {
       "id": "instructor-john",
@@ -23,6 +35,66 @@
       "description": "Portrait of Carlos Gracie.",
       "imageUrl": "https://picsum.photos/seed/carlos/400/400",
       "imageHint": "man portrait serious"
+    },
+    {
+      "id": "program-kids",
+      "description": "Kids in a BJJ class.",
+      "imageUrl": "https://picsum.photos/seed/progKids/600/400",
+      "imageHint": "kids jiu jitsu"
+    },
+    {
+      "id": "program-homeschool",
+      "description": "Children learning in a gym.",
+      "imageUrl": "https://picsum.photos/seed/progHome/600/400",
+      "imageHint": "children learning"
+    },
+    {
+      "id": "program-competition",
+      "description": "Two competitors shaking hands.",
+      "imageUrl": "https://picsum.photos/seed/progComp/600/400",
+      "imageHint": "jiu jitsu competition"
+    },
+    {
+      "id": "program-private",
+      "description": "One on one instruction.",
+      "imageUrl": "https://picsum.photos/seed/progPriv/600/400",
+      "imageHint": "personal training"
+    },
+    {
+      "id": "program-adult",
+      "description": "Adults BJJ class.",
+      "imageUrl": "https://picsum.photos/seed/progAdult/600/400",
+      "imageHint": "adults training"
+    },
+    {
+      "id": "program-fundamentals",
+      "description": "Learning basic techniques.",
+      "imageUrl": "https://picsum.photos/seed/progFund/600/400",
+      "imageHint": "learning basics"
+    },
+    {
+        "id": "facility-1",
+        "description": "Main mat area",
+        "imageUrl": "https://picsum.photos/seed/fac1/800/600",
+        "imageHint": "gym interior"
+    },
+    {
+        "id": "facility-2",
+        "description": "Spectator seating area",
+        "imageUrl": "https://picsum.photos/seed/fac2/800/600",
+        "imageHint": "gym seating"
+    },
+    {
+        "id": "facility-3",
+        "description": "Strength and conditioning equipment",
+        "imageUrl": "https://picsum.photos/seed/fac3/800/600",
+        "imageHint": "gym equipment"
+    },
+    {
+        "id": "facility-4",
+        "description": "Changing rooms",
+        "imageUrl": "https://picsum.photos/seed/fac4/800/600",
+        "imageHint": "locker room"
     }
   ]
 }

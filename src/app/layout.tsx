@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     default: 'Reign BJJ Katy',
     template: `%s | Reign BJJ Katy`,
   },
-  description: 'Premier Brazilian Jiu-Jitsu academy in Katy, Texas. Offering classes for adults and kids. Join us for a free trial!',
+  description: 'Family friendly Jiu Jitsu martial arts studio in Katy, Texas. We offer classes for kids, homeschool, and adults. Join us for a free trial!',
   icons: [{ rel: 'icon', url: '/favicon.ico' }],
 };
 
