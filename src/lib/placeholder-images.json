@@ -1,3 +1,28 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "hero-1",
+      "description": "A BJJ class in session.",
+      "imageUrl": "https://picsum.photos/seed/hero1/1920/1080",
+      "imageHint": "jiu jitsu"
+    },
+    {
+      "id": "instructor-john",
+      "description": "Portrait of John Doe.",
+      "imageUrl": "https://picsum.photos/seed/john/400/400",
+      "imageHint": "man portrait"
+    },
+    {
+      "id": "instructor-jane",
+      "description": "Portrait of Jane Smith.",
+      "imageUrl": "https://picsum.photos/seed/jane/400/400",
+      "imageHint": "woman portrait"
+    },
+    {
+      "id": "instructor-carlos",
+      "description": "Portrait of Carlos Gracie.",
+      "imageUrl": "https://picsum.photos/seed/carlos/400/400",
+      "imageHint": "man portrait serious"
+    }
+  ]
 }
