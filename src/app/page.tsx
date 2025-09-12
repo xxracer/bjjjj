@@ -16,6 +16,15 @@ import {
 import { faqContent } from '@/lib/data';
 import { useEffect, useState } from 'react';
 import { fetchInstagramPosts, InstagramPost } from '@/ai/flows/fetch-instagram-posts';
+import { Logo } from '@/components/logo';
+
+const programLinks = [
+    { href: '/programs/jiu-jitsu', label: 'Jiu Jitsu' },
+    { href: '/programs/kids-jiu-jitsu', label: 'Kids Jiu Jitsu' },
+    { href: '/programs/competition-training', label: 'Competition Training' },
+    { href: '/programs/private-training', label: 'Private Training' },
+    { href: '/programs/homeschool-martial-arts', label: 'Homeschool Martial Arts' },
+];
 
 export default function Home() {
   const generalFaqs = faqContent.find(category => category.title === 'General')?.faqs.slice(0, 5) || [];
@@ -64,6 +73,24 @@ export default function Home() {
           </CarouselContent>
         </Carousel>
 
+        <div className="absolute top-8 left-8 z-20">
+          <Logo />
+        </div>
+
+        <div className="absolute top-1/2 left-8 transform -translate-y-1/2 z-20 text-left">
+          <nav>
+            <ul>
+              {programLinks.map(link => (
+                <li key={link.href}>
+                  <Link href={link.href} className="text-white text-2xl font-bold uppercase tracking-wider block py-2 hover:text-accent transition-colors duration-300">
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </div>
+
         <div className="absolute inset-0 z-10 flex flex-col items-center justify-center p-8 bg-black/40">
            <h1 className="text-4xl md:text-6xl font-bold text-white uppercase tracking-wider">
             Jiu Jitsu - Kids Jiu Jitsu - Personal Training - Private Training
@@ -97,6 +124,10 @@ export default function Home() {
       {/* Programs Carousel */}
       <section className="w-full py-16 md:py-24 bg-card">
         <div className="container mx-auto">
+           <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold uppercase tracking-wide">Explore Our Programs</h2>
+            <p className="mt-4 max-w-2xl mx-auto text-muted-foreground">A path for everyone, from beginners to world champions.</p>
+          </div>
           <Carousel
             opts={{
               align: "start",
@@ -332,6 +363,11 @@ export default function Home() {
               </AccordionItem>
             ))}
           </Accordion>
+           <div className="mt-12 text-center">
+             <Button asChild variant="outline" size="lg" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground rounded-none">
+                <Link href="/faq">View All FAQs</Link>
+             </Button>
+           </div>
         </div>
       </section>
 
