@@ -1,28 +1,18 @@
 'use client';
 
 import Link from 'next/link';
-import {
-  Menu,
-  X,
-  BookOpen,
-  CalendarDays,
-  Users,
-  Building,
-  Shield,
-  School,
-  Rss,
-  HelpCircle,
-  Info,
-  Contact,
-  ChevronDown,
-  Crown,
-} from 'lucide-react';
 import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Sheet, SheetContent, SheetTrigger, SheetClose } from '@/components/ui/sheet';
 import { Logo } from '@/components/logo';
-import { useIsMobile } from '@/hooks/use-mobile';
 import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
+import { ArrowRight, Menu, X } from 'lucide-react';
+import { useIsMobile } from '@/hooks/use-mobile';
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+  SheetClose,
+} from '@/components/ui/sheet';
 import {
   Accordion,
   AccordionContent,
@@ -36,28 +26,75 @@ type NavLink = {
 };
 
 const programLinks: NavLink[] = [
-    { href: '/programs/jiu-jitsu', label: 'Jiu Jitsu' },
-    { href: '/programs/kids-jiu-jitsu', label: 'Kids Jiu Jitsu' },
-    { href: '/programs/competition-training', label: 'Competition Training' },
-    { href: '/programs/private-training', label: 'Private Training' },
-    { href: '/programs/homeschool-martial-arts', label: 'Homeschool Martial Arts' },
+  { href: '/programs/jiu-jitsu', label: 'Jiu Jitsu' },
+  { href: '/programs/kids-jiu-jitsu', label: 'Kids Jiu Jitsu' },
+  { href: '/programs/competition-training', label: 'Competition Training' },
+  { href: '/programs/private-training', label: 'Private Training' },
+  { href: '/programs/homeschool-martial-arts', label: 'Homeschool Martial Arts' },
 ];
 
 const otherLinks: NavLink[] = [
-    { href: '/schedule', label: 'Schedule' },
-    { href: '/instructors', label: 'Instructors' },
-    { href: '/facility', label: 'Our Facility' },
-    { href: '/sponsorship', label: 'Sponsorship' },
-    { href: '/affiliate-schools', label: 'Affiliate Schools' },
-    { href: '/blog', label: 'Blog' },
-    { href: '/faq', label: 'FAQ' },
-    { href: '/contact', label: 'Contact' },
-    { href: '/about', label: 'About' },
+  { href: '/schedule', label: 'Schedule' },
+  { href: '/instructors', label: 'Instructors' },
+  { href: '/facility', label: 'Our Facility' },
+  { href: '/sponsorship', label: 'Sponsorship' },
+  { href: '/affiliate-schools', label: 'Affiliate Schools' },
+  { href: '/blog', label: 'Blog' },
+  { href: '/faq', label: 'FAQ' },
+  { href: '/contact', label: 'Contact' },
+  { href: '/about', label: 'About' },
 ];
+
+function DesktopNav() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  return (
+    <div className="fixed top-0 left-0 h-full z-40 bg-background flex flex-col p-6 border-r">
+       <div className="mb-10">
+        <Logo />
+      </div>
+      <nav className="flex flex-col gap-3 text-lg font-medium">
+        <h3 className="font-bold text-xl uppercase tracking-wider mb-2">Programs</h3>
+        {programLinks.map((link) => (
+          <Link
+            key={link.href}
+            href={link.href}
+            className="text-muted-foreground hover:text-foreground transition-colors"
+          >
+            {link.label}
+          </Link>
+        ))}
+        
+        <div className={cn("mt-6 transition-all duration-300 ease-in-out overflow-hidden", isMenuOpen ? "max-h-screen" : "max-h-0")}>
+            <div className={cn("flex flex-col gap-3", isMenuOpen ? 'pt-4' : '')}>
+                 {otherLinks.map((link) => (
+                    <Link key={link.href} href={link.href} className="text-muted-foreground hover:text-foreground transition-colors">
+                        {link.label}
+                    </Link>
+                ))}
+            </div>
+        </div>
+
+      </nav>
+       <div className="mt-auto">
+         <Button 
+            variant="ghost" 
+            className="w-full justify-start text-lg p-0 hover:bg-transparent"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+        >
+           Menu {isMenuOpen ? <X className="ml-2 h-5 w-5"/> : <Menu className="ml-2 h-5 w-5"/>}
+        </Button>
+        <Button asChild className="w-full mt-4 bg-accent text-accent-foreground hover:bg-accent/80 rounded-none">
+            <Link href="/free-trial">Book Free Trial</Link>
+        </Button>
+      </div>
+    </div>
+  );
+}
 
 function MobileNav() {
   return (
-    <Sheet>
+     <Sheet>
       <SheetTrigger asChild>
         <Button variant="ghost" size="icon">
           <Menu className="h-8 w-8" />
@@ -116,63 +153,33 @@ function MobileNav() {
   );
 }
 
-function DesktopNav() {
-  const [isProgramsOpen, setIsProgramsOpen] = useState(false);
-  return (
-    <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
-        <Logo />
-        <div className="flex items-center gap-6 flex-grow">
-            <div 
-                className="relative"
-                onMouseEnter={() => setIsProgramsOpen(true)}
-                onMouseLeave={() => setIsProgramsOpen(false)}
-            >
-                <Link href="/programs" className="flex items-center gap-1 hover:text-primary transition-colors">
-                    Programs <ChevronDown className="h-4 w-4" />
-                </Link>
-                {isProgramsOpen && (
-                    <div className="absolute top-full left-0 mt-2 w-56 bg-background border rounded-none shadow-lg py-2 z-20">
-                        {programLinks.map(link => (
-                            <Link key={link.href} href={link.href} className="block px-4 py-2 text-muted-foreground hover:text-foreground hover:bg-secondary/50">
-                                {link.label}
-                            </Link>
-                        ))}
-                    </div>
-                )}
-            </div>
-             {otherLinks.map((link) => (
-                <Link key={link.href} href={link.href} className="hover:text-primary transition-colors">
-                    {link.label}
-                </Link>
-             ))}
-        </div>
-        <Button asChild className="bg-accent text-accent-foreground hover:bg-accent/80 rounded-none">
-            <Link href="/free-trial">Book Free Trial</Link>
-        </Button>
-    </nav>
-  );
-}
-
 
 export function Header() {
   const isMobile = useIsMobile();
-  
+
   if (isMobile === undefined) {
-    return <header className="sticky top-0 z-40 w-full border-b h-20 flex items-center justify-end px-4" />;
+    // Return a placeholder or null during server-side rendering/hydration
+    return (
+       <header className="sticky top-0 z-40 w-full bg-background/95 backdrop-blur-sm">
+        <div className="container mx-auto flex h-20 items-center justify-between px-4">
+             {/* Placeholder for mobile header */}
+        </div>
+       </header>
+    )
   }
   
   return (
-    <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur-sm">
-        <div className="container mx-auto flex h-20 items-center justify-between px-4">
-            {isMobile ? (
-                <>
-                    <Logo />
-                    <MobileNav />
-                </>
-            ) : (
-                <DesktopNav />
-            )}
-        </div>
-    </header>
+    <>
+      {isMobile ? (
+         <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur-sm">
+            <div className="container mx-auto flex h-20 items-center justify-between px-4">
+                <Logo />
+                <MobileNav />
+            </div>
+         </header>
+      ) : (
+        <DesktopNav />
+      )}
+    </>
   );
 }
