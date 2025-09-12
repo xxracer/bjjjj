@@ -65,7 +65,13 @@ export default function Home() {
         </Carousel>
 
         <div className="absolute inset-0 z-10 flex flex-col items-center justify-center p-8 bg-black/40">
-          <Link href="#reviews" className="mb-4">
+           <h1 className="text-4xl md:text-6xl font-bold text-white uppercase tracking-wider">
+            Jiu Jitsu - Kids Jiu Jitsu - Personal Training - Private Training
+          </h1>
+          <p className="mt-4 max-w-2xl text-lg md:text-xl text-white/90">
+            Katy's Premier Jiu Jitsu School
+          </p>
+          <Link href="#reviews" className="my-4">
             <div className="flex items-center gap-1 text-white">
               <Star className="h-5 w-5 fill-current text-yellow-400" />
               <Star className="h-5 w-5 fill-current text-yellow-400" />
@@ -75,13 +81,7 @@ export default function Home() {
             </div>
             <span className="sr-only">Scroll to reviews</span>
           </Link>
-          <h1 className="text-4xl md:text-7xl font-bold text-white uppercase tracking-wider">
-            Jiu Jitsu in Katy, TX
-          </h1>
-          <p className="mt-4 max-w-2xl text-lg md:text-xl text-white/90">
-            A family friendly martial arts studio promoting a positive school culture.
-          </p>
-          <Button asChild size="lg" className="mt-8 bg-accent text-accent-foreground hover:bg-accent/80 text-lg py-7 px-10 rounded-none">
+          <Button asChild size="lg" className="mt-4 bg-accent text-accent-foreground hover:bg-accent/80 text-lg py-7 px-10 rounded-none">
             <Link href="/free-trial">
               Book Your Free Trial Class
             </Link>
@@ -156,7 +156,7 @@ export default function Home() {
                 <h2 className="text-3xl md:text-4xl font-bold uppercase tracking-wide">Build Confidence with Kids Jiu Jitsu in Katy</h2>
                 <p className="mt-4 text-lg text-muted-foreground">Our kids program is designed to build character, discipline, and respect in a fun and safe environment.</p>
                 <Button asChild size="lg" variant="outline" className="mt-8 border-primary text-primary hover:bg-primary hover:text-primary-foreground rounded-none">
-                    <Link href="/programs/kids">Learn More About Our Kids Program</Link>
+                    <Link href="/programs/kids-jiu-jitsu">Learn More About Our Kids Program</Link>
                 </Button>
             </div>
         </div>

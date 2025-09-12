@@ -91,12 +91,11 @@ export type Program = {
 }
 
 export const programs: Program[] = [
-    { id: 'kids', title: 'Kids Jiu Jitsu', image: getImage('program-kids') },
-    { id: 'homeschool', title: 'Homeschool Program', image: getImage('program-homeschool') },
-    { id: 'fundamentals', title: 'Fundamentals Program', image: getImage('program-fundamentals') },
-    { id: 'adult', title: 'Adult Program', image: getImage('program-adult') },
-    { id: 'competition', title: 'Competition Training', image: getImage('program-competition') },
-    { id: 'private-lessons', title: 'Private Lessons', image: getImage('program-private') },
+    { id: 'jiu-jitsu', title: 'Jiu Jitsu', image: getImage('program-adult') },
+    { id: 'kids-jiu-jitsu', title: 'Kids Jiu Jitsu', image: getImage('program-kids') },
+    { id: 'competition-training', title: 'Competition Training', image: getImage('program-competition') },
+    { id: 'private-training', title: 'Private Training', image: getImage('program-private') },
+    { id: 'homeschool-martial-arts', title: 'Homeschool Martial Arts', image: getImage('program-homeschool') },
 ]
 
 export const scheduleFilters = ['All', 'Adults', 'Kids', 'No-Gi', 'Open Mat', 'Fundamentals', 'Competition', 'Homeschool'];
