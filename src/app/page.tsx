@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { heroCarouselContent, instructors, programs, reviews, youtubeVideos } from '@/lib/data';
+import { instructors, programs, reviews, youtubeVideos } from '@/lib/data';
 import { Star } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -14,11 +14,22 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion"
 import { faqContent } from '@/lib/data';
+import { useEffect, useState } from 'react';
+import { fetchInstagramPosts, InstagramPost } from '@/ai/flows/fetch-instagram-posts';
 
 export default function Home() {
   const generalFaqs = faqContent.find(category => category.title === 'General')?.faqs.slice(0, 5) || [];
   const kidsFaqs = faqContent.find(category => category.title === 'Kids Program')?.faqs.slice(0, 2) || [];
   const competitionFaqs = faqContent.find(category => category.title === 'Competition')?.faqs.slice(0, 2) || [];
+  const [heroContent, setHeroContent] = useState<InstagramPost[]>([]);
+
+  useEffect(() => {
+    async function getPosts() {
+      const posts = await fetchInstagramPosts();
+      setHeroContent(posts);
+    }
+    getPosts();
+  }, [])
 
   return (
     <div className="flex flex-col min-h-dvh bg-background text-foreground">
@@ -26,28 +37,27 @@ export default function Home() {
       <section className="relative w-full h-[75vh] md:h-screen flex items-center justify-center text-center bg-black">
          <Carousel className="w-full h-full" opts={{ loop: true }}>
           <CarouselContent className='m-0 h-full'>
-            {heroCarouselContent.map((item) => (
+            {heroContent.map((item) => (
               <CarouselItem key={item.id} className='p-0 relative h-full'>
-                {item.type === 'image' ? (
+                {item.media_type === 'VIDEO' ? (
+                  <video
+                    src={item.media_url}
+                    title={item.caption}
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    className="w-full h-full object-cover opacity-50"
+                  />
+                ) : (
                    <Image
-                    src={item.src}
-                    alt={item.alt}
+                    src={item.media_url}
+                    alt={item.caption || 'Instagram post'}
                     fill
                     className="object-cover opacity-50"
                     priority
-                    data-ai-hint={item.imageHint}
+                    data-ai-hint="jiu jitsu instagram"
                   />
-                ) : (
-                  <div className="w-full h-full">
-                    <iframe
-                      src={item.src}
-                      title={item.alt}
-                      frameBorder="0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                      className="w-full h-full object-cover opacity-50"
-                    ></iframe>
-                  </div>
                 )}
               </CarouselItem>
             ))}

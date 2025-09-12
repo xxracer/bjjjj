@@ -191,8 +191,12 @@ export type HeroCarouselItem = {
   imageHint?: string;
 }
 
+// INSTRUCTIONS FOR THE USER:
+// To use your local video, place it in the `public/videos/` directory.
+// For example, if your video is named `hero-video.mp4`, the `src` should be `/videos/hero-video.mp4`.
+// The Instagram images are placeholders. A developer will need to connect the `fetchInstagramPosts` flow to the Instagram API.
 export const heroCarouselContent: HeroCarouselItem[] = [
-  { id: 'hero-1', type: 'video', src: 'https://www.youtube.com/embed/dQw4w9WgXcQ', alt: 'Jiu Jitsu highlight video' },
+  { id: 'hero-1', type: 'video', src: '/videos/hero-video.mp4', alt: 'Jiu Jitsu highlight video' },
   { id: 'hero-2', type: 'image', src: 'https://picsum.photos/seed/insta1/1920/1080', alt: 'Jiu Jitsu class in session', imageHint: 'jiu jitsu class' },
   { id: 'hero-3', type: 'image', src: 'https://picsum.photos/seed/insta2/1920/1080', alt: 'Two people rolling on the mats', imageHint: 'jiu jitsu roll' }
 ]
