@@ -11,7 +11,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { Sheet, SheetContent, SheetTrigger, SheetClose } from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetTrigger, SheetClose, SheetTitle } from '@/components/ui/sheet';
 import { cn } from '@/lib/utils';
 import { Logo } from '@/components/logo';
 import { useIsMobile } from '@/hooks/use-mobile';
@@ -62,7 +62,7 @@ function DesktopNav() {
               href={content}
               className={cn(
                 'transition-colors hover:text-primary',
-                pathname === content ? 'text-primary' : 'text-foreground/60'
+                pathname === content ? 'text-primary' : 'text-foreground'
               )}
             >
               {title}
@@ -72,14 +72,14 @@ function DesktopNav() {
         return (
           <DropdownMenu key={title}>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className={cn(
+               <Button variant="ghost" className={cn(
                 'p-0 transition-colors hover:text-primary data-[state=open]:text-primary',
-                content.some(l => l.href === pathname) ? 'text-primary' : 'text-foreground/60'
+                 content.some(l => l.href === pathname) ? 'text-primary' : 'text-foreground'
               )}>
                 {title}
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="start">
+            <DropdownMenuContent align="start" className="bg-background">
               {content.map((link) => (
                 <DropdownMenuItem key={link.href} asChild>
                   <Link href={link.href} className={cn(pathname === link.href ? 'text-primary' : '')}>
@@ -109,6 +109,7 @@ function MobileNav() {
           </Button>
         </SheetTrigger>
         <SheetContent side="left" className="w-full max-w-sm bg-background p-0">
+          <SheetTitle className="sr-only">Menu</SheetTitle>
           <div className="flex h-full flex-col">
             <div className="flex items-center justify-between border-b p-4 h-20">
               <Logo />
@@ -188,5 +189,3 @@ export function Header() {
     </header>
   );
 }
-
-    
