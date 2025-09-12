@@ -182,3 +182,17 @@ export const youtubeVideos: YouTubeVideo[] = [
   { id: 'yt-3', title: 'How to Tie Your Jiu Jitsu Belt', thumbnailUrl: 'https://picsum.photos/seed/yt3/1280/720', url: 'https://youtube.com' },
   { id: 'yt-4', title: 'Reign Competition Team Highlights', thumbnailUrl: 'https://picsum.photos/seed/yt4/1280/720', url: 'https://youtube.com' },
 ]
+
+export type HeroCarouselItem = {
+  id: string;
+  type: 'video' | 'image';
+  src: string;
+  alt: string;
+  imageHint?: string;
+}
+
+export const heroCarouselContent: HeroCarouselItem[] = [
+  { id: 'hero-1', type: 'video', src: 'https://www.youtube.com/embed/dQw4w9WgXcQ', alt: 'Jiu Jitsu highlight video' },
+  { id: 'hero-2', type: 'image', src: 'https://picsum.photos/seed/insta1/1920/1080', alt: 'Jiu Jitsu class in session', imageHint: 'jiu jitsu class' },
+  { id: 'hero-3', type: 'image', src: 'https://picsum.photos/seed/insta2/1920/1080', alt: 'Two people rolling on the mats', imageHint: 'jiu jitsu roll' }
+]

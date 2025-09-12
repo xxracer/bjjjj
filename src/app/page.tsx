@@ -1,13 +1,12 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { instructors, programs, reviews, youtubeVideos } from '@/lib/data';
+import { heroCarouselContent, instructors, programs, reviews, youtubeVideos } from '@/lib/data';
 import { Star } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Card, CardContent } from '@/components/ui/card';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
-import { Badge } from '@/components/ui/badge';
 import {
   Accordion,
   AccordionContent,
@@ -27,29 +26,42 @@ export default function Home() {
       <section className="relative w-full h-[75vh] md:h-screen flex items-center justify-center text-center bg-black">
          <Carousel className="w-full h-full" opts={{ loop: true }}>
           <CarouselContent className='m-0 h-full'>
-            {youtubeVideos.slice(0, 3).map((video) => (
-              <CarouselItem key={video.id} className='p-0 relative h-full'>
-                <Image
-                  src={video.thumbnailUrl}
-                  alt={video.title}
-                  fill
-                  className="object-cover opacity-50"
-                  priority
-                  data-ai-hint="jiu jitsu video"
-                />
+            {heroCarouselContent.map((item) => (
+              <CarouselItem key={item.id} className='p-0 relative h-full'>
+                {item.type === 'image' ? (
+                   <Image
+                    src={item.src}
+                    alt={item.alt}
+                    fill
+                    className="object-cover opacity-50"
+                    priority
+                    data-ai-hint={item.imageHint}
+                  />
+                ) : (
+                  <div className="w-full h-full">
+                    <iframe
+                      src={item.src}
+                      title={item.alt}
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      className="w-full h-full object-cover opacity-50"
+                    ></iframe>
+                  </div>
+                )}
               </CarouselItem>
             ))}
           </CarouselContent>
         </Carousel>
 
-        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center p-8">
+        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center p-8 bg-black/40">
           <Link href="#reviews" className="mb-4">
             <div className="flex items-center gap-1 text-white">
-              <Star className="h-5 w-5 fill-current" />
-              <Star className="h-5 w-5 fill-current" />
-              <Star className="h-5 w-5 fill-current" />
-              <Star className="h-5 w-5 fill-current" />
-              <Star className="h-5 w-5 fill-current" />
+              <Star className="h-5 w-5 fill-current text-yellow-400" />
+              <Star className="h-5 w-5 fill-current text-yellow-400" />
+              <Star className="h-5 w-5 fill-current text-yellow-400" />
+              <Star className="h-5 w-5 fill-current text-yellow-400" />
+              <Star className="h-5 w-5 fill-current text-yellow-400" />
             </div>
             <span className="sr-only">Scroll to reviews</span>
           </Link>
@@ -59,7 +71,7 @@ export default function Home() {
           <p className="mt-4 max-w-2xl text-lg md:text-xl text-white/90">
             A family friendly martial arts studio promoting a positive school culture.
           </p>
-          <Button asChild size="lg" className="mt-8 bg-accent text-accent-foreground hover:bg-accent/80 text-lg py-7 px-10">
+          <Button asChild size="lg" className="mt-8 bg-accent text-accent-foreground hover:bg-accent/80 text-lg py-7 px-10 rounded-none">
             <Link href="/free-trial">
               Book Your Free Trial Class
             </Link>
@@ -81,18 +93,18 @@ export default function Home() {
               {programs.map((program) => (
                 <CarouselItem key={program.id} className="md:basis-1/2 lg:basis-1/3">
                   <Link href={`/programs/${program.id}`} className="group block h-full">
-                    <Card className="h-full flex flex-col border-none shadow-none">
-                      <CardContent className="p-0 relative aspect-video">
+                    <Card className="h-full flex flex-col border-none shadow-none bg-transparent rounded-none">
+                      <CardContent className="p-0 relative aspect-[4/3] overflow-hidden">
                         {program.image && (
                            <Image
                             src={program.image.imageUrl}
                             alt={program.title}
                             fill
-                            className="object-cover"
+                            className="object-cover group-hover:scale-105 transition-transform duration-300"
                             data-ai-hint={program.image.imageHint}
                           />
                         )}
-                         <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors" />
+                         <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors" />
                          <div className="absolute bottom-4 left-4">
                            <h3 className="text-2xl font-bold text-white uppercase">{program.title}</h3>
                          </div>
@@ -102,8 +114,8 @@ export default function Home() {
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2" />
-            <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2" />
+            <CarouselPrevious className="absolute left-[-20px] top-1/2 -translate-y-1/2 hidden md:inline-flex" />
+            <CarouselNext className="absolute right-[-20px] top-1/2 -translate-y-1/2 hidden md:inline-flex" />
           </Carousel>
         </div>
       </section>
@@ -121,7 +133,7 @@ export default function Home() {
       {/* Kids Highlight Section */}
       <section className="w-full bg-secondary">
         <div className="container mx-auto grid md:grid-cols-2 items-center">
-            <div className="relative aspect-square md:aspect-auto md:h-full">
+            <div className="relative aspect-square md:aspect-auto md:h-full min-h-[400px]">
                  <Image 
                     src="https://picsum.photos/seed/kids1/800/800"
                     alt="Kids learning Jiu Jitsu"
@@ -133,7 +145,7 @@ export default function Home() {
             <div className="p-12 md:p-16 text-center md:text-left">
                 <h2 className="text-3xl md:text-4xl font-bold uppercase tracking-wide">Build Confidence with Kids Jiu Jitsu in Katy</h2>
                 <p className="mt-4 text-lg text-muted-foreground">Our kids program is designed to build character, discipline, and respect in a fun and safe environment.</p>
-                <Button asChild size="lg" variant="outline" className="mt-8 border-primary text-primary hover:bg-primary hover:text-primary-foreground">
+                <Button asChild size="lg" variant="outline" className="mt-8 border-primary text-primary hover:bg-primary hover:text-primary-foreground rounded-none">
                     <Link href="/programs/kids">Learn More About Our Kids Program</Link>
                 </Button>
             </div>
@@ -148,22 +160,21 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {instructors.map((instructor) => (
-              <div key={instructor.id} className="text-center">
+              <Link key={instructor.id} href={`/instructors/${instructor.id}`} className="group block text-center">
                 {instructor.image && (
-                  <div className="relative w-48 h-48 mx-auto">
+                  <div className="relative w-full aspect-square mx-auto overflow-hidden">
                     <Image
                       src={instructor.image.imageUrl}
                       alt={`Portrait of ${instructor.name}`}
                       fill
-                      className="object-cover"
+                      className="object-cover group-hover:scale-105 transition-transform duration-300"
                       data-ai-hint={instructor.image.imageHint}
                     />
                   </div>
                 )}
-                <h3 className="text-xl font-bold mt-4">{instructor.name}</h3>
-                <p className="text-muted-foreground">{instructor.beltRank}</p>
-                <p className="text-sm mt-2 line-clamp-3">{instructor.bio}</p>
-              </div>
+                <h3 className="text-2xl font-bold mt-6">{instructor.name}</h3>
+                <p className="text-primary font-semibold mt-1">{instructor.beltRank}</p>
+              </Link>
             ))}
           </div>
         </div>
@@ -201,8 +212,8 @@ export default function Home() {
                              <Image src="https://picsum.photos/seed/fac3/800/600" alt="Gym equipment" width={800} height={600} className="w-full" data-ai-hint="gym equipment" />
                         </CarouselItem>
                     </CarouselContent>
-                    <CarouselPrevious className="absolute left-4" />
-                    <CarouselNext className="absolute right-4" />
+                    <CarouselPrevious className="absolute left-[-20px] hidden md:inline-flex" />
+                    <CarouselNext className="absolute right-[-20px] hidden md:inline-flex" />
                 </Carousel>
              </div>
         </div>
@@ -212,12 +223,12 @@ export default function Home() {
         <section className="w-full py-16 md:py-24 bg-secondary">
             <div className="container mx-auto text-center">
                 <h3 className="text-sm uppercase tracking-widest text-muted-foreground">Proudly Sponsored By</h3>
-                <div className="mt-4">
+                <div className="mt-8 flex justify-center">
                    <a href="https://rekt.com" target="_blank" rel="noopener noreferrer" className="inline-block">
                         <Image src="https://picsum.photos/seed/rekt/200/100" alt="REKT logo" width={200} height={100} data-ai-hint="company logo" />
                     </a>
                 </div>
-                <p className="mt-4 max-w-2xl mx-auto text-muted-foreground">Reign Jiu Jitsu is proud to be sponsored by REKT. Together we support Jiu Jitsu athletes and the Katy martial arts community.</p>
+                <p className="mt-8 max-w-2xl mx-auto text-muted-foreground">Reign Jiu Jitsu is proud to be sponsored by REKT. Together we support Jiu Jitsu athletes and the Katy martial arts community.</p>
             </div>
         </section>
 
@@ -232,14 +243,14 @@ export default function Home() {
               {reviews.map((review, index) => (
                 <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
                   <div className="p-4 h-full">
-                    <Card className="h-full flex flex-col justify-center items-center text-center p-6 bg-background">
-                       <div className="flex items-center gap-1 mb-4 text-accent">
+                    <Card className="h-full flex flex-col justify-center items-center text-center p-8 bg-background rounded-none border">
+                       <div className="flex items-center gap-1 mb-4 text-yellow-400">
                           {[...Array(5)].map((_, i) => (
                             <Star key={i} className="h-5 w-5 fill-current" />
                           ))}
                         </div>
-                      <p className="text-muted-foreground">&quot;{review.comment}&quot;</p>
-                      <p className="mt-4 font-bold uppercase">- {review.name}</p>
+                      <p className="text-muted-foreground italic">&quot;{review.comment}&quot;</p>
+                      <p className="mt-6 font-bold uppercase text-sm tracking-wider">- {review.name}</p>
                     </Card>
                   </div>
                 </CarouselItem>
@@ -262,15 +273,19 @@ export default function Home() {
                         {youtubeVideos.map((video) => (
                             <CarouselItem key={video.id} className="md:basis-1/2 lg:basis-1/3">
                                 <a href={video.url} target="_blank" rel="noopener noreferrer" className="block group p-4">
-                                    <div className="relative aspect-video">
+                                    <div className="relative aspect-video overflow-hidden">
                                         <Image
                                             src={video.thumbnailUrl}
                                             alt={video.title}
                                             fill
-                                            className="object-cover"
+                                            className="object-cover group-hover:scale-105 transition-transform duration-300"
                                             data-ai-hint="jiu jitsu video"
                                         />
-                                        <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors" />
+                                        <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors flex items-center justify-center">
+                                           <svg className="h-16 w-16 text-white/70 group-hover:text-white transition-colors" viewBox="0 0 24 24" fill="currentColor">
+                                                <path d="M8 5v14l11-7z" />
+                                            </svg>
+                                        </div>
                                     </div>
                                     <h3 className="mt-4 font-bold group-hover:text-accent transition-colors">{video.title}</h3>
                                 </a>
@@ -291,32 +306,12 @@ export default function Home() {
             <h2 className="text-3xl md:text-4xl font-bold uppercase tracking-wide">Frequently Asked Questions</h2>
           </div>
           <Accordion type="single" collapsible className="w-full">
-            {generalFaqs.map((faq, index) => (
-              <AccordionItem key={`gen-${index}`} value={`gen-${index}`}>
-                <AccordionTrigger className="text-lg font-bold text-left hover:no-underline py-4">
+            {[...generalFaqs, ...kidsFaqs, ...competitionFaqs].map((faq, index) => (
+              <AccordionItem key={index} value={`item-${index}`} className="border-b-2">
+                <AccordionTrigger className="text-xl font-semibold text-left hover:no-underline py-6">
                   {faq.question}
                 </AccordionTrigger>
-                <AccordionContent className="text-base text-muted-foreground pt-0 pb-4">
-                  {faq.answer}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-             {kidsFaqs.map((faq, index) => (
-              <AccordionItem key={`kids-${index}`} value={`kids-${index}`}>
-                <AccordionTrigger className="text-lg font-bold text-left hover:no-underline py-4">
-                  {faq.question}
-                </AccordionTrigger>
-                <AccordionContent className="text-base text-muted-foreground pt-0 pb-4">
-                  {faq.answer}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-             {competitionFaqs.map((faq, index) => (
-              <AccordionItem key={`comp-${index}`} value={`comp-${index}`}>
-                <AccordionTrigger className="text-lg font-bold text-left hover:no-underline py-4">
-                  {faq.question}
-                </AccordionTrigger>
-                <AccordionContent className="text-base text-muted-foreground pt-0 pb-4">
+                <AccordionContent className="text-base text-muted-foreground pt-0 pb-6">
                   {faq.answer}
                 </AccordionContent>
               </AccordionItem>
@@ -329,7 +324,7 @@ export default function Home() {
         <section className="w-full py-20 md:py-24 bg-primary">
             <div className="container mx-auto text-center">
                 <h2 className="text-3xl md:text-5xl font-bold uppercase tracking-wide text-primary-foreground">Try Your First Class Free at Reign Jiu Jitsu in Katy, TX</h2>
-                 <Button asChild size="lg" className="mt-8 bg-accent text-accent-foreground hover:bg-accent/80 text-lg py-7 px-10">
+                 <Button asChild size="lg" className="mt-8 bg-accent text-accent-foreground hover:bg-accent/80 text-lg py-7 px-10 rounded-none">
                     <Link href="/free-trial">
                     Book Your Free Trial Class
                     </Link>
