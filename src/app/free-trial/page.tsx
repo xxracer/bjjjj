@@ -51,8 +51,13 @@ export default function FreeTrialPage() {
               <Label htmlFor="message">Message (Optional)</Label>
               <Textarea id="message" placeholder="Tell us about your goals or ask any questions." />
             </div>
-            <Button type="submit" className="w-full bg-accent text-accent-foreground hover:bg-accent/80 text-lg py-6">
-              Claim My Free Class
+            <Button type="submit" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground rounded-none text-lg py-4 px-6 h-auto">
+              <div className="flex flex-col items-center justify-center text-center w-full">
+                <div className="w-full border-t border-primary-foreground"></div>
+                <span className="text-sm font-medium tracking-widest my-2">SIGN UP FOR YOUR</span>
+                <span className="text-3xl font-bold text-accent">FREE CLASS TODAY</span>
+                <div className="w-full border-b border-primary-foreground mt-2"></div>
+              </div>
             </Button>
           </form>
         </div>

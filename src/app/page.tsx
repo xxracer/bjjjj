@@ -81,9 +81,14 @@ export default function Home() {
             </div>
             <span className="sr-only">Scroll to reviews</span>
           </Link>
-          <Button asChild size="lg" className="mt-4 bg-accent text-accent-foreground hover:bg-accent/80 text-lg py-7 px-10 rounded-none">
+          <Button asChild className="mt-4 bg-primary hover:bg-primary/90 text-primary-foreground rounded-none text-lg py-4 px-6 h-auto">
             <Link href="/free-trial">
-              Book Your Free Trial Class
+              <div className="flex flex-col items-center justify-center text-center">
+                <div className="w-full border-t border-primary-foreground"></div>
+                <span className="text-sm font-medium tracking-widest my-2">SIGN UP FOR YOUR</span>
+                <span className="text-3xl font-bold text-accent">FREE CLASS TODAY</span>
+                <div className="w-full border-b border-primary-foreground mt-2"></div>
+              </div>
             </Link>
           </Button>
         </div>
@@ -334,9 +339,14 @@ export default function Home() {
         <section className="w-full py-20 md:py-24 bg-primary">
             <div className="container mx-auto text-center">
                 <h2 className="text-3xl md:text-5xl font-bold uppercase tracking-wide text-primary-foreground">Try Your First Class Free at Reign Jiu Jitsu in Katy, TX</h2>
-                 <Button asChild size="lg" className="mt-8 bg-accent text-accent-foreground hover:bg-accent/80 text-lg py-7 px-10 rounded-none">
+                 <Button asChild size="lg" className="mt-8 bg-primary hover:bg-primary/90 text-primary-foreground rounded-none text-lg py-4 px-6 h-auto">
                     <Link href="/free-trial">
-                    Book Your Free Trial Class
+                      <div className="flex flex-col items-center justify-center text-center">
+                        <div className="w-full border-t border-primary-foreground"></div>
+                        <span className="text-sm font-medium tracking-widest my-2">SIGN UP FOR YOUR</span>
+                        <span className="text-3xl font-bold text-accent">FREE CLASS TODAY</span>
+                        <div className="w-full border-b border-primary-foreground mt-2"></div>
+                      </div>
                     </Link>
                 </Button>
             </div>
