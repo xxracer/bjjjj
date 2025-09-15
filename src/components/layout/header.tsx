@@ -107,12 +107,8 @@ export function Header() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const desktopNavLinks = navLinks.filter(l => l.href !== '/free-trial');
-  const leftLinks = desktopNavLinks.slice(0, 3);
-  const rightLinks = desktopNavLinks.slice(3);
-
   const NavLinks = ({ className, isMobile = false }: { className?: string, isMobile?: boolean }) => (
-    <nav className={cn('flex items-center gap-6', className)}>
+    <nav className={cn('items-center gap-6', className, isMobile ? 'flex flex-col items-start' : 'hidden md:flex')}>
       {navLinks.map((link) => (
          <NavLink key={link.href} {...link} pathname={pathname} isMobile={isMobile} />
       ))}
@@ -129,16 +125,12 @@ export function Header() {
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
           
-          <div className="hidden md:flex items-center justify-start flex-1 gap-6">
-            {leftLinks.map((link) => <NavLink key={link.href} {...link} pathname={pathname} />)}
+          <div className="flex items-center gap-6">
+            <Logo />
+            <NavLinks />
           </div>
 
-          <div className="flex justify-center flex-shrink-0">
-             <Logo />
-          </div>
-
-          <div className="hidden md:flex items-center justify-end flex-1 gap-6">
-             {rightLinks.map((link) => <NavLink key={link.href} {...link} pathname={pathname} />)}
+          <div className="hidden md:flex items-center justify-end gap-4">
              <Button asChild variant="outline" size="sm">
                <Link href="/free-trial">Book Trial</Link>
              </Button>
@@ -159,7 +151,7 @@ export function Header() {
                     <Logo />
                   </SheetClose>
                 </div>
-                <NavLinks className="flex-col items-start gap-4" isMobile />
+                <NavLinks isMobile />
                 <Button asChild className="mt-8 w-full">
                   <SheetClose asChild>
                     <Link href="/free-trial">Book Free Trial</Link>
