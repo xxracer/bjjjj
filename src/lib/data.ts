@@ -3,14 +3,39 @@ import { PlaceHolderImages } from './placeholder-images';
 
 const getImage = (id: string): ImagePlaceholder | undefined => PlaceHolderImages.find(img => img.id === id);
 
-export const navLinks = [
+export type NavItem = {
+  href: string;
+  label: string;
+  submenu?: NavItem[];
+};
+
+export const navLinks: NavItem[] = [
   { href: '/', label: 'Home' },
-  { href: '/about', label: 'About' },
-  { href: '/programs', label: 'Programs' },
+  { 
+    href: '/programs', 
+    label: 'Programs',
+    submenu: [
+      { href: '/programs/jiu-jitsu', label: 'Jiu-Jitsu' },
+      { href: '/programs/kids-jiu-jitsu', label: 'Kids Jiu-Jitsu' },
+      { href: '/programs/competition-training', label: 'Competition Training' },
+      { href: '/programs/private-training', label: 'Private Training' },
+      { href: '/programs/homeschool-martial-arts', label: 'Homeschool Program' },
+      { href: '/sponsorship', label: 'Sponsorship' },
+    ]
+  },
+  { href: '/faq', label: 'FAQ' },
   { href: '/instructors', label: 'Instructors' },
   { href: '/schedule', label: 'Schedule' },
-  { href: '/blog', label: 'Blog' },
-  { href: '/contact', label: 'Contact' },
+  { href: '/free-trial', label: 'Free Trial Class' },
+  {
+    href: '#',
+    label: 'More',
+    submenu: [
+      { href: '/affiliate-schools', label: 'Affiliate Schools' },
+      { href: '/blog', label: 'Blog' },
+      { href: '/contact', label: 'Contact Us' },
+    ]
+  }
 ];
 
 export type Instructor = {

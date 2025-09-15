@@ -4,7 +4,8 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Logo } from '@/components/logo';
-import { programs, navLinks } from '@/lib/data';
+import { navLinks } from '@/lib/data';
+import type { NavItem } from '@/lib/data';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from '@/components/ui/sheet';
@@ -15,10 +16,46 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
 
 
-const NavLink = ({ href, label, pathname, isMobile }: { href: string, label: string, pathname: string, isMobile?: boolean }) => {
-  if (label === 'Programs') {
+const NavLink = ({ href, label, pathname, submenu, isMobile }: { href: string, label: string, pathname: string, submenu?: NavItem[], isMobile?: boolean }) => {
+  if (submenu) {
+    if (isMobile) {
+      return (
+        <Accordion type="single" collapsible className="w-full">
+          <AccordionItem value={label} className="border-b-0">
+            <AccordionTrigger className="text-sm font-medium uppercase tracking-wider text-muted-foreground hover:text-foreground py-0 hover:no-underline">
+              {label}
+            </AccordionTrigger>
+            <AccordionContent className="pt-2 pb-0 pl-4">
+              <ul className="space-y-2">
+                {submenu.map(item => (
+                  <li key={item.href}>
+                    <SheetClose asChild>
+                      <Link href={item.href} className={cn(
+                        'text-sm font-medium uppercase tracking-wider transition-colors',
+                        pathname === item.href
+                          ? 'text-primary'
+                          : 'text-muted-foreground hover:text-foreground'
+                      )}>
+                        {item.label}
+                      </Link>
+                    </SheetClose>
+                  </li>
+                ))}
+              </ul>
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
+      )
+    }
+
     return (
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
@@ -28,14 +65,11 @@ const NavLink = ({ href, label, pathname, isMobile }: { href: string, label: str
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
-          {programs.map((program) => {
-             const Comp = isMobile ? SheetClose : 'div';
+          {submenu.map((item) => {
              return (
-              <Comp key={program.id}>
-                <DropdownMenuItem asChild>
-                  <Link href={`/programs/${program.id}`}>{program.title}</Link>
-                </DropdownMenuItem>
-             </Comp>
+              <DropdownMenuItem key={item.href} asChild>
+                <Link href={item.href}>{item.label}</Link>
+              </DropdownMenuItem>
              )
           })}
         </DropdownMenuContent>
@@ -119,7 +153,9 @@ export function Header() {
               </SheetTrigger>
               <SheetContent side="left" className="w-full max-w-xs p-6">
                 <div className='mb-8'>
-                  <Logo />
+                  <SheetClose asChild>
+                    <Logo />
+                  </SheetClose>
                 </div>
                 <NavLinks className="flex-col items-start gap-4" isMobile />
                 <Button asChild className="mt-8 w-full">
