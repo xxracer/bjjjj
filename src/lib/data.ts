@@ -3,6 +3,15 @@ import { PlaceHolderImages } from './placeholder-images';
 
 const getImage = (id: string): ImagePlaceholder | undefined => PlaceHolderImages.find(img => img.id === id);
 
+export const navLinks = [
+  { href: '/about', label: 'About' },
+  { href: '/programs', label: 'Programs' },
+  { href: '/instructors', label: 'Instructors' },
+  { href: '/schedule', label: 'Schedule' },
+  { href: '/blog', label: 'Blog' },
+  { href: '/contact', label: 'Contact' },
+];
+
 export type Instructor = {
   id: string;
   name: string;
