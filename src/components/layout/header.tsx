@@ -107,6 +107,10 @@ export function Header() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const desktopNavLinks = navLinks.filter(l => l.href !== '/free-trial');
+  const leftLinks = desktopNavLinks.slice(0, 3);
+  const rightLinks = desktopNavLinks.slice(3);
+
   const NavLinks = ({ className, isMobile = false }: { className?: string, isMobile?: boolean }) => (
     <nav className={cn('flex items-center gap-6', className)}>
       {navLinks.map((link) => (
@@ -125,21 +129,19 @@ export function Header() {
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
           
-          {/* Desktop Left Nav */}
-          <div className="hidden md:flex">
-             <NavLinks />
+          <div className="hidden md:flex items-center justify-start flex-1 gap-6">
+            {leftLinks.map((link) => <NavLink key={link.href} {...link} pathname={pathname} />)}
           </div>
 
-          {/* Center Logo */}
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-            <Logo />
+          <div className="flex justify-center flex-shrink-0">
+             <Logo />
           </div>
 
-          {/* Desktop Right Action */}
-          <div className="hidden md:flex">
-            <Button asChild variant="outline" size="sm">
-              <Link href="/free-trial">Book Trial</Link>
-            </Button>
+          <div className="hidden md:flex items-center justify-end flex-1 gap-6">
+             {rightLinks.map((link) => <NavLink key={link.href} {...link} pathname={pathname} />)}
+             <Button asChild variant="outline" size="sm">
+               <Link href="/free-trial">Book Trial</Link>
+             </Button>
           </div>
 
           {/* Mobile Menu */}
@@ -166,9 +168,6 @@ export function Header() {
               </SheetContent>
             </Sheet>
           </div>
-           <div className="md:hidden flex-1 flex justify-end">
-            {/* This is a spacer on mobile to allow the logo to be centered */}
-           </div>
         </div>
       </div>
     </header>
