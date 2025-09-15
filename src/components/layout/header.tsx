@@ -30,18 +30,18 @@ const NavLink = ({ href, label, pathname, submenu, isMobile }: { href: string, l
       return (
         <Accordion type="single" collapsible className="w-full">
           <AccordionItem value={label} className="border-b-0">
-            <AccordionTrigger className="text-sm font-medium uppercase tracking-wider text-muted-foreground hover:text-foreground py-0 hover:no-underline">
+            <AccordionTrigger className="text-lg font-medium uppercase tracking-wider text-muted-foreground hover:text-foreground py-0 hover:no-underline">
               {label}
             </AccordionTrigger>
             <AccordionContent className="pt-2 pb-0 pl-4">
-              <ul className="space-y-2">
+              <ul className="space-y-4">
                 {submenu.map(item => (
                   <li key={item.href}>
                     <SheetClose asChild>
                       <Link href={item.href} className={cn(
-                        'text-sm font-medium uppercase tracking-wider transition-colors',
+                        'text-lg font-medium uppercase tracking-wider transition-colors',
                         pathname === item.href
-                          ? 'text-primary'
+                          ? 'text-foreground'
                           : 'text-muted-foreground hover:text-foreground'
                       )}>
                         {item.label}
@@ -85,7 +85,7 @@ const NavLink = ({ href, label, pathname, submenu, isMobile }: { href: string, l
         className={cn(
           'text-sm font-medium uppercase tracking-wider transition-colors',
           pathname === href
-            ? 'text-primary'
+            ? 'text-foreground font-bold'
             : 'text-muted-foreground hover:text-foreground'
         )}
       >
@@ -108,7 +108,7 @@ export function Header() {
   }, []);
 
   const NavLinks = ({ className, isMobile = false }: { className?: string, isMobile?: boolean }) => (
-    <nav className={cn('items-center gap-6', className, isMobile ? 'flex flex-col items-start' : 'hidden md:flex')}>
+    <nav className={cn('items-center gap-6', className, isMobile ? 'flex flex-col items-start space-y-4' : 'hidden md:flex')}>
       {navLinks.map((link) => (
          <NavLink key={link.href} {...link} pathname={pathname} isMobile={isMobile} />
       ))}
@@ -126,11 +126,16 @@ export function Header() {
         <div className="flex h-16 items-center justify-between">
           
           <div className="flex items-center gap-6">
-            <Logo />
-            <NavLinks />
+            <Link href="/" className="md:hidden">
+                <Logo />
+            </Link>
+            <div className="hidden md:flex items-center gap-6">
+                 <Logo />
+                <NavLinks />
+            </div>
           </div>
 
-          <div className="hidden md:flex items-center justify-end gap-4">
+           <div className="hidden md:flex items-center justify-end gap-4">
              <Button asChild variant="outline" size="sm">
                <Link href="/free-trial">Book Trial</Link>
              </Button>
@@ -148,7 +153,9 @@ export function Header() {
               <SheetContent side="left" className="w-full max-w-xs p-6">
                 <div className='mb-8'>
                   <SheetClose asChild>
-                    <Logo />
+                    <Link href="/">
+                      <Logo />
+                    </Link>
                   </SheetClose>
                 </div>
                 <NavLinks isMobile />
