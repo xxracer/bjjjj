@@ -4,11 +4,62 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Logo } from '@/components/logo';
-import { navLinks } from '@/lib/data';
+import { programs, navLinks } from '@/lib/data';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from '@/components/ui/sheet';
-import { Menu } from 'lucide-react';
+import { Menu, ChevronDown } from 'lucide-react';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+
+
+const NavLink = ({ href, label, pathname, isMobile }: { href: string, label: string, pathname: string, isMobile?: boolean }) => {
+  if (label === 'Programs') {
+    return (
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="ghost" className="text-sm font-medium uppercase tracking-wider text-muted-foreground hover:text-foreground hover:bg-transparent p-0">
+            {label}
+            <ChevronDown className="ml-1 h-4 w-4" />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent>
+          {programs.map((program) => {
+             const Comp = isMobile ? SheetClose : 'div';
+             return (
+              <Comp key={program.id}>
+                <DropdownMenuItem asChild>
+                  <Link href={`/programs/${program.id}`}>{program.title}</Link>
+                </DropdownMenuItem>
+             </Comp>
+             )
+          })}
+        </DropdownMenuContent>
+      </DropdownMenu>
+    );
+  }
+
+  const Comp = isMobile ? SheetClose : 'div';
+  return (
+    <Comp>
+      <Link
+        href={href}
+        className={cn(
+          'text-sm font-medium uppercase tracking-wider transition-colors',
+          pathname === href
+            ? 'text-primary'
+            : 'text-muted-foreground hover:text-foreground'
+        )}
+      >
+        {label}
+      </Link>
+    </Comp>
+  );
+};
 
 export function Header() {
   const pathname = usePathname();
@@ -24,24 +75,9 @@ export function Header() {
 
   const NavLinks = ({ className, isMobile = false }: { className?: string, isMobile?: boolean }) => (
     <nav className={cn('flex items-center gap-6', className)}>
-      {navLinks.map((link) => {
-        const Comp = isMobile ? SheetClose : 'div';
-        return (
-          <Comp key={link.href} asChild>
-            <Link
-              href={link.href}
-              className={cn(
-                'text-sm font-medium uppercase tracking-wider transition-colors',
-                pathname === link.href
-                  ? 'text-primary'
-                  : 'text-muted-foreground hover:text-foreground'
-              )}
-            >
-              {link.label}
-            </Link>
-          </Comp>
-        );
-      })}
+      {navLinks.map((link) => (
+         <NavLink key={link.href} {...link} pathname={pathname} isMobile={isMobile} />
+      ))}
     </nav>
   );
 
@@ -87,7 +123,9 @@ export function Header() {
                 </div>
                 <NavLinks className="flex-col items-start gap-4" isMobile />
                 <Button asChild className="mt-8 w-full">
-                  <Link href="/free-trial">Book Free Trial</Link>
+                  <SheetClose asChild>
+                    <Link href="/free-trial">Book Free Trial</Link>
+                  </SheetClose>
                 </Button>
               </SheetContent>
             </Sheet>
