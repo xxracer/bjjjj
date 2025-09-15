@@ -141,19 +141,6 @@ export function HomePageClient() {
         </div>
       </section>
 
-      {/* Schedule Section */}
-      <section className="w-full py-16 md:py-24 bg-background">
-          <div className="container mx-auto text-center max-w-4xl">
-              <h2 className="text-3xl md:text-4xl font-bold uppercase tracking-wide">Weekly Schedule</h2>
-              <p className="mt-4 text-lg text-muted-foreground">Find a time that works for you. We offer classes all week for all skill levels.</p>
-               <div className="mt-8">
-                 <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none text-lg py-6 px-8">
-                    <Link href="/schedule">View Full Schedule</Link>
-                </Button>
-               </div>
-          </div>
-      </section>
-
       {/* Instagram Section */}
       <section className="w-full py-16 md:py-24 bg-card">
         <div className="container mx-auto">
