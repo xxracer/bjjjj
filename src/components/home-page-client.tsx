@@ -2,194 +2,94 @@
 
 import { Button } from '@/components/ui/button';
 import { instructors, programs, reviews, youtubeVideos } from '@/lib/data';
-import { Star } from 'lucide-react';
+import { ArrowRight, Star } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Card, CardContent } from '@/components/ui/card';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion"
-import { faqContent } from '@/lib/data';
-import { useEffect, useState } from 'react';
-import { fetchInstagramPosts, InstagramPost } from '@/ai/flows/fetch-instagram-posts';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
 
 export function HomePageClient() {
-  const generalFaqs = faqContent.find(category => category.title === 'General')?.faqs.slice(0, 5) || [];
-  const kidsFaqs = faqContent.find(category => category.title === 'Kids Program')?.faqs.slice(0, 2) || [];
-  const competitionFaqs = faqContent.find(category => category.title === 'Competition')?.faqs.slice(0, 2) || [];
-  const [heroContent, setHeroContent] = useState<InstagramPost[]>([]);
-
-  useEffect(() => {
-    async function getPosts() {
-      const posts = await fetchInstagramPosts();
-      setHeroContent(posts);
-    }
-    getPosts();
-  }, [])
-
   return (
     <div className="flex flex-col min-h-dvh bg-background text-foreground">
       {/* Hero Section */}
-      <section id="hero" className="relative w-full h-[75vh] md:h-screen flex items-center justify-center text-center">
-         <Carousel className="w-full h-full" opts={{ loop: true }}>
-          <CarouselContent className='m-0 h-full'>
-            {heroContent.map((item) => (
-              <CarouselItem key={item.id} className='p-0 relative h-full'>
-                {item.media_type === 'VIDEO' ? (
-                  <video
-                    src={item.media_url}
-                    title={item.caption}
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    className="w-full h-full object-cover"
-                  />
-                ) : (
-                   <Image
-                    src={item.media_url}
-                    alt={item.caption || 'Instagram post'}
-                    fill
-                    className="object-cover"
-                    priority
-                    data-ai-hint="jiu jitsu instagram"
-                  />
-                )}
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-        </Carousel>
-
-        <div className="absolute inset-0 z-10 bg-black/50" />
-
-        <div className="absolute inset-0 z-20 flex items-center justify-center p-8">
-            {/* Program Links on the left */}
-            <div className="absolute left-8 top-1/2 -translate-y-1/2 flex flex-col items-start gap-4">
-                {programs.map((program) => (
-                    <Link key={program.id} href={`/programs/${program.id}`}
-                        className="text-white text-lg font-semibold hover:text-accent transition-colors uppercase tracking-wider"
-                    >
-                        {program.title}
-                    </Link>
-                ))}
-            </div>
-
-            {/* Centered Content */}
-            <div className="flex flex-col items-center justify-center text-center text-white">
-                <h1 className="max-w-4xl text-2xl md:text-4xl text-white/90 uppercase tracking-wider">
-                    Jiu Jitsu - Kids Jiu Jitsu - Personal Training - Private Training
-                </h1>
-                <p className="text-5xl md:text-7xl lg:text-8xl font-bold uppercase tracking-wider mt-2">
-                    Katy's Premier Jiu Jitsu School
-                </p>
-                <Link href="#reviews" className="my-4">
-                    <div className="flex items-center gap-1 text-white">
-                        <Star className="h-5 w-5 fill-current text-yellow-400" />
-                        <Star className="h-5 w-5 fill-current text-yellow-400" />
-                        <Star className="h-5 w-5 fill-current text-yellow-400" />
-                        <Star className="h-5 w-5 fill-current text-yellow-400" />
-                        <Star className="h-5 w-5 fill-current text-yellow-400" />
-                    </div>
-                    <span className="sr-only">Scroll to reviews</span>
-                </Link>
-                <Button asChild className="mt-4 bg-primary hover:bg-primary/90 text-primary-foreground rounded-none text-lg py-4 px-6 h-auto">
-                    <Link href="/free-trial">
-                        <div className="flex flex-col items-center justify-center text-center w-full">
-                            <div className="w-full border-t border-primary-foreground"></div>
-                            <span className="text-sm font-medium tracking-widest my-2">SIGN UP FOR YOUR</span>
-                            <span className="text-3xl font-bold text-accent">FREE CLASS TODAY</span>
-                            <div className="w-full border-b border-primary-foreground mt-2"></div>
-                        </div>
-                    </Link>
-                </Button>
-            </div>
-        </div>
-
-      </section>
-
-      {/* Programs Carousel */}
-      <section className="w-full py-16 md:py-24 bg-card">
-        <div className="container mx-auto">
-           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold uppercase tracking-wide">Explore Our Programs</h2>
-            <p className="mt-4 max-w-2xl mx-auto text-muted-foreground">A path for everyone, from beginners to world champions.</p>
-          </div>
-          <Carousel
-            opts={{
-              align: "start",
-              loop: true,
-            }}
-            className="w-full"
-          >
-            <CarouselContent>
-              {programs.map((program) => (
-                <CarouselItem key={program.id} className="md:basis-1/2 lg:basis-1/3">
-                  <Link href={`/programs/${program.id}`} className="group block h-full">
-                    <Card className="h-full flex flex-col border-none shadow-none bg-transparent rounded-none">
-                      <CardContent className="p-0 relative aspect-[4/3] overflow-hidden">
-                        {program.image && (
-                           <Image
-                            src={program.image.imageUrl}
-                            alt={program.title}
-                            fill
-                            className="object-cover group-hover:scale-105 transition-transform duration-300"
-                            data-ai-hint={program.image.imageHint}
-                          />
-                        )}
-                         <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors" />
-                         <div className="absolute bottom-4 left-4">
-                           <h3 className="text-2xl font-bold text-white uppercase">{program.title}</h3>
-                         </div>
-                      </CardContent>
-                    </Card>
-                   </Link>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious className="absolute left-[-20px] top-1/2 -translate-y-1/2 hidden md:inline-flex" />
-            <CarouselNext className="absolute right-[-20px] top-1/2 -translate-y-1/2 hidden md:inline-flex" />
-          </Carousel>
+      <section className="relative h-[80vh] md:h-screen w-full flex items-center justify-center text-center">
+        <Image
+          src="https://picsum.photos/seed/hero-main/1920/1080"
+          alt="Jiu Jitsu training session"
+          fill
+          className="object-cover"
+          priority
+          data-ai-hint="jiu jitsu action"
+        />
+        <div className="absolute inset-0 bg-black/60" />
+        <div className="relative z-10 container px-4">
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold uppercase tracking-wider text-white">
+            Forge Your Path at Reign Jiu Jitsu
+          </h1>
+          <p className="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-white/90">
+            Discover the discipline, confidence, and community of Brazilian Jiu-Jitsu right here in Katy, TX.
+          </p>
+          <Button asChild size="lg" className="mt-8 bg-accent text-accent-foreground hover:bg-accent/90 rounded-sm text-lg py-6 px-8">
+            <Link href="/free-trial">
+              Start Your Free Trial
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Link>
+          </Button>
         </div>
       </section>
-      
-      {/* Short SEO Text */}
+
+      {/* Intro Section */}
+      <section className="w-full py-16 md:py-24 bg-secondary/30">
+        <div className="container mx-auto text-center max-w-4xl">
+          <h2 className="text-3xl md:text-4xl font-bold uppercase tracking-wide">Welcome to Reign Jiu Jitsu</h2>
+          <p className="mt-6 text-lg text-muted-foreground leading-relaxed">
+            Reign Jiu Jitsu is more than a martial arts academy; we are a community dedicated to personal growth, discipline, and the art of Brazilian Jiu-Jitsu. We provide a welcoming yet challenging environment in Katy, TX, where students of all ages and skill levels can achieve their goals, whether it's for fitness, self-defense, or competition.
+          </p>
+        </div>
+      </section>
+
+      {/* Programs Section */}
       <section className="w-full py-16 md:py-24 bg-background">
-          <div className="container mx-auto text-center max-w-4xl">
-              <h2 className="text-3xl md:text-4xl font-bold uppercase tracking-wide">Family Friendly Jiu Jitsu in Katy</h2>
-              <p className="mt-6 text-lg text-muted-foreground leading-relaxed">
-                  Reign Jiu Jitsu is a family friendly martial arts studio in Katy, Texas. We promote a positive school culture that enables us all to grow together through Jiu Jitsu. We encourage hard work in a welcoming environment. For the beginner, we will have an introductory course to go over the basics and main concepts of Jiu Jitsu to help you develop a solid understanding. Beginners will learn the basics in a manner that will make your transition to the art easier, safer, and your development faster. Join us today to see what we're about!
-              </p>
+        <div className="container mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold uppercase tracking-wide">Our Programs</h2>
+            <p className="mt-4 max-w-2xl mx-auto text-muted-foreground">Find the perfect class to start your journey.</p>
           </div>
-      </section>
-
-      {/* Kids Highlight Section */}
-      <section className="w-full bg-secondary">
-        <div className="container mx-auto grid md:grid-cols-2 items-center">
-            <div className="relative aspect-square md:aspect-auto md:h-full min-h-[400px]">
-                 <Image 
-                    src="https://picsum.photos/seed/kids1/800/800"
-                    alt="Kids learning Jiu Jitsu"
-                    fill
-                    className="object-cover"
-                    data-ai-hint="kids jiu jitsu"
-                />
-            </div>
-            <div className="p-12 md:p-16 text-center md:text-left">
-                <h2 className="text-3xl md:text-4xl font-bold uppercase tracking-wide">Build Confidence with Kids Jiu Jitsu in Katy</h2>
-                <p className="mt-4 text-lg text-muted-foreground">Our kids program is designed to build character, discipline, and respect in a fun and safe environment.</p>
-                <Button asChild size="lg" variant="outline" className="mt-8 border-primary text-primary hover:bg-primary hover:text-primary-foreground rounded-none">
-                    <Link href="/programs/kids-jiu-jitsu">Learn More About Our Kids Program</Link>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {programs.slice(0,3).map((program) => (
+              <Link key={program.id} href={`/programs/${program.id}`} className="group block">
+                <Card className="h-full flex flex-col border-border shadow-lg overflow-hidden rounded-md transition-all duration-300 hover:shadow-accent/20 hover:-translate-y-1">
+                  <CardContent className="p-0 relative aspect-[4/3] overflow-hidden">
+                    {program.image && (
+                      <Image
+                        src={program.image.imageUrl}
+                        alt={program.title}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-300"
+                        data-ai-hint={program.image.imageHint}
+                      />
+                    )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                    <div className="absolute bottom-0 p-4">
+                      <h3 className="text-2xl font-bold text-white uppercase">{program.title}</h3>
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
+            ))}
+          </div>
+           <div className="text-center mt-12">
+                <Button asChild variant="outline" className="text-lg py-6 px-8 rounded-sm border-accent text-accent hover:bg-accent hover:text-accent-foreground">
+                    <Link href="/programs">View All Programs</Link>
                 </Button>
             </div>
         </div>
       </section>
 
       {/* Instructors Section */}
-      <section className="w-full py-16 md:py-24 bg-card">
+      <section className="w-full py-16 md:py-24 bg-secondary/30">
         <div className="container mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold uppercase tracking-wide">Meet Our Instructors</h2>
@@ -198,7 +98,7 @@ export function HomePageClient() {
             {instructors.map((instructor) => (
               <Link key={instructor.id} href={`/instructors/${instructor.id}`} className="group block text-center">
                 {instructor.image && (
-                  <div className="relative w-full aspect-square mx-auto overflow-hidden">
+                  <div className="relative w-full aspect-square mx-auto overflow-hidden rounded-md">
                     <Image
                       src={instructor.image.imageUrl}
                       alt={`Portrait of ${instructor.name}`}
@@ -209,175 +109,94 @@ export function HomePageClient() {
                   </div>
                 )}
                 <h3 className="text-2xl font-bold mt-6">{instructor.name}</h3>
-                <p className="text-primary font-semibold mt-1">{instructor.beltRank}</p>
+                <p className="text-accent font-semibold mt-1">{instructor.beltRank}</p>
               </Link>
             ))}
           </div>
+           <div className="text-center mt-12">
+                <Button asChild className="text-lg py-6 px-8 rounded-sm">
+                    <Link href="/instructors">View All Instructors</Link>
+                </Button>
+            </div>
         </div>
       </section>
 
-       {/* Facility Section */}
+      {/* Schedule Section */}
       <section className="w-full py-16 md:py-24 bg-background">
-        <div className="container mx-auto grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-                <h2 className="text-3xl md:text-4xl font-bold uppercase tracking-wide">Train in a World-Class Facility</h2>
-                <p className="mt-4 text-lg text-muted-foreground">Our state-of-the-art academy in Katy is designed for your success, safety, and comfort.</p>
-                <div className="mt-6 aspect-w-16 aspect-h-9">
-                    <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3463.689659223013!2d-95.77118968489117!3d29.75783598198759!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x864121da633c3739%3A0x1d5f4a6136d77b81!2sKaty%2C%20TX!5e0!3m2!1sen!2sus!4v1678886400000!5m2!1sen!2sus"
-                        width="100%"
-                        height="300"
-                        style={{ border: 0 }}
-                        allowFullScreen={false}
-                        loading="lazy"
-                        referrerPolicy="no-referrer-when-downgrade"
-                        title="Reign Jiu Jitsu Katy Location"
-                    ></iframe>
-                </div>
-            </div>
-             <div>
-                <Carousel opts={{ loop: true }} className="w-full">
-                    <CarouselContent>
-                        <CarouselItem>
-                             <Image src="https://picsum.photos/seed/fac1/800/600" alt="Mat space" width={800} height={600} className="w-full" data-ai-hint="gym interior" />
-                        </CarouselItem>
-                         <CarouselItem>
-                             <Image src="https://picsum.photos/seed/fac2/800/600" alt="Seating area" width={800} height={600} className="w-full" data-ai-hint="gym seating" />
-                        </CarouselItem>
-                         <CarouselItem>
-                             <Image src="https://picsum.photos/seed/fac3/800/600" alt="Gym equipment" width={800} height={600} className="w-full" data-ai-hint="gym equipment" />
-                        </CarouselItem>
-                    </CarouselContent>
-                    <CarouselPrevious className="absolute left-[-20px] hidden md:inline-flex" />
-                    <CarouselNext className="absolute right-[-20px] hidden md:inline-flex" />
-                </Carousel>
-             </div>
-        </div>
-      </section>
-
-      {/* Sponsorship Section */}
-        <section className="w-full py-16 md:py-24 bg-secondary">
-            <div className="container mx-auto text-center">
-                <h3 className="text-sm uppercase tracking-widest text-muted-foreground">Proudly Sponsored By</h3>
-                <div className="mt-8 flex justify-center">
-                   <a href="https://rekt.com" target="_blank" rel="noopener noreferrer" className="inline-block">
-                        <Image src="https://picsum.photos/seed/rekt/200/100" alt="REKT logo" width={200} height={100} data-ai-hint="company logo" />
-                    </a>
-                </div>
-                <p className="mt-8 max-w-2xl mx-auto text-muted-foreground">Reign Jiu Jitsu is proud to be sponsored by REKT. Together we support Jiu Jitsu athletes and the Katy martial arts community.</p>
-            </div>
-        </section>
-
-      {/* Reviews Section */}
-      <section id="reviews" className="w-full py-16 md:py-24 bg-card">
-        <div className="container mx-auto px-4 md:px-6 max-w-5xl">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold uppercase tracking-wide">What Our Members Say</h2>
+          <div className="container mx-auto text-center max-w-4xl">
+              <h2 className="text-3xl md:text-4xl font-bold uppercase tracking-wide">Weekly Schedule</h2>
+              <p className="mt-4 text-lg text-muted-foreground">Find a time that works for you. We offer classes all week for all skill levels.</p>
+               <div className="mt-8">
+                 <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 rounded-sm text-lg py-6 px-8">
+                    <Link href="/schedule">View Full Schedule</Link>
+                </Button>
+               </div>
           </div>
-          <Carousel opts={{ loop: true, align: 'start' }} className="w-full">
-            <CarouselContent>
-              {reviews.map((review, index) => (
-                <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-                  <div className="p-4 h-full">
-                    <Card className="h-full flex flex-col justify-center items-center text-center p-8 bg-background rounded-none border">
-                       <div className="flex items-center gap-1 mb-4 text-yellow-400">
-                          {[...Array(5)].map((_, i) => (
-                            <Star key={i} className="h-5 w-5 fill-current" />
-                          ))}
-                        </div>
-                      <p className="text-muted-foreground italic">&quot;{review.comment}&quot;</p>
-                      <p className="mt-6 font-bold uppercase text-sm tracking-wider">- {review.name}</p>
-                    </Card>
+      </section>
+      
+      {/* Blog Section */}
+      <section className="w-full py-16 md:py-24 bg-secondary/30">
+        <div className="container mx-auto">
+           <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold uppercase tracking-wide">From The Blog</h2>
+          </div>
+           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <Card className="flex flex-col border-border shadow-lg overflow-hidden rounded-md">
+                  <CardContent className="p-6">
+                      <h3 className="text-xl font-bold">The Beginner's Guide to BJJ</h3>
+                      <p className="mt-2 text-muted-foreground">Everything you need to know before stepping on the mats for the first time.</p>
+                  </CardContent>
+                  <div className="p-6 pt-0 mt-auto">
+                      <Button asChild variant="link" className="text-accent p-0">
+                          <Link href="/blog">Read More</Link>
+                      </Button>
                   </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-             <CarouselPrevious className="absolute left-[-50px] top-1/2 -translate-y-1/2 hidden md:inline-flex" />
-            <CarouselNext className="absolute right-[-50px] top-1/2 -translate-y-1/2 hidden md:inline-flex" />
-          </Carousel>
-        </div>
-      </section>
-
-        {/* Video Section */}
-        <section className="w-full py-16 md:py-24 bg-background">
-            <div className="container mx-auto">
-                <div className="text-center mb-12">
-                    <h2 className="text-3xl md:text-4xl font-bold uppercase tracking-wide">Competition & Classes</h2>
-                </div>
-                <Carousel opts={{ loop: true, align: 'start' }} className="w-full">
-                    <CarouselContent>
-                        {youtubeVideos.map((video) => (
-                            <CarouselItem key={video.id} className="md:basis-1/2 lg:basis-1/3">
-                                <a href={video.url} target="_blank" rel="noopener noreferrer" className="block group p-4">
-                                    <div className="relative aspect-video overflow-hidden">
-                                        <Image
-                                            src={video.thumbnailUrl}
-                                            alt={video.title}
-                                            fill
-                                            className="object-cover group-hover:scale-105 transition-transform duration-300"
-                                            data-ai-hint="jiu jitsu video"
-                                        />
-                                        <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors flex items-center justify-center">
-                                           <svg className="h-16 w-16 text-white/70 group-hover:text-white transition-colors" viewBox="0 0 24 24" fill="currentColor">
-                                                <path d="M8 5v14l11-7z" />
-                                            </svg>
-                                        </div>
-                                    </div>
-                                    <h3 className="mt-4 font-bold group-hover:text-accent transition-colors">{video.title}</h3>
-                                </a>
-                            </CarouselItem>
-                        ))}
-                    </CarouselContent>
-                    <CarouselPrevious className="absolute left-[-50px] top-1/2 -translate-y-1/2 hidden md:inline-flex" />
-                    <CarouselNext className="absolute right-[-50px] top-1/2 -translate-y-1/2 hidden md:inline-flex" />
-                </Carousel>
-            </div>
-        </section>
-
-
-      {/* FAQ Section */}
-      <section className="w-full py-16 md:py-24 bg-card">
-        <div className="container mx-auto max-w-4xl px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold uppercase tracking-wide">Frequently Asked Questions</h2>
-          </div>
-          <Accordion type="single" collapsible className="w-full">
-            {[...generalFaqs, ...kidsFaqs, ...competitionFaqs].map((faq, index) => (
-              <AccordionItem key={index} value={`item-${index}`} className="border-b-2">
-                <AccordionTrigger className="text-xl font-semibold text-left hover:no-underline py-6">
-                  {faq.question}
-                </AccordionTrigger>
-                <AccordionContent className="text-base text-muted-foreground pt-0 pb-6">
-                  {faq.answer}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-           <div className="mt-12 text-center">
-             <Button asChild variant="outline" size="lg" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground rounded-none">
-                <Link href="/faq">View All FAQs</Link>
-             </Button>
+              </Card>
+               <Card className="flex flex-col border-border shadow-lg overflow-hidden rounded-md">
+                  <CardContent className="p-6">
+                      <h3 className="text-xl font-bold">Nutrition for Grapplers</h3>
+                      <p className="mt-2 text-muted-foreground">Fuel your body for performance and recovery with these essential tips.</p>
+                  </CardContent>
+                   <div className="p-6 pt-0 mt-auto">
+                       <Button asChild variant="link" className="text-accent p-0">
+                           <Link href="/blog">Read More</Link>
+                       </Button>
+                   </div>
+              </Card>
+               <Card className="flex flex-col border-border shadow-lg overflow-hidden rounded-md">
+                  <CardContent className="p-6">
+                      <h3 className="text-xl font-bold">The Importance of Drilling</h3>
+                      <p className="mt-2 text-muted-foreground">Why repetition is the key to building muscle memory and sharp technique.</p>
+                  </CardContent>
+                   <div className="p-6 pt-0 mt-auto">
+                       <Button asChild variant="link" className="text-accent p-0">
+                           <Link href="/blog">Read More</Link>
+                       </Button>
+                   </div>
+              </Card>
            </div>
         </div>
       </section>
 
-        {/* Final CTA */}
-        <section className="w-full py-20 md:py-24 bg-primary">
-            <div className="container mx-auto text-center">
-                <h2 className="text-3xl md:text-5xl font-bold uppercase tracking-wide text-primary-foreground">Try Your First Class Free at Reign Jiu Jitsu in Katy, TX</h2>
-                 <Button asChild size="lg" className="mt-8 bg-primary hover:bg-primary/90 text-primary-foreground rounded-none text-lg py-4 px-6 h-auto">
-                    <Link href="/free-trial">
-                      <div className="flex flex-col items-center justify-center text-center">
-                        <div className="w-full border-t border-primary-foreground"></div>
-                        <span className="text-sm font-medium tracking-widest my-2">SIGN UP FOR YOUR</span>
-                        <span className="text-3xl font-bold text-accent">FREE CLASS TODAY</span>
-                        <div className="w-full border-b border-primary-foreground mt-2"></div>
-                      </div>
-                    </Link>
-                </Button>
-            </div>
-        </section>
-
+      {/* Contact Section */}
+       <section className="w-full py-16 md:py-24 bg-background">
+        <div className="container mx-auto max-w-4xl text-center">
+            <h2 className="text-3xl md:text-4xl font-bold uppercase tracking-wide">Get In Touch</h2>
+            <p className="mt-4 text-lg text-muted-foreground">Questions? Ready to start? We're here to help.</p>
+            <form className="mt-8 space-y-4 text-left">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <Input placeholder="Your Name" className="bg-secondary/50 rounded-sm h-12"/>
+                    <Input type="email" placeholder="Your Email" className="bg-secondary/50 rounded-sm h-12"/>
+                </div>
+                <Textarea placeholder="Your Message" className="bg-secondary/50 rounded-sm" />
+                <div className="text-center">
+                    <Button type="submit" size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 rounded-sm text-lg py-6 px-8">
+                        Send Message
+                    </Button>
+                </div>
+            </form>
+        </div>
+      </section>
     </div>
   );
 }
