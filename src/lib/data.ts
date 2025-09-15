@@ -23,9 +23,7 @@ export const navLinks: NavItem[] = [
       { href: '/sponsorship', label: 'Sponsorship' },
     ]
   },
-  { href: '/faq', label: 'FAQ' },
   { href: '/instructors', label: 'Instructors' },
-  { href: '/schedule', label: 'Schedule' },
   { href: '/free-trial', label: 'Free Trial Class' },
   {
     href: '#',
@@ -34,6 +32,8 @@ export const navLinks: NavItem[] = [
       { href: '/affiliate-schools', label: 'Affiliate Schools' },
       { href: '/blog', label: 'Blog' },
       { href: '/contact', label: 'Contact Us' },
+      { href: '/schedule', label: 'Schedule' },
+      { href: '/faq', label: 'FAQ' },
     ]
   }
 ];

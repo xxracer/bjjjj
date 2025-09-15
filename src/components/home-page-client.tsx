@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { instructors, programs } from '@/lib/data';
+import { instructors, programs, faqContent } from '@/lib/data';
 import { ArrowRight } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -11,6 +11,12 @@ import { Textarea } from '@/components/ui/textarea';
 import { useEffect, useState } from 'react';
 import type { InstagramPost } from '@/ai/flows/fetch-instagram-posts';
 import { fetchInstagramPosts } from '@/ai/flows/fetch-instagram-posts';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
 
 export function HomePageClient() {
   const [instagramPosts, setInstagramPosts] = useState<InstagramPost[]>([]);
@@ -30,6 +36,8 @@ export function HomePageClient() {
     }
     getPosts();
   }, []);
+
+  const generalFaqs = faqContent.find(category => category.title === 'General')?.faqs || [];
 
   return (
     <div className="flex flex-col min-h-dvh bg-background text-foreground">
@@ -142,7 +150,7 @@ export function HomePageClient() {
       </section>
 
       {/* Instagram Section */}
-      <section className="w-full py-16 md:py-24 bg-card">
+      <section className="w-full py-16 md:py-24 bg-background">
         <div className="container mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold uppercase tracking-wide">Follow us on Instagram</h2>
@@ -185,7 +193,7 @@ export function HomePageClient() {
       </section>
       
       {/* Blog Section */}
-      <section className="w-full py-16 md:py-24 bg-background">
+      <section className="w-full py-16 md:py-24 bg-card">
         <div className="container mx-auto">
            <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold uppercase tracking-wide">From The Blog</h2>
@@ -225,6 +233,32 @@ export function HomePageClient() {
                    </div>
               </Card>
            </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="w-full py-16 md:py-24 bg-background">
+        <div className="container mx-auto max-w-4xl">
+           <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold uppercase tracking-wide">Frequently Asked Questions</h2>
+          </div>
+          <Accordion type="single" collapsible className="w-full">
+            {generalFaqs.map((faq, index) => (
+              <AccordionItem key={index} value={`item-${index}`} className="border-b">
+                <AccordionTrigger className="text-xl font-semibold text-left hover:no-underline py-6">
+                  {faq.question}
+                </AccordionTrigger>
+                <AccordionContent className="text-base text-muted-foreground pt-0 pb-6">
+                  {faq.answer}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+           <div className="text-center mt-12">
+                <Button asChild variant="outline" className="text-lg py-6 px-8 rounded-none border-primary text-primary hover:bg-primary hover:text-primary-foreground">
+                    <Link href="/faq">View All FAQs</Link>
+                </Button>
+            </div>
         </div>
       </section>
 
