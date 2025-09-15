@@ -1,12 +1,11 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { instructors, programs, reviews, youtubeVideos } from '@/lib/data';
+import { instructors, programs, reviews } from '@/lib/data';
 import { ArrowRight, Star } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Card, CardContent } from '@/components/ui/card';
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 
@@ -29,7 +28,7 @@ export function HomePageClient() {
             Forge Your Path at Reign Jiu Jitsu
           </h1>
           <p className="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-white/90">
-            Discover the discipline, confidence, and community of Brazilian Jiu-Jitsu right here in Katy, TX.
+            Discover the discipline, confidence, and community of Jiu-Jitsu right here in Katy, TX.
           </p>
           <Button asChild size="lg" className="mt-8 bg-accent text-accent-foreground hover:bg-accent/90 rounded-sm text-lg py-6 px-8">
             <Link href="/free-trial">
@@ -45,7 +44,7 @@ export function HomePageClient() {
         <div className="container mx-auto text-center max-w-4xl">
           <h2 className="text-3xl md:text-4xl font-bold uppercase tracking-wide">Welcome to Reign Jiu Jitsu</h2>
           <p className="mt-6 text-lg text-muted-foreground leading-relaxed">
-            Reign Jiu Jitsu is more than a martial arts academy; we are a community dedicated to personal growth, discipline, and the art of Brazilian Jiu-Jitsu. We provide a welcoming yet challenging environment in Katy, TX, where students of all ages and skill levels can achieve their goals, whether it's for fitness, self-defense, or competition.
+            Reign Jiu Jitsu is more than a martial arts academy; we are a community dedicated to personal growth, discipline, and the art of Jiu-Jitsu. We provide a welcoming yet challenging environment in Katy, TX, where students of all ages and skill levels can achieve their goals, whether it's for fitness, self-defense, or competition.
           </p>
         </div>
       </section>

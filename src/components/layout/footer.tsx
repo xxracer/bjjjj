@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { Logo } from '@/components/logo';
 import { Button } from '../ui/button';
+import { navLinks } from '@/lib/data';
 
 const socialLinks = [
   { name: 'Facebook', href: '#' },
@@ -16,16 +17,15 @@ export function Footer() {
           <div className="md:col-span-1">
             <Logo />
             <p className="mt-4 text-muted-foreground">
-              Katy's premier Brazilian Jiu-Jitsu academy.
+              Katy's premier Jiu-Jitsu academy.
             </p>
           </div>
           <div className="md:col-span-1">
             <h3 className="font-bold uppercase tracking-wider">Navigation</h3>
             <ul className="mt-4 space-y-2">
-              <li><Link href="/about" className="text-muted-foreground hover:text-primary">About</Link></li>
-              <li><Link href="/programs" className="text-muted-foreground hover:text-primary">Programs</Link></li>
-              <li><Link href="/schedule" className="text-muted-foreground hover:text-primary">Schedule</Link></li>
-              <li><Link href="/contact" className="text-muted-foreground hover:text-primary">Contact</Link></li>
+              {navLinks.map((link) => (
+                 <li key={link.href}><Link href={link.href} className="text-muted-foreground hover:text-primary">{link.label}</Link></li>
+              ))}
             </ul>
           </div>
           <div className="md:col-span-1">

@@ -40,7 +40,7 @@ const prompt = ai.definePrompt({
   output: {schema: GenerateInstructorBioOutputSchema},
   prompt: `You are a marketing expert specializing in creating engaging and SEO-friendly content for martial arts academies.
 
-  Based on the provided information, generate a short and compelling biography for the instructor. The biography should highlight their expertise and experience in Brazilian Jiu-Jitsu.
+  Based on the provided information, generate a short and compelling biography for the instructor. The biography should highlight their expertise and experience in Jiu-Jitsu.
 
   Also, create an SEO-optimized page title that includes the instructor's name and belt rank.
 
