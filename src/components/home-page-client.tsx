@@ -1,15 +1,36 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { instructors, programs, reviews } from '@/lib/data';
-import { ArrowRight, Star } from 'lucide-react';
+import { instructors, programs } from '@/lib/data';
+import { ArrowRight } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { useEffect, useState } from 'react';
+import type { InstagramPost } from '@/ai/flows/fetch-instagram-posts';
+import { fetchInstagramPosts } from '@/ai/flows/fetch-instagram-posts';
 
 export function HomePageClient() {
+  const [instagramPosts, setInstagramPosts] = useState<InstagramPost[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function getPosts() {
+      try {
+        setLoading(true);
+        const posts = await fetchInstagramPosts();
+        setInstagramPosts(posts);
+      } catch (error) {
+        console.error('Failed to fetch instagram posts', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    getPosts();
+  }, []);
+
   return (
     <div className="flex flex-col min-h-dvh bg-background text-foreground">
       {/* Hero Section */}
@@ -132,9 +153,52 @@ export function HomePageClient() {
                </div>
           </div>
       </section>
+
+      {/* Instagram Section */}
+      <section className="w-full py-16 md:py-24 bg-card">
+        <div className="container mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold uppercase tracking-wide">Follow us on Instagram</h2>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            {loading ? (
+                Array.from({ length: 3 }).map((_, i) => (
+                  <div key={i} className="aspect-square bg-muted animate-pulse" />
+                ))
+            ) : (
+                instagramPosts.map((post) => (
+                <a key={post.id} href={post.permalink} target="_blank" rel="noopener noreferrer" className="group block relative aspect-square overflow-hidden">
+                  {post.media_type === 'VIDEO' ? (
+                    <video src={post.media_url} autoPlay loop muted playsInline className="h-full w-full object-cover" />
+                  ) : (
+                    <Image
+                      src={post.media_url}
+                      alt={post.caption || 'Instagram post'}
+                      fill
+                      className="object-cover"
+                      data-ai-hint="jiu jitsu instagram"
+                    />
+                  )}
+                  <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-4">
+                    <p className="text-white text-center text-sm">{post.caption}</p>
+                  </div>
+                </a>
+              ))
+            )}
+          </div>
+          <div className="text-center mt-12">
+            <Button asChild variant="outline" size="lg" className="rounded-none">
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+                View on Instagram
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </a>
+            </Button>
+          </div>
+        </div>
+      </section>
       
       {/* Blog Section */}
-      <section className="w-full py-16 md:py-24 bg-card">
+      <section className="w-full py-16 md:py-24 bg-background">
         <div className="container mx-auto">
            <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold uppercase tracking-wide">From The Blog</h2>
@@ -178,16 +242,16 @@ export function HomePageClient() {
       </section>
 
       {/* Contact Section */}
-       <section className="w-full py-16 md:py-24 bg-background">
+       <section className="w-full py-16 md:py-24 bg-card">
         <div className="container mx-auto max-w-4xl text-center">
             <h2 className="text-3xl md:text-4xl font-bold uppercase tracking-wide">Get In Touch</h2>
             <p className="mt-4 text-lg text-muted-foreground">Questions? Ready to start? We're here to help.</p>
             <form className="mt-8 space-y-4 text-left">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <Input placeholder="Your Name" className="bg-card rounded-sm h-12"/>
-                    <Input type="email" placeholder="Your Email" className="bg-card rounded-sm h-12"/>
+                    <Input placeholder="Your Name" className="bg-background rounded-sm h-12"/>
+                    <Input type="email" placeholder="Your Email" className="bg-background rounded-sm h-12"/>
                 </div>
-                <Textarea placeholder="Your Message" className="bg-card rounded-sm" />
+                <Textarea placeholder="Your Message" className="bg-background rounded-sm" />
                 <div className="text-center">
                     <Button type="submit" size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none text-lg py-6 px-8">
                         Send Message

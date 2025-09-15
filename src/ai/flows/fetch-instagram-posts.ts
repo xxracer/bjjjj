@@ -39,8 +39,9 @@ const fetchInstagramPostsFlow = ai.defineFlow(
 
     console.log('Fetching Instagram posts (placeholder data)');
     
-    // To use your local video, place it in the `public/videos/` directory.
-    // For example, if your video is named `hero-video.mp4`, the `src` should be `/videos/hero-video.mp4`.
+    // To use your local video, place it in the `public/` directory.
+    // For example, if your video is named `hero-video.mp4` and is located in `public/videos/`,
+    // the `media_url` should be `/videos/hero-video.mp4`.
     const localVideoUrl = '/videos/hero-video.mp4'; 
 
     return [
@@ -54,14 +55,14 @@ const fetchInstagramPostsFlow = ai.defineFlow(
       {
         id: '2',
         media_type: 'IMAGE',
-        media_url: 'https://picsum.photos/seed/insta1/1920/1080',
+        media_url: 'https://picsum.photos/seed/insta1/1080/1080',
         caption: 'A great training session tonight!',
         permalink: '#',
       },
       {
         id: '3',
         media_type: 'IMAGE',
-        media_url: 'https://picsum.photos/seed/insta2/1920/1080',
+        media_url: 'https://picsum.photos/seed/insta2/1080/1080',
         caption: 'Great rolls with the team.',
         permalink: '#',
       },
