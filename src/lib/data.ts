@@ -21,9 +21,9 @@ export const navLinks: NavItem[] = [
       { href: '/programs/private-training', label: 'Private Training' },
       { href: '/programs/homeschool-martial-arts', label: 'Homeschool Program' },
       { href: '/sponsorship', label: 'Sponsorship' },
+      { href: '/instructors', label: 'Instructors' },
     ]
   },
-  { href: '/instructors', label: 'Instructors' },
   { href: '/free-trial', label: 'Free Trial Class' },
   {
     href: '#',
@@ -33,7 +33,6 @@ export const navLinks: NavItem[] = [
       { href: '/blog', label: 'Blog' },
       { href: '/contact', label: 'Contact Us' },
       { href: '/schedule', label: 'Schedule' },
-      { href: '/faq', label: 'FAQ' },
     ]
   }
 ];
