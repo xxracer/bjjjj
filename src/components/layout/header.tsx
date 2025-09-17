@@ -25,8 +25,6 @@ import {
 
 
 const NavLink = ({ href, label, pathname, submenu, isMobile }: { href: string, label: string, pathname: string, submenu?: NavItem[], isMobile?: boolean }) => {
-  const isFreeTrial = label === 'Free Trial Class';
-
   if (submenu) {
     if (isMobile) {
       return (
@@ -81,21 +79,6 @@ const NavLink = ({ href, label, pathname, submenu, isMobile }: { href: string, l
 
   const Comp = isMobile ? SheetClose : 'div';
   const mobileClass = isMobile ? 'text-lg' : 'text-sm';
-
-  if (isFreeTrial && !isMobile) {
-    return (
-      <Button asChild variant="default" size="sm" className="bg-primary text-primary-foreground rounded-none px-3 py-5 h-auto">
-        <Link href="/free-trial">
-          <div className="flex flex-col items-center justify-center text-center w-full px-2">
-              <div className="w-full border-t border-primary-foreground/50"></div>
-              <span className="text-xs font-medium tracking-wider my-1">SIGN UP FOR YOUR</span>
-              <span className="text-lg font-bold text-accent leading-tight">FREE CLASS TODAY</span>
-              <div className="w-full border-b border-primary-foreground/50 mt-1"></div>
-          </div>
-        </Link>
-      </Button>
-    )
-  }
   
   return (
     <Comp>
@@ -106,7 +89,6 @@ const NavLink = ({ href, label, pathname, submenu, isMobile }: { href: string, l
           pathname === href
             ? 'text-foreground font-bold'
             : 'text-muted-foreground hover:text-foreground',
-          isFreeTrial ? 'font-bold text-primary' : ''
         )}
       >
         {label}
@@ -152,10 +134,20 @@ export function Header() {
              <Link href="/">
                 <Logo />
              </Link>
+             <NavLinks />
           </div>
 
-          <div className="hidden md:flex items-center justify-end gap-6">
-            <NavLinks />
+          <div className="hidden md:flex items-center justify-end">
+             <Button asChild variant="default" size="sm" className="bg-primary text-primary-foreground rounded-none px-3 py-5 h-auto">
+              <Link href="/free-trial">
+                <div className="flex flex-col items-center justify-center text-center w-full px-2">
+                    <div className="w-full border-t border-primary-foreground/50"></div>
+                    <span className="text-xs font-medium tracking-wider my-1">SIGN UP FOR YOUR</span>
+                    <span className="text-lg font-bold text-accent leading-tight">FREE CLASS TODAY</span>
+                    <div className="w-full border-b border-primary-foreground/50 mt-1"></div>
+                </div>
+              </Link>
+            </Button>
           </div>
 
           {/* Mobile Menu */}
