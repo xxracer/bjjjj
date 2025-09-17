@@ -2,7 +2,7 @@
 
 import { Button } from '@/components/ui/button';
 import { instructors, programs } from '@/lib/data';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Check } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Card, CardContent } from '@/components/ui/card';
@@ -40,9 +40,10 @@ export function HomePageClient() {
 
   const generalFaqs = faqContent.find(category => category.title === 'General')?.faqs || [];
 
-  const jiuJitsuProgram = programs.find(p => p.id === 'jiu-jitsu');
+  const fundamentalsProgram = programs.find(p => p.id === 'jiu-jitsu-fundamentals');
   const kidsProgram = programs.find(p => p.id === 'kids-jiu-jitsu');
   const privateProgram = programs.find(p => p.id === 'private-training');
+  const finalImage = { imageUrl: 'https://picsum.photos/seed/final1/800/600', imageHint: 'jiu jitsu class' };
 
   return (
     <div className="flex flex-col min-h-dvh bg-background text-foreground">
@@ -80,32 +81,50 @@ export function HomePageClient() {
       {/* Intro Section */}
       <section className="w-full py-16 md:py-24 bg-card">
         <div className="container mx-auto text-center max-w-4xl">
-          <h2 className="text-3xl md:text-4xl font-bold uppercase tracking-wide">Welcome to Reign Jiu Jitsu</h2>
-          <p className="mt-6 text-lg text-muted-foreground leading-relaxed">
-            Reign Jiu Jitsu is more than a martial arts academy; we are a community dedicated to personal growth, discipline, and the art of Jiu-Jitsu. We provide a welcoming yet challenging environment in Katy, TX, where students of all ages and skill levels can achieve their goals, whether it's for fitness, self-defense, or competition.
-          </p>
+          <h2 className="text-3xl md:text-4xl font-bold">Welcome to Reign Jiu Jitsu – Katy, TX</h2>
+          <div className="prose prose-lg mx-auto mt-6 text-muted-foreground text-center">
+            <p>Reign Jiu Jitsu is more than a martial arts academy; we are a family-driven community dedicated to personal growth, discipline, and the art of Brazilian Jiu Jitsu.</p>
+            <p>Located in Katy, Texas, we welcome students of all ages—from kids as young as 4 years old to adults seeking fitness, self-defense, or competition-level Jiu Jitsu training.</p>
+            <p>Whether you’re searching for “Brazilian Jiu Jitsu near me”, beginner BJJ classes, kids martial arts in Katy, or advanced Jiu Jitsu competition training, Reign Jiu Jitsu is Katy’s trusted source.</p>
+            <p>👉 Start your journey today with a FREE trial class and experience why families across Katy, Richmond, Cypress, and Houston choose Reign Jiu Jitsu.</p>
+          </div>
+        </div>
+      </section>
+
+       {/* Why Choose Section */}
+      <section className="w-full py-16 md:py-24 bg-background">
+        <div className="container mx-auto max-w-4xl text-center">
+          <h2 className="text-3xl md:text-4xl font-bold">Why Choose Brazilian Jiu Jitsu in Katy?</h2>
+          <p className="mt-4 text-lg text-muted-foreground">Training at Reign BJJ isn’t just about learning techniques. Our Brazilian Jiu Jitsu classes in Katy provide:</p>
+          <ul className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 text-left max-w-3xl mx-auto prose prose-lg">
+            <li className="flex items-start gap-3"><Check className="text-primary mt-1 h-6 w-6 shrink-0" /><span>Practical self-defense skills for kids, teens, and adults</span></li>
+            <li className="flex items-start gap-3"><Check className="text-primary mt-1 h-6 w-6 shrink-0" /><span>Weight loss & fitness training that builds lean muscle</span></li>
+            <li className="flex items-start gap-3"><Check className="text-primary mt-1 h-6 w-6 shrink-0" /><span>Confidence, focus, and discipline—invaluable both on and off the mats</span></li>
+            <li className="flex items-start gap-3"><Check className="text-primary mt-1 h-6 w-6 shrink-0" /><span>A positive, family-friendly martial arts community</span></li>
+          </ul>
         </div>
       </section>
 
       {/* Programs Section */}
-      <section className="w-full py-16 md:py-24 bg-background">
+      <section className="w-full py-16 md:py-24 bg-card">
         <div className="container mx-auto space-y-16">
-          {/* Jiu-Jitsu Program */}
-          {jiuJitsuProgram && (
-            <Link href={`/programs/${jiuJitsuProgram.id}`} className="group block">
-              <div className="grid md:grid-cols-2 gap-8 items-center">
-                <div className="text-center md:text-left">
-                  <h3 className="text-3xl font-bold uppercase tracking-wide group-hover:text-primary transition-colors">{jiuJitsuProgram.title}</h3>
-                  <p className="mt-4 text-lg text-muted-foreground">Our Adult Jiu Jitsu program is for everyone, from the complete beginner to the seasoned competitor. Learn self-defense, get in shape, and join an amazing community.</p>
+          <h2 className="text-3xl md:text-4xl font-bold text-center">Our programs cover:</h2>
+
+          {/* JJ Fundamentals */}
+          {fundamentalsProgram && (
+            <Link href={`/programs/${fundamentalsProgram.id}`} className="group block">
+              <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+                <div>
+                  <h3 className="text-2xl font-bold group-hover:text-primary transition-colors">{fundamentalsProgram.title} → perfect for beginners</h3>
                 </div>
-                {jiuJitsuProgram.image && (
+                {fundamentalsProgram.image && (
                   <div className="relative aspect-video overflow-hidden">
                     <Image
-                      src={jiuJitsuProgram.image.imageUrl}
-                      alt={jiuJitsuProgram.title}
+                      src={fundamentalsProgram.image.imageUrl}
+                      alt={fundamentalsProgram.title}
                       fill
                       className="object-cover group-hover:scale-105 transition-transform duration-300"
-                      data-ai-hint={jiuJitsuProgram.image.imageHint}
+                      data-ai-hint={fundamentalsProgram.image.imageHint}
                     />
                   </div>
                 )}
@@ -116,7 +135,7 @@ export function HomePageClient() {
           {/* Kids Jiu-Jitsu Program */}
           {kidsProgram && (
              <Link href={`/programs/${kidsProgram.id}`} className="group block">
-              <div className="grid md:grid-cols-2 gap-8 items-center">
+              <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
                  {kidsProgram.image && (
                   <div className="relative aspect-video overflow-hidden md:order-last">
                     <Image
@@ -128,9 +147,8 @@ export function HomePageClient() {
                     />
                   </div>
                 )}
-                <div className="text-center md:text-left">
-                  <h3 className="text-3xl font-bold uppercase tracking-wide group-hover:text-primary transition-colors">{kidsProgram.title}</h3>
-                  <p className="mt-4 text-lg text-muted-foreground">Our Kids Jiu Jitsu program is designed to be fun, engaging, and educational. We teach discipline, respect, and confidence in a safe and supportive environment.</p>
+                <div>
+                  <h3 className="text-2xl font-bold group-hover:text-primary transition-colors">{kidsProgram.title} (ages 4–13) → confidence, focus & anti-bullying skills</h3>
                 </div>
               </div>
             </Link>
@@ -139,10 +157,9 @@ export function HomePageClient() {
           {/* Private Training Program */}
           {privateProgram && (
             <Link href={`/programs/${privateProgram.id}`} className="group block">
-              <div className="grid md:grid-cols-2 gap-8 items-center">
-                <div className="text-center md:text-left">
-                  <h3 className="text-3xl font-bold uppercase tracking-wide group-hover:text-primary transition-colors">{privateProgram.title}</h3>
-                  <p className="mt-4 text-lg text-muted-foreground">Accelerate your learning with one-on-one instruction. Private lessons are tailored to your specific goals, challenges, and learning style.</p>
+              <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+                <div>
+                  <h3 className="text-2xl font-bold group-hover:text-primary transition-colors">{privateProgram.title} in Katy TX → one-on-one progress with our instructors</h3>
                 </div>
                 {privateProgram.image && (
                   <div className="relative aspect-video overflow-hidden">
@@ -158,11 +175,30 @@ export function HomePageClient() {
               </div>
             </Link>
           )}
+        </div>
+      </section>
 
-           <div className="text-center mt-12">
-                <Button asChild variant="outline" className="text-lg py-6 px-8 rounded-none border-primary text-primary hover:bg-primary hover:text-primary-foreground">
-                    <Link href="/programs">View All Programs</Link>
-                </Button>
+      {/* Final CTA Section */}
+      <section className="w-full py-16 md:py-24 bg-background">
+        <div className="container mx-auto grid md:grid-cols-2 gap-12 items-center">
+            <div className="max-w-xl">
+                 <h2 className="text-3xl md:text-4xl font-bold">Try Katy’s Favorite Jiu Jitsu Classes Today</h2>
+                 <p className="mt-4 text-lg text-muted-foreground">No matter your age, skill level, or goals, Reign Jiu Jitsu in Katy has a program tailored for you:</p>
+                 <ul className="space-y-3 mt-6 prose prose-lg">
+                    <li className="flex items-start gap-3">✅ <span>Parents love our after-school martial arts for kids</span></li>
+                    <li className="flex items-start gap-3">✅ <span>Women join us for self-defense and fitness Jiu Jitsu classes</span></li>
+                    <li className="flex items-start gap-3">✅ <span>Adults and athletes push their limits with competition BJJ training in Katy</span></li>
+                 </ul>
+                 <p className="mt-6 text-lg">📍 Join us in Katy, TX—just minutes from Richmond, Cinco Ranch, and Cypress—for your first free Jiu Jitsu class.</p>
+            </div>
+            <div className="relative aspect-w-4 aspect-h-3">
+                 <Image
+                    src={finalImage.imageUrl}
+                    alt="Try Katy’s Favorite Jiu Jitsu Classes Today"
+                    fill
+                    className="object-cover"
+                    data-ai-hint={finalImage.imageHint}
+                />
             </div>
         </div>
       </section>
@@ -177,7 +213,7 @@ export function HomePageClient() {
             {instructors.map((instructor) => (
               <Link key={instructor.id} href={`/instructors/${instructor.id}`} className="group block text-center">
                 {instructor.image && (
-                  <div className="relative w-full aspect-square mx-auto overflow-hidden rounded-md">
+                  <div className="relative w-full aspect-square mx-auto overflow-hidden">
                     <Image
                       src={instructor.image.imageUrl}
                       alt={`Portrait of ${instructor.name}`}
@@ -227,6 +263,7 @@ export function HomePageClient() {
                   )}
                   <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-4">
                     <p className="text-white text-center text-sm">{post.caption}</p>
+
                   </div>
                 </a>
               ))
@@ -250,7 +287,7 @@ export function HomePageClient() {
             <h2 className="text-3xl md:text-4xl font-bold uppercase tracking-wide">From The Blog</h2>
           </div>
            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <Card className="flex flex-col border-border shadow-lg overflow-hidden rounded-md">
+              <Card className="flex flex-col border-border shadow-lg overflow-hidden">
                   <CardContent className="p-6">
                       <h3 className="text-xl font-bold">The Beginner's Guide to BJJ</h3>
                       <p className="mt-2 text-muted-foreground">Everything you need to know before stepping on the mats for the first time.</p>
@@ -261,7 +298,7 @@ export function HomePageClient() {
                       </Button>
                   </div>
               </Card>
-               <Card className="flex flex-col border-border shadow-lg overflow-hidden rounded-md">
+               <Card className="flex flex-col border-border shadow-lg overflow-hidden">
                   <CardContent className="p-6">
                       <h3 className="text-xl font-bold">Nutrition for Grapplers</h3>
                       <p className="mt-2 text-muted-foreground">Fuel your body for performance and recovery with these essential tips.</p>
@@ -272,7 +309,7 @@ export function HomePageClient() {
                        </Button>
                    </div>
               </Card>
-               <Card className="flex flex-col border-border shadow-lg overflow-hidden rounded-md">
+               <Card className="flex flex-col border-border shadow-lg overflow-hidden">
                   <CardContent className="p-6">
                       <h3 className="text-xl font-bold">The Importance of Drilling</h3>
                       <p className="mt-2 text-muted-foreground">Why repetition is the key to building muscle memory and sharp technique.</p>
@@ -335,3 +372,5 @@ export function HomePageClient() {
     </div>
   );
 }
+
+    

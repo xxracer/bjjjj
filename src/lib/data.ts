@@ -14,27 +14,27 @@ export const navLinks: NavItem[] = [
     href: '/programs', 
     label: 'Programs',
     submenu: [
-      { href: '/programs/jiu-jitsu', label: 'Jiu-Jitsu Fundamentals / Advanced' },
+      { href: '/programs/jiu-jitsu-fundamentals', label: 'Jiu-Jitsu Fundamentals' },
       { href: '/programs/kids-jiu-jitsu', label: 'Kids Jiu-Jitsu' },
       { href: '/programs/competition-training', label: 'Competition Training' },
       { href: '/programs/private-training', label: 'Private Training' },
       { href: '/programs/homeschool-martial-arts', label: 'Homeschool Program' },
-      { href: '/sponsorship', label: 'Sponsorship' },
       { href: '/instructors', label: 'Instructors' },
       { href: '/schedule', label: 'Schedule' },
     ]
   },
-  { href: '/free-trial', label: 'Free Trial Class' },
-  {
-    href: '#',
-    label: 'More',
+  { 
+    href: '/about', 
+    label: 'About',
     submenu: [
+      { href: '/about', label: 'Our Story' },
+      { href: '/sponsorship', label: 'Sponsorship' },
       { href: '/affiliate-schools', label: 'Affiliate Schools' },
-      { href: '/blog', label: 'Blog' },
-      { href: '/contact', label: 'Contact Us' },
-      { href: '/faq', label: 'FAQ' },
     ]
-  }
+  },
+  { href: '/blog', label: 'Blog' },
+  { href: '/faq', label: 'FAQ' },
+  { href: '/contact', label: 'Contact' },
 ];
 
 export type Instructor = {
@@ -125,10 +125,10 @@ export type Program = {
 }
 
 export const programs: Program[] = [
-    { id: 'jiu-jitsu', title: 'Jiu Jitsu', image: getImage('program-adult') },
+    { id: 'jiu-jitsu-fundamentals', title: 'JJ Fundamentals', image: getImage('program-fundamentals') },
     { id: 'kids-jiu-jitsu', title: 'Kids Jiu Jitsu', image: getImage('program-kids') },
     { id: 'competition-training', title: 'Competition Training', image: getImage('program-competition') },
-    { id: 'private-training', title: 'Private Training', image: getImage('program-private') },
+    { id: 'private-training', title: 'Private Jiu Jitsu lessons', image: getImage('program-private') },
     { id: 'homeschool-martial-arts', title: 'Homeschool Martial Arts', image: getImage('program-homeschool') },
 ]
 
@@ -233,3 +233,5 @@ export const heroCarouselContent: HeroCarouselItem[] = [
   { id: 'hero-2', type: 'image', src: 'https://picsum.photos/seed/insta1/1920/1080', alt: 'Jiu Jitsu class in session', imageHint: 'jiu jitsu class' },
   { id: 'hero-3', type: 'image', src: 'https://picsum.photos/seed/insta2/1920/1080', alt: 'Two people rolling on the mats', imageHint: 'jiu jitsu roll' }
 ]
+
+    
