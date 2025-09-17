@@ -1,3 +1,5 @@
+'use server';
+
 /**
  * @fileOverview Generates FAQ content for different program types using GenAI.
  *
@@ -6,7 +8,7 @@
  * - GenerateFAQContentOutput - The return type for the generateFAQContent function.
  */
 
-import {ai} from '../genkit';
+import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 
 const GenerateFAQContentInputSchema = z.object({
