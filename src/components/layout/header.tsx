@@ -136,8 +136,15 @@ export function Header() {
           </div>
 
            <div className="hidden md:flex items-center justify-end gap-4">
-             <Button asChild variant="outline" size="sm">
-               <Link href="/free-trial">Book Trial</Link>
+             <Button asChild variant="default" size="sm" className="bg-primary text-primary-foreground rounded-none px-3 py-5 h-auto">
+                <Link href="/free-trial">
+                  <div className="flex flex-col items-center justify-center text-center w-full px-2">
+                      <div className="w-full border-t border-primary-foreground/50"></div>
+                      <span className="text-xs font-medium tracking-wider my-1">SIGN UP FOR YOUR</span>
+                      <span className="text-lg font-bold text-accent leading-tight">FREE CLASS TODAY</span>
+                      <div className="w-full border-b border-primary-foreground/50 mt-1"></div>
+                  </div>
+                </Link>
              </Button>
           </div>
 
