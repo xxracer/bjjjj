@@ -211,7 +211,7 @@ export type YouTubeVideo = {
 
 export const youtubeVideos: YouTubeVideo[] = [
   { id: 'yt-1', title: 'De La Riva Guard Sweep Technique', thumbnailUrl: 'https://picsum.photos/seed/yt1/1280/720', url: 'https://youtube.com' },
-  { id: 'yt-2', title: 'Kids Class Highlights - Fun & Games', thumbnailUrl: 'https://picsum.photos/seed/yt2/1280/720', url: 'https://youtube.com' },
+  { id: 'yt-2', title: 'Kids Class Highlights - Fun & Games', thumbnailUrl: 'https://picsum.photos/seed/yt2/1282/720', url: 'https://youtube.com' },
   { id: 'yt-3', title: 'How to Tie Your Jiu Jitsu Belt', thumbnailUrl: 'https://picsum.photos/seed/yt3/1280/720', url: 'https://youtube.com' },
   { id: 'yt-4', title: 'Reign Competition Team Highlights', thumbnailUrl: 'https://picsum.photos/seed/yt4/1280/720', url: 'https://youtube.com' },
 ]
@@ -233,5 +233,3 @@ export const heroCarouselContent: HeroCarouselItem[] = [
   { id: 'hero-2', type: 'image', src: 'https://picsum.photos/seed/insta1/1920/1080', alt: 'Jiu Jitsu class in session', imageHint: 'jiu jitsu class' },
   { id: 'hero-3', type: 'image', src: 'https://picsum.photos/seed/insta2/1920/1080', alt: 'Two people rolling on the mats', imageHint: 'jiu jitsu roll' }
 ]
-
-    
