@@ -83,19 +83,19 @@ export function HomePageClient() {
         <div className="container mx-auto text-center max-w-4xl">
           <h2 className="text-3xl md:text-4xl font-bold">Welcome to Reign Jiu Jitsu – Katy, TX</h2>
           <div className="prose prose-lg mx-auto mt-6 text-muted-foreground text-center">
-            <p>Reign Jiu Jitsu is more than a martial arts academy; we are a family-driven community dedicated to personal growth, discipline, and the art of Brazilian Jiu Jitsu.</p>
+            <p>Reign Jiu Jitsu is more than a martial arts academy; we are a family-driven community dedicated to personal growth, discipline, and the art of Jiu Jitsu.</p>
             <p>Located in Katy, Texas, we welcome students of all ages—from kids as young as 4 years old to adults seeking fitness, self-defense, or competition-level Jiu Jitsu training.</p>
-            <p>Whether you’re searching for “Brazilian Jiu Jitsu near me”, beginner BJJ classes, kids martial arts in Katy, or advanced Jiu Jitsu competition training, Reign Jiu Jitsu is Katy’s trusted source.</p>
+            <p>Whether you’re searching for “Jiu Jitsu near me”, beginner BJJ classes, kids martial arts in Katy, or advanced Jiu Jitsu competition training, Reign Jiu Jitsu is Katy’s trusted source.</p>
             <p>👉 Start your journey today with a FREE trial class and experience why families across Katy, Richmond, Cypress, and Houston choose Reign Jiu Jitsu.</p>
           </div>
         </div>
       </section>
 
        {/* Why Choose Section */}
-      <section className="w-full py-16 md:py-24 bg-background">
+      <section className="w-full py-16 md:py-24 bg-card">
         <div className="container mx-auto max-w-4xl text-center">
-          <h2 className="text-3xl md:text-4xl font-bold">Why Choose Brazilian Jiu Jitsu in Katy?</h2>
-          <p className="mt-4 text-lg text-muted-foreground">Training at Reign BJJ isn’t just about learning techniques. Our Brazilian Jiu Jitsu classes in Katy provide:</p>
+          <h2 className="text-3xl md:text-4xl font-bold">Why Choose Jiu Jitsu in Katy?</h2>
+          <p className="mt-4 text-lg text-muted-foreground">Training at Reign BJJ isn’t just about learning techniques. Our Jiu Jitsu classes in Katy provide:</p>
           <ul className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 text-left max-w-3xl mx-auto prose prose-lg">
             <li className="flex items-start gap-3"><Check className="text-primary mt-1 h-6 w-6 shrink-0" /><span>Practical self-defense skills for kids, teens, and adults</span></li>
             <li className="flex items-start gap-3"><Check className="text-primary mt-1 h-6 w-6 shrink-0" /><span>Weight loss & fitness training that builds lean muscle</span></li>
@@ -106,7 +106,7 @@ export function HomePageClient() {
       </section>
 
       {/* Programs Section */}
-      <section className="w-full py-16 md:py-24 bg-card">
+      <section className="w-full py-16 md:py-24 bg-background">
         <div className="container mx-auto space-y-16">
           <h2 className="text-3xl md:text-4xl font-bold text-center">Our programs cover:</h2>
 
@@ -117,17 +117,14 @@ export function HomePageClient() {
                 <div>
                   <h3 className="text-2xl font-bold group-hover:text-primary transition-colors">{fundamentalsProgram.title} → perfect for beginners</h3>
                 </div>
-                {fundamentalsProgram.image && (
-                  <div className="relative aspect-video overflow-hidden">
+                <div className="relative aspect-video overflow-hidden">
                     <Image
-                      src={fundamentalsProgram.image.imageUrl}
+                      src="https://placehold.co/800x450.png"
                       alt={fundamentalsProgram.title}
                       fill
                       className="object-cover group-hover:scale-105 transition-transform duration-300"
-                      data-ai-hint={fundamentalsProgram.image.imageHint}
                     />
-                  </div>
-                )}
+                </div>
               </div>
             </Link>
           )}
@@ -136,17 +133,14 @@ export function HomePageClient() {
           {kidsProgram && (
              <Link href={`/programs/${kidsProgram.id}`} className="group block">
               <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
-                 {kidsProgram.image && (
-                  <div className="relative aspect-video overflow-hidden md:order-last">
+                <div className="relative aspect-video overflow-hidden">
                     <Image
-                      src={kidsProgram.image.imageUrl}
+                      src="https://placehold.co/800x450.png"
                       alt={kidsProgram.title}
                       fill
                       className="object-cover group-hover:scale-105 transition-transform duration-300"
-                      data-ai-hint={kidsProgram.image.imageHint}
                     />
                   </div>
-                )}
                 <div>
                   <h3 className="text-2xl font-bold group-hover:text-primary transition-colors">{kidsProgram.title} (ages 4–13) → confidence, focus & anti-bullying skills</h3>
                 </div>
@@ -161,17 +155,14 @@ export function HomePageClient() {
                 <div>
                   <h3 className="text-2xl font-bold group-hover:text-primary transition-colors">{privateProgram.title} in Katy TX → one-on-one progress with our instructors</h3>
                 </div>
-                {privateProgram.image && (
-                  <div className="relative aspect-video overflow-hidden">
+                <div className="relative aspect-video overflow-hidden">
                     <Image
-                      src={privateProgram.image.imageUrl}
+                      src="https://placehold.co/800x450.png"
                       alt={privateProgram.title}
                       fill
                       className="object-cover group-hover:scale-105 transition-transform duration-300"
-                      data-ai-hint={privateProgram.image.imageHint}
                     />
-                  </div>
-                )}
+                </div>
               </div>
             </Link>
           )}
