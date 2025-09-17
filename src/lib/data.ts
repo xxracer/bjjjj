@@ -22,9 +22,9 @@ export const navLinks: NavItem[] = [
       { href: '/programs/homeschool-martial-arts', label: 'Homeschool Program' },
       { href: '/sponsorship', label: 'Sponsorship' },
       { href: '/instructors', label: 'Instructors' },
+      { href: '/schedule', label: 'Schedule' },
     ]
   },
-  { href: '/schedule', label: 'Schedule' },
   { href: '/free-trial', label: 'Free Trial Class' },
   {
     href: '#',
