@@ -130,7 +130,7 @@ export function Header() {
                 <Logo />
             </Link>
             <div className="hidden md:flex items-center gap-6">
-                 <Logo />
+                 <Link href="/"><Logo /></Link>
                 <NavLinks />
             </div>
           </div>
