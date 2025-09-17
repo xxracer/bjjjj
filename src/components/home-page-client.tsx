@@ -363,5 +363,3 @@ export function HomePageClient() {
     </div>
   );
 }
-
-    

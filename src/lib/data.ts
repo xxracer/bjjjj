@@ -12,15 +12,11 @@ export type NavItem = {
 export const navLinks: NavItem[] = [
   { 
     href: '/programs', 
-    label: 'Programs',
-    submenu: [
-      { href: '/programs/jiu-jitsu-fundamentals', label: 'Jiu-Jitsu Fundamentals' },
-      { href: '/programs/kids-jiu-jitsu', label: 'Kids Jiu-Jitsu' },
-      { href: '/programs/competition-training', label: 'Competition Training' },
-      { href: '/programs/private-training', label: 'Private Training' },
-      { href: '/programs/homeschool-martial-arts', label: 'Homeschool Program' },
-      { href: '/schedule', label: 'Schedule' },
-    ]
+    label: 'Programs'
+  },
+  { 
+    href: '/free-trial', 
+    label: 'Free Trial Class'
   },
   { 
     href: '#', 
@@ -30,7 +26,6 @@ export const navLinks: NavItem[] = [
       { href: '/blog', label: 'Blog' },
       { href: '/faq', label: 'FAQ' },
       { href: '/contact', label: 'Contact' },
-      { href: '/instructors', label: 'Instructors' },
     ]
   },
 ];

@@ -80,9 +80,8 @@ const NavLink = ({ href, label, pathname, submenu, isMobile }: { href: string, l
   const Comp = isMobile ? SheetClose : 'div';
   const mobileClass = isMobile ? 'text-lg' : 'text-sm';
   
-  return (
-    <Comp>
-      <Link
+  const linkContent = (
+    <Link
         href={href}
         className={cn(
           `${mobileClass} font-medium uppercase tracking-wider transition-colors`,
@@ -93,8 +92,9 @@ const NavLink = ({ href, label, pathname, submenu, isMobile }: { href: string, l
       >
         {label}
       </Link>
-    </Comp>
   );
+
+  return isMobile ? <SheetClose asChild>{linkContent}</SheetClose> : <>{linkContent}</>;
 };
 
 export function Header() {
