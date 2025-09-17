@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { programs, instructors } from '@/lib/data';
+import { programs, instructors, faqContent } from '@/lib/data';
 import { ArrowRight, Check } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -17,7 +17,6 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
-import { faqContent } from "@/lib/data"
 
 export function HomePageClient() {
   const [instagramPosts, setInstagramPosts] = useState<InstagramPost[]>([]);
@@ -133,7 +132,7 @@ export function HomePageClient() {
           {kidsProgram && (
              <Link href={`/programs/${kidsProgram.id}`} className="group block">
               <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
-                <div className="relative aspect-video overflow-hidden">
+                <div className="relative aspect-video overflow-hidden md:order-last">
                     <Image
                       src="https://placehold.co/800x450.png"
                       alt={kidsProgram.title}
@@ -141,7 +140,7 @@ export function HomePageClient() {
                       className="object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                   </div>
-                <div>
+                <div className="md:order-first">
                   <h3 className="text-2xl font-bold group-hover:text-primary transition-colors">{kidsProgram.title} (ages 4–13) → confidence, focus & anti-bullying skills</h3>
                 </div>
               </div>
