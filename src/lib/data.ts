@@ -19,22 +19,24 @@ export const navLinks: NavItem[] = [
       { href: '/programs/competition-training', label: 'Competition Training' },
       { href: '/programs/private-training', label: 'Private Training' },
       { href: '/programs/homeschool-martial-arts', label: 'Homeschool Program' },
+    ]
+  },
+  {
+    href: '/free-trial',
+    label: 'Free Trial Class',
+  },
+  { 
+    href: '#', 
+    label: 'More',
+    submenu: [
+      { href: '/about', label: 'About' },
+      { href: '/blog', label: 'Blog' },
+      { href: '/faq', label: 'FAQ' },
+      { href: '/contact', label: 'Contact' },
       { href: '/instructors', label: 'Instructors' },
       { href: '/schedule', label: 'Schedule' },
     ]
   },
-  { 
-    href: '/about', 
-    label: 'About',
-    submenu: [
-      { href: '/about', label: 'Our Story' },
-      { href: '/sponsorship', label: 'Sponsorship' },
-      { href: '/affiliate-schools', label: 'Affiliate Schools' },
-    ]
-  },
-  { href: '/blog', label: 'Blog' },
-  { href: '/faq', label: 'FAQ' },
-  { href: '/contact', label: 'Contact' },
 ];
 
 export type Instructor = {

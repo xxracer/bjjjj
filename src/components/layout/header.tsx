@@ -25,6 +25,8 @@ import {
 
 
 const NavLink = ({ href, label, pathname, submenu, isMobile }: { href: string, label: string, pathname: string, submenu?: NavItem[], isMobile?: boolean }) => {
+  const isFreeTrial = label === 'Free Trial Class';
+
   if (submenu) {
     if (isMobile) {
       return (
@@ -78,15 +80,33 @@ const NavLink = ({ href, label, pathname, submenu, isMobile }: { href: string, l
   }
 
   const Comp = isMobile ? SheetClose : 'div';
+  const mobileClass = isMobile ? 'text-lg' : 'text-sm';
+
+  if (isFreeTrial && !isMobile) {
+    return (
+      <Button asChild variant="default" size="sm" className="bg-primary text-primary-foreground rounded-none px-3 py-5 h-auto">
+        <Link href="/free-trial">
+          <div className="flex flex-col items-center justify-center text-center w-full px-2">
+              <div className="w-full border-t border-primary-foreground/50"></div>
+              <span className="text-xs font-medium tracking-wider my-1">SIGN UP FOR YOUR</span>
+              <span className="text-lg font-bold text-accent leading-tight">FREE CLASS TODAY</span>
+              <div className="w-full border-b border-primary-foreground/50 mt-1"></div>
+          </div>
+        </Link>
+      </Button>
+    )
+  }
+  
   return (
     <Comp>
       <Link
         href={href}
         className={cn(
-          'text-sm font-medium uppercase tracking-wider transition-colors',
+          `${mobileClass} font-medium uppercase tracking-wider transition-colors`,
           pathname === href
             ? 'text-foreground font-bold'
-            : 'text-muted-foreground hover:text-foreground'
+            : 'text-muted-foreground hover:text-foreground',
+          isFreeTrial ? 'font-bold text-primary' : ''
         )}
       >
         {label}
@@ -112,7 +132,7 @@ export function Header() {
   const NavLinks = ({ className, isMobile = false }: { className?: string, isMobile?: boolean }) => (
     <nav className={cn('items-center gap-6', className, isMobile ? 'flex flex-col items-start space-y-4' : 'hidden md:flex')}>
       {navLinks.map((link) => (
-         <NavLink key={link.href} {...link} pathname={pathname} isMobile={isMobile} />
+         <NavLink key={link.label} {...link} pathname={pathname} isMobile={isMobile} />
       ))}
     </nav>
   );
@@ -126,28 +146,16 @@ export function Header() {
       )}
     >
       <div className="container mx-auto px-4">
-        <div className="flex h-16 items-center justify-between">
+        <div className="flex h-20 items-center justify-between">
           
           <div className="flex items-center gap-6">
              <Link href="/">
                 <Logo />
              </Link>
-            <div className="hidden md:flex items-center gap-6">
-                <NavLinks />
-            </div>
           </div>
 
-           <div className="hidden md:flex items-center justify-end gap-4">
-             <Button asChild variant="default" size="sm" className="bg-primary text-primary-foreground rounded-none px-3 py-5 h-auto">
-                <Link href="/free-trial">
-                  <div className="flex flex-col items-center justify-center text-center w-full px-2">
-                      <div className="w-full border-t border-primary-foreground/50"></div>
-                      <span className="text-xs font-medium tracking-wider my-1">SIGN UP FOR YOUR</span>
-                      <span className="text-lg font-bold text-accent leading-tight">FREE CLASS TODAY</span>
-                      <div className="w-full border-b border-primary-foreground/50 mt-1"></div>
-                  </div>
-                </Link>
-             </Button>
+          <div className="hidden md:flex items-center justify-end gap-6">
+            <NavLinks />
           </div>
 
           {/* Mobile Menu */}
