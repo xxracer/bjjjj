@@ -1,11 +1,10 @@
-'use server';
 /**
  * @fileOverview A flow to send an SMS notification using Twilio.
  *
  * - sendSms - Sends an SMS with the details from the free trial form.
  * - SendSmsInput - The input type for the sendSms function.
  */
-import { ai } from '@/ai/genkit';
+import { ai } from '../genkit';
 import { z } from 'genkit';
 import { Twilio } from 'twilio';
 

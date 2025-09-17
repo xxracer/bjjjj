@@ -1,0 +1,19 @@
+{
+  "name": "backend-server",
+  "version": "1.0.0",
+  "description": "Server for the migrated React app",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@genkit-ai/googleai": "^1.19.2",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "firebase": "^12.2.1",
+    "genkit": "^1.19.2",
+    "twilio": "^5.9.0"
+  }
+}

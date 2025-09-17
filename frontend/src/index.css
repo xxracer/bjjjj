@@ -1,0 +1,18 @@
+/* Global styles will go here */
+
+:root {
+  --primary: #007bff;
+  --primary-hover: #0069d9;
+  --primary-foreground: #ffffff;
+  --destructive: #dc3545;
+  --destructive-hover: #c82333;
+  --destructive-foreground: #ffffff;
+  --secondary: #6c757d;
+  --secondary-hover: #5a6268;
+  --secondary-foreground: #ffffff;
+  --border-color: #ced4da;
+  --background: #ffffff;
+  --accent: #f8f9fa;
+  --accent-foreground: #212529;
+  --disabled-opacity: 0.5;
+}

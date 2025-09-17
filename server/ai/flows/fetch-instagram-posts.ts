@@ -1,4 +1,3 @@
-'use server';
 /**
  * @fileOverview A flow to fetch recent Instagram posts.
  * This file contains the logic to connect to the Instagram Basic Display API.
@@ -7,7 +6,7 @@
  * - InstagramPost - The return type for a single Instagram post.
  */
 
-import { ai } from '@/ai/genkit';
+import { ai } from '../genkit';
 import { z } from 'genkit';
 
 const InstagramPostSchema = z.object({

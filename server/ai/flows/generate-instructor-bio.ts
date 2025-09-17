@@ -1,5 +1,3 @@
-'use server';
-
 /**
  * @fileOverview Instructor bio generator.
  *
@@ -8,7 +6,7 @@
  * - GenerateInstructorBioOutput - The return type for the generateInstructorBio function.
  */
 
-import {ai} from '@/ai/genkit';
+import {ai} from '../genkit';
 import {z} from 'genkit';
 
 const GenerateInstructorBioInputSchema = z.object({
