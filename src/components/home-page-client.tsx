@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { instructors, programs } from '@/lib/data';
+import { programs, instructors } from '@/lib/data';
 import { ArrowRight, Check } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -50,7 +50,7 @@ export function HomePageClient() {
       {/* Hero Section */}
        <section className="relative h-[85vh] w-full flex items-center justify-center text-center overflow-hidden">
         <video
-          src="/videos/hero-video.mp4"
+          src="https://video.wixstatic.com/video/c5947c_d0a123d1c62d47f0a7688a29ca9325ca/720p/mp4/file.mp4"
           autoPlay
           loop
           muted
@@ -79,7 +79,7 @@ export function HomePageClient() {
       </section>
 
       {/* Intro Section */}
-      <section className="w-full py-16 md:py-24 bg-card">
+      <section className="w-full py-16 md:py-24 bg-background">
         <div className="container mx-auto text-center max-w-4xl">
           <h2 className="text-3xl md:text-4xl font-bold">Welcome to Reign Jiu Jitsu – Katy, TX</h2>
           <div className="prose prose-lg mx-auto mt-6 text-muted-foreground text-center">
@@ -363,5 +363,3 @@ export function HomePageClient() {
     </div>
   );
 }
-
-    
