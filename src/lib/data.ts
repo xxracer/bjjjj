@@ -10,7 +10,6 @@ export type NavItem = {
 };
 
 export const navLinks: NavItem[] = [
-  { href: '/', label: 'Home' },
   { 
     href: '/programs', 
     label: 'Programs',
