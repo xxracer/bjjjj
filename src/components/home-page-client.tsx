@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { instructors, programs, faqContent } from '@/lib/data';
+import { instructors, programs } from '@/lib/data';
 import { ArrowRight } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -17,6 +17,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
+import { faqContent } from "@/lib/data"
 
 export function HomePageClient() {
   const [instagramPosts, setInstagramPosts] = useState<InstagramPost[]>([]);
@@ -59,10 +60,14 @@ export function HomePageClient() {
           <p className="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-white/90">
             Discover the discipline, confidence, and community of Jiu-Jitsu right here in Katy, TX.
           </p>
-          <Button asChild size="lg" className="mt-8 bg-primary text-primary-foreground hover:bg-primary/90 rounded-none text-lg py-6 px-8">
+          <Button asChild size="lg" className="mt-8 bg-primary text-primary-foreground hover:bg-primary/90 rounded-none text-lg py-4 px-6 h-auto">
             <Link href="/free-trial">
-              Start Your Free Trial
-              <ArrowRight className="ml-2 h-5 w-5" />
+               <div className="flex flex-col items-center justify-center text-center w-full">
+                  <div className="w-full border-t border-primary-foreground"></div>
+                  <span className="text-sm font-medium tracking-widest my-2">SIGN UP FOR YOUR</span>
+                  <span className="text-3xl font-bold text-accent">FREE CLASS TODAY</span>
+                  <div className="w-full border-b border-primary-foreground mt-2"></div>
+              </div>
             </Link>
           </Button>
         </div>
