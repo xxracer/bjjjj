@@ -31,6 +31,51 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap"
           rel="stylesheet"
         />
+        <script type="application/ld+json">
+          {`
+            {
+              "@context": "https://schema.org",
+              "@type": "SportsActivityLocation",
+              "name": "Reign BJJ Academy",
+              "image": "https://reignbjj.com/logo.png",
+              "@id": "https://reignbjj.com/",
+              "url": "https://reignbjj.com/",
+              "telephone": "+1-281-206-7861",
+              "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "1648A S Mason Rd.",
+                "addressLocality": "Katy",
+                "addressRegion": "TX",
+                "postalCode": "77450",
+                "addressCountry": "US"
+              },
+              "geo": {
+                "@type": "GeoCoordinates",
+                "latitude": "29.7506",
+                "longitude": "-95.7480"
+              },
+              "openingHoursSpecification": [
+                {
+                  "@type": "OpeningHoursSpecification",
+                  "dayOfWeek": [
+                    "Monday",
+                    "Tuesday",
+                    "Wednesday",
+                    "Thursday",
+                    "Friday",
+                    "Saturday"
+                  ],
+                  "opens": "11:00",
+                  "closes": "21:00"
+                }
+              ],
+              "sameAs": [
+                "https://www.facebook.com/reignbjj",
+                "https://www.instagram.com/reignbjj"
+              ]
+            }
+          `}
+        </script>
       </head>
       <body className="bg-background text-foreground">
         <Header />
