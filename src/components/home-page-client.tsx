@@ -40,19 +40,23 @@ export function HomePageClient() {
 
   const generalFaqs = faqContent.find(category => category.title === 'General')?.faqs || [];
 
+  const jiuJitsuProgram = programs.find(p => p.id === 'jiu-jitsu');
+  const kidsProgram = programs.find(p => p.id === 'kids-jiu-jitsu');
+  const privateProgram = programs.find(p => p.id === 'private-training');
+
   return (
     <div className="flex flex-col min-h-dvh bg-background text-foreground">
       {/* Hero Section */}
-      <section className="relative h-[70vh] md:h-[80vh] w-full flex items-center justify-center text-center">
-        <Image
-          src="https://picsum.photos/seed/hero-main/1920/1080"
-          alt="Jiu Jitsu training session"
-          fill
-          className="object-cover"
-          priority
-          data-ai-hint="jiu jitsu action"
+       <section className="relative h-[85vh] w-full flex items-center justify-center text-center overflow-hidden">
+        <video
+          src="/videos/hero-video.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute top-0 left-0 w-full h-full object-cover -z-10"
         />
-        <div className="absolute inset-0 bg-black/50" />
+        <div className="absolute inset-0 bg-black/60" />
         <div className="relative z-10 container px-4">
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold uppercase tracking-wider text-white">
             Reign Jiu Jitsu
@@ -85,34 +89,76 @@ export function HomePageClient() {
 
       {/* Programs Section */}
       <section className="w-full py-16 md:py-24 bg-background">
-        <div className="container mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold uppercase tracking-wide">Our Programs</h2>
-            <p className="mt-4 max-w-2xl mx-auto text-muted-foreground">Find the perfect class to start your journey.</p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {programs.slice(0,3).map((program) => (
-              <Link key={program.id} href={`/programs/${program.id}`} className="group block">
-                <Card className="h-full flex flex-col border-border shadow-lg overflow-hidden rounded-md transition-all duration-300 hover:shadow-primary/20 hover:-translate-y-1">
-                  <CardContent className="p-0 relative aspect-[4/3] overflow-hidden">
-                    {program.image && (
-                      <Image
-                        src={program.image.imageUrl}
-                        alt={program.title}
-                        fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-300"
-                        data-ai-hint={program.image.imageHint}
-                      />
-                    )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                    <div className="absolute bottom-0 p-4">
-                      <h3 className="text-2xl font-bold text-white uppercase">{program.title}</h3>
-                    </div>
-                  </CardContent>
-                </Card>
-              </Link>
-            ))}
-          </div>
+        <div className="container mx-auto space-y-16">
+          {/* Jiu-Jitsu Program */}
+          {jiuJitsuProgram && (
+            <Link href={`/programs/${jiuJitsuProgram.id}`} className="group block">
+              <div className="grid md:grid-cols-2 gap-8 items-center">
+                <div className="text-center md:text-left">
+                  <h3 className="text-3xl font-bold uppercase tracking-wide group-hover:text-primary transition-colors">{jiuJitsuProgram.title}</h3>
+                  <p className="mt-4 text-lg text-muted-foreground">Our Adult Jiu Jitsu program is for everyone, from the complete beginner to the seasoned competitor. Learn self-defense, get in shape, and join an amazing community.</p>
+                </div>
+                {jiuJitsuProgram.image && (
+                  <div className="relative aspect-video overflow-hidden">
+                    <Image
+                      src={jiuJitsuProgram.image.imageUrl}
+                      alt={jiuJitsuProgram.title}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-300"
+                      data-ai-hint={jiuJitsuProgram.image.imageHint}
+                    />
+                  </div>
+                )}
+              </div>
+            </Link>
+          )}
+
+          {/* Kids Jiu-Jitsu Program */}
+          {kidsProgram && (
+             <Link href={`/programs/${kidsProgram.id}`} className="group block">
+              <div className="grid md:grid-cols-2 gap-8 items-center">
+                 {kidsProgram.image && (
+                  <div className="relative aspect-video overflow-hidden md:order-last">
+                    <Image
+                      src={kidsProgram.image.imageUrl}
+                      alt={kidsProgram.title}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-300"
+                      data-ai-hint={kidsProgram.image.imageHint}
+                    />
+                  </div>
+                )}
+                <div className="text-center md:text-left">
+                  <h3 className="text-3xl font-bold uppercase tracking-wide group-hover:text-primary transition-colors">{kidsProgram.title}</h3>
+                  <p className="mt-4 text-lg text-muted-foreground">Our Kids Jiu Jitsu program is designed to be fun, engaging, and educational. We teach discipline, respect, and confidence in a safe and supportive environment.</p>
+                </div>
+              </div>
+            </Link>
+          )}
+
+          {/* Private Training Program */}
+          {privateProgram && (
+            <Link href={`/programs/${privateProgram.id}`} className="group block">
+              <div className="grid md:grid-cols-2 gap-8 items-center">
+                <div className="text-center md:text-left">
+                  <h3 className="text-3xl font-bold uppercase tracking-wide group-hover:text-primary transition-colors">{privateProgram.title}</h3>
+                  <p className="mt-4 text-lg text-muted-foreground">Accelerate your learning with one-on-one instruction. Private lessons are tailored to your specific goals, challenges, and learning style.</p>
+                </div>
+                {privateProgram.image && (
+                  <div className="relative aspect-video overflow-hidden">
+                    <Image
+                      src={privateProgram.image.imageUrl}
+                      alt={privateProgram.title}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-300"
+                      data-ai-hint={privateProgram.image.imageHint}
+                    />
+                  </div>
+                )}
+              </div>
+            </Link>
+          )}
+
            <div className="text-center mt-12">
                 <Button asChild variant="outline" className="text-lg py-6 px-8 rounded-none border-primary text-primary hover:bg-primary hover:text-primary-foreground">
                     <Link href="/programs">View All Programs</Link>

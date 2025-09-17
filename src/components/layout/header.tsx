@@ -98,12 +98,14 @@ const NavLink = ({ href, label, pathname, submenu, isMobile }: { href: string, l
 export function Header() {
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
+  const isHomePage = pathname === '/';
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 0);
+      setIsScrolled(window.scrollY > 50);
     };
     window.addEventListener('scroll', handleScroll);
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -118,19 +120,19 @@ export function Header() {
   return (
     <header
       className={cn(
-        'sticky top-0 z-50 w-full transition-all duration-300',
-        isScrolled ? 'bg-background/95 border-b border-border backdrop-blur-sm' : 'bg-background'
+        'fixed top-0 z-50 w-full transition-all duration-300',
+        isScrolled ? 'bg-background/95 border-b border-border backdrop-blur-sm shadow-md' : 'bg-transparent border-b-transparent',
+        !isHomePage && 'bg-background/95 border-b border-border backdrop-blur-sm shadow-md'
       )}
     >
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
           
           <div className="flex items-center gap-6">
-            <Link href="/" className="md:hidden">
+             <Link href="/">
                 <Logo />
-            </Link>
+             </Link>
             <div className="hidden md:flex items-center gap-6">
-                 <Link href="/"><Logo /></Link>
                 <NavLinks />
             </div>
           </div>
