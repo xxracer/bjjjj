@@ -58,9 +58,12 @@ const sendSmsFlow = ai.defineFlow(
     try {
       await client.messages.create({ body, from, to });
       return { success: true };
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Failed to send SMS via Twilio:', error);
-      return { success: false, error: error.message };
+      if (error instanceof Error) {
+        return { success: false, error: error.message };
+      }
+      return { success: false, error: 'An unknown error occurred' };
     }
   }
 );
