@@ -18,23 +18,24 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
-
+import styles from './header.module.css';
 
 const NavLink = ({ href, label, pathname, submenu, isMobile }: { href: string, label: string, pathname: string, submenu?: NavItem[], isMobile?: boolean }) => {
+  const isActive = pathname === href;
+
   if (submenu) {
+    // Mobile submenu (Accordion)
     if (isMobile) {
       return (
         <Accordion type="single" collapsible>
           <AccordionItem value={label}>
-            <AccordionTrigger>
-              {label}
-            </AccordionTrigger>
+            <AccordionTrigger>{label}</AccordionTrigger>
             <AccordionContent>
               <ul>
                 {submenu.map(item => (
                   <li key={item.href}>
                     <SheetClose asChild>
-                      <Link to={item.href}>
+                      <Link to={item.href} className={pathname === item.href ? styles.navLinkActive : styles.navLink}>
                         {item.label}
                       </Link>
                     </SheetClose>
@@ -47,6 +48,7 @@ const NavLink = ({ href, label, pathname, submenu, isMobile }: { href: string, l
       )
     }
 
+    // Desktop submenu (Dropdown)
     return (
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
@@ -56,32 +58,45 @@ const NavLink = ({ href, label, pathname, submenu, isMobile }: { href: string, l
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
-          {submenu.map((item) => {
-             return (
-              <DropdownMenuItem key={item.href} asChild>
-                <Link to={item.href}>{item.label}</Link>
-              </DropdownMenuItem>
-             )
-          })}
+          {submenu.map((item) => (
+            <DropdownMenuItem key={item.href} asChild>
+              <Link to={item.href}>{item.label}</Link>
+            </DropdownMenuItem>
+          ))}
         </DropdownMenuContent>
       </DropdownMenu>
     );
   }
 
+  // Regular link
+  const linkClass = `${styles.navLink} ${isActive ? styles.navLinkActive : ''}`;
+
   const linkContent = (
-    <Link to={href}>
+    <Link to={href} className={linkClass}>
         {label}
     </Link>
   );
 
-  return isMobile ? <SheetClose asChild>{linkContent}</SheetClose> : <>{linkContent}</>;
+  return isMobile ? <SheetClose asChild>{linkContent}</SheetClose> : linkContent;
 };
 
 export function Header() {
   const { pathname } = useLocation();
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Check on initial render
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const headerClasses = `${styles.header} ${isScrolled ? styles.headerScrolled : ''}`;
 
   const NavLinks = ({ isMobile = false }: { isMobile?: boolean }) => (
-    <nav>
+    <nav className={isMobile ? styles.mobileNav : styles.desktopNav}>
       {navLinks.map((link) => (
          <NavLink key={link.label} {...link} pathname={pathname} isMobile={isMobile} />
       ))}
@@ -89,30 +104,26 @@ export function Header() {
   );
 
   return (
-    <header>
-      <div>
-        <div>
-          <div>
+    <header className={headerClasses}>
+      <div className={styles.container}>
+        <div className={styles.content}>
+          <div className={styles.leftSection}>
              <Link to="/">
                 <Logo />
              </Link>
              <NavLinks />
           </div>
 
-          <div>
+          <div className={styles.rightSection}>
              <Button asChild>
               <Link to="/free-trial">
-                <div>
-                    <div></div>
-                    <span>SIGN UP FOR YOUR</span>
-                    <span>FREE CLASS TODAY</span>
-                    <div></div>
-                </div>
+                {/* This button content will need its own styling */}
+                FREE CLASS
               </Link>
             </Button>
           </div>
 
-          <div>
+          <div className={styles.mobileMenuButton}>
              <Sheet>
               <SheetTrigger asChild>
                 <Button>
@@ -120,8 +131,8 @@ export function Header() {
                   <span>Open Menu</span>
                 </Button>
               </SheetTrigger>
-              <SheetContent>
-                <div>
+              <SheetContent className={styles.mobileSheetContent}>
+                <div style={{ marginBottom: '2rem' }}>
                   <SheetClose asChild>
                     <Link to="/">
                       <Logo />
@@ -129,7 +140,7 @@ export function Header() {
                   </SheetClose>
                 </div>
                 <NavLinks isMobile />
-                <Button asChild>
+                <Button asChild style={{ marginTop: '2rem', width: '100%' }}>
                   <SheetClose asChild>
                     <Link to="/free-trial">Book Free Trial</Link>
                   </SheetClose>
