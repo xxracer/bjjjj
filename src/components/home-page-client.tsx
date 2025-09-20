@@ -5,9 +5,6 @@ import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { useEffect, useState } from 'react';
-import type { InstagramPost } from '@/ai/flows/fetch-instagram-posts';
-import { fetchInstagramPosts } from '@/ai/flows/fetch-instagram-posts';
 import {
   Accordion,
   AccordionContent,
@@ -17,24 +14,6 @@ import {
 import styles from './home-page-client.module.css';
 
 export function HomePageClient() {
-  const [instagramPosts, setInstagramPosts] = useState<InstagramPost[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    async function getPosts() {
-      try {
-        setLoading(true);
-        const posts = await fetchInstagramPosts();
-        setInstagramPosts(posts);
-      } catch (error) {
-        console.error('Failed to fetch instagram posts', error);
-      } finally {
-        setLoading(false);
-      }
-    }
-    getPosts();
-  }, []);
-
   const generalFaqs = faqContent.find(category => category.title === 'General')?.faqs || [];
 
   const fundamentalsProgram = programs.find(p => p.id === 'jiu-jitsu-fundamentals');
@@ -74,7 +53,7 @@ export function HomePageClient() {
       <section className={styles.section}>
         <div className={`${styles.container} ${styles.textCenter}`}>
           <h2 className={styles.sectionTitle}>Welcome to Reign Jiu Jitsu – Katy, TX</h2>
-          <div className={styles.sectionSubtitle}>
+          <div className={`${styles.sectionSubtitle} ${styles.introText}`}>
             <p>Reign Jiu Jitsu is more than a martial arts academy; we are a family-driven community dedicated to personal growth, discipline, and the art of Jiu Jitsu.</p>
             <p>Located in Katy, Texas, we welcome students of all ages—from kids as young as 4 years old to adults seeking fitness, self-defense, or competition-level Jiu Jitsu training.</p>
             <p>Whether you’re searching for “Jiu Jitsu near me”, beginner BJJ classes, kids martial arts in Katy, or advanced Jiu Jitsu competition training, Reign Jiu Jitsu is Katy’s trusted source.</p>
@@ -101,12 +80,36 @@ export function HomePageClient() {
       <section className={styles.section}>
         <div className={styles.container}>
           <h2 className={`${styles.sectionTitle} ${styles.textCenter}`}>Our programs cover:</h2>
-
-          {/* ... Program links would be styled here ... */}
+          <div className={`${styles.grid} ${styles.gridCols3}`} style={{marginTop: '3rem'}}>
+            {fundamentalsProgram && (
+              <Link to={`/programs/${fundamentalsProgram.id}`} className={styles.programLink}>
+                <div className={styles.programImageContainer}>
+                  <img src="https://placehold.co/800x450.png" alt={fundamentalsProgram.title} className={styles.programImage} />
+                </div>
+                <h3 className={styles.programTitle}>{fundamentalsProgram.title}</h3>
+              </Link>
+            )}
+            {kidsProgram && (
+              <Link to={`/programs/${kidsProgram.id}`} className={styles.programLink}>
+                <div className={styles.programImageContainer}>
+                  <img src="https://placehold.co/800x450.png" alt={kidsProgram.title} className={styles.programImage} />
+                </div>
+                <h3 className={styles.programTitle}>{kidsProgram.title}</h3>
+              </Link>
+            )}
+            {privateProgram && (
+              <Link to={`/programs/${privateProgram.id}`} className={styles.programLink}>
+                <div className={styles.programImageContainer}>
+                  <img src="https://placehold.co/800x450.png" alt={privateProgram.title} className={styles.programImage} />
+                </div>
+                <h3 className={styles.programTitle}>{privateProgram.title}</h3>
+              </Link>
+            )}
+          </div>
         </div>
       </section>
 
-      {/* ... Other sections would be styled similarly ... */}
+      {/* ... Other sections will be left unstyled for now ... */}
     </div>
   );
 }
