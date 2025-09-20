@@ -1,0 +1,38 @@
+/* Card Styles */
+.card {
+  border: 1px solid var(--border);
+  background-color: var(--card);
+  color: var(--card-foreground);
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem; /* 6px */
+  padding: 1.5rem; /* 24px */
+}
+
+.title {
+  font-size: 1.5rem; /* 24px */
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.025em;
+}
+
+.description {
+  font-size: 0.875rem; /* 14px */
+  color: var(--secondary-foreground);
+}
+
+.content {
+  padding: 1.5rem; /* 24px */
+  padding-top: 0;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  padding: 1.5rem; /* 24px */
+  padding-top: 0;
+}
